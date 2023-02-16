@@ -24,7 +24,7 @@ class QuickPostPage extends StatelessWidget {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          BlocProvider.of<ProjectCubit>(context, listen: false).quickPost("0");
+          BlocProvider.of<ProjectCubit>(context, listen: false).quickPost();
         },
         child: Text("Quick Post")
       ),
