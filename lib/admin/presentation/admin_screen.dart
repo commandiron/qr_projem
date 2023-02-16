@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/quick_post/domain/cubit/project_cubit.dart';
+import 'package:qr_projem/admin/domain/cubit/project_cubit.dart';
 
-class QuickPostScreen extends StatelessWidget {
-  const QuickPostScreen({Key? key}) : super(key: key);
+class AdminScreen extends StatelessWidget {
+  const AdminScreen({Key? key}) : super(key: key);
 
-  static const route = "/quick_post";
+  static const route = "/admin";
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/quick_post/domain/cubit/project_state.dart';
+import 'package:qr_projem/admin/domain/cubit/project_state.dart';
 
 import '../../data/repository/project_repository_impl.dart';
 import '../model/project.dart';
@@ -11,7 +11,7 @@ class ProjectCubit extends Cubit<ProjectState> {
   final ProjectRepository _projectRepository = ProjectRepositoryImpl();
 
   void quickPost() {
-    _projectRepository.quickPost(projectDemirliIns);
+    _projectRepository.insertProject(projectDemirliIns);
   }
 
   static Project projectDemirliIns = Project(
