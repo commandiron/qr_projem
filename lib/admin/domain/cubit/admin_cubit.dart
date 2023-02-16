@@ -1,14 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/admin/domain/cubit/project_state.dart';
+import 'package:qr_projem/admin/domain/cubit/admin_state.dart';
 
-import '../../../core/data/repository/project_repository_impl.dart';
+import '../../../core/data/repository/project_repository.dart';
 import '../../../core/domain/model/project.dart';
-import '../repository/project_repository.dart';
 
-class ProjectCubit extends Cubit<ProjectState> {
-  ProjectCubit() : super(ProjectInitial());
+class AdminCubit extends Cubit<AdminState> {
+  AdminCubit() : super(AdminState());
 
-  final ProjectRepository _projectRepository = ProjectRepositoryImpl();
+  final ProjectRepository _projectRepository = ProjectRepository();
 
   void quickPost() {
     _projectRepository.insertProject(projectDemirliIns);

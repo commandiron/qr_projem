@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import '../../domain/model/project.dart';
-import '../../../admin/domain/repository/project_repository.dart';
 
-class ProjectRepositoryImpl extends ProjectRepository {
+class ProjectRepository {
   final String databaseUrl =
       "https://qrprojem-default-rtdb.europe-west1.firebasedatabase.app/projects";
 
