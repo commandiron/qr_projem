@@ -11,10 +11,11 @@ class AdminScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ProjectCubit>(
       create: (context) => ProjectCubit(),
-      child: const QuickPostPage()
+      child: const QuickPostPage(),
     );
   }
 }
+
 
 class QuickPostPage extends StatelessWidget {
   const QuickPostPage({Key? key}) : super(key: key);
@@ -23,12 +24,13 @@ class QuickPostPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
-        onPressed: () {
-          BlocProvider.of<ProjectCubit>(context, listen: false).quickPost();
-        },
-        child: Text("Quick Post")
+          onPressed: () {
+            BlocProvider.of<ProjectCubit>(context, listen: false).quickPost();
+          },
+          child: Text("Quick Post")
       ),
     );
   }
 }
+
 

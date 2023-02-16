@@ -14,16 +14,16 @@ class CoreApp extends StatelessWidget {
       title: 'Qr Projem',
       initialRoute: AdminScreen.route,
       routes: {
-        AdminScreen.route : (context) {
+        AdminScreen.route: (context) {
           return const AdminScreen();
         },
-        AuthScreen.route : (context) {
+        AuthScreen.route: (context) {
           return const AuthScreen();
         },
-        RegistrationScreen.route : (context) {
+        RegistrationScreen.route: (context) {
           return const RegistrationScreen();
         },
-        ProjectScreen.route : (context) {
+        ProjectScreen.route: (context) {
           return const ProjectScreen();
         },
       },

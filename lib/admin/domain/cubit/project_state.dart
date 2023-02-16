@@ -1,4 +1,4 @@
-import '../model/project.dart';
+import '../../../core/domain/model/project.dart';
 
 abstract class ProjectState {
   const ProjectState();

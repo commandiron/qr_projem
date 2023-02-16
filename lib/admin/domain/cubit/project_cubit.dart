@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/admin/domain/cubit/project_state.dart';
 
-import '../../data/repository/project_repository_impl.dart';
-import '../model/project.dart';
+import '../../../core/data/repository/project_repository_impl.dart';
+import '../../../core/domain/model/project.dart';
 import '../repository/project_repository.dart';
 
 class ProjectCubit extends Cubit<ProjectState> {
@@ -15,7 +15,7 @@ class ProjectCubit extends Cubit<ProjectState> {
   }
 
   static Project projectDemirliIns = Project(
-    id: "0",
+    id: "1",
     companyLogoUrl: "https://firebasestorage.googleapis.com/v0/b/qrprojem.appspot.com/o/f6c423a0-adf7-11ed-afa1-0242ac120002.png?alt=media&token=9c3e9c6f-7cb3-41c2-926b-36553b77b268",
     primaryColorValue: 0xff137CC0,
     companyPhone: "+902163300300",

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import '../../domain/model/project.dart';
-import '../../domain/repository/project_repository.dart';
+import '../../../admin/domain/repository/project_repository.dart';
 
 class ProjectRepositoryImpl extends ProjectRepository {
   final String databaseUrl =
