@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_projem/project/presentation/project_screen.dart';
+import 'package:qr_projem/overview/presentation/overview_screen.dart';
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class RegistrationScreen extends StatelessWidget {
             Text("Registration Screen"),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(ProjectScreen.route);
+                Navigator.of(context).pushNamed(OverviewScreen.route);
               },
               child: Text("To Project Screen")
             )

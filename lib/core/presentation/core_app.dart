@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_projem/auth/presentation/auth_screen.dart';
-import 'package:qr_projem/project/presentation/project_screen.dart';
+import 'package:qr_projem/overview/presentation/overview_screen.dart';
 import 'package:qr_projem/admin/presentation/admin_screen.dart';
 import 'package:qr_projem/registration/presentation/registration_screen.dart';
 
@@ -23,8 +23,8 @@ class CoreApp extends StatelessWidget {
         RegistrationScreen.route: (context) {
           return const RegistrationScreen();
         },
-        ProjectScreen.route: (context) {
-          return const ProjectScreen();
+        OverviewScreen.route: (context) {
+          return const OverviewScreen();
         },
       },
     );
