@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "696026404238",
+    "firebase_url": "https://qrprojem-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "qrprojem",
+    "storage_bucket": "qrprojem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696026404238:android:7cd1a8f4d4b39e9cb540df",
+        "android_client_info": {
+          "package_name": "demirli.tech.qr_projem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696026404238-h27i08c4u32qi4ts2jrbqbeg7882ghfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuZBF5RRvOM42FkKI1PSkFrMMxLeXif0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696026404238-h27i08c4u32qi4ts2jrbqbeg7882ghfm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
