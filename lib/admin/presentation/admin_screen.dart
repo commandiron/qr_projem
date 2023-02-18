@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/admin/domain/cubit/admin_cubit.dart';
+import 'package:qr_projem/auth/presentation/auth_screen.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -23,11 +24,21 @@ class QuickPostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ElevatedButton(
-          onPressed: () {
-            BlocProvider.of<AdminCubit>(context, listen: false).quickPost();
-          },
-          child: Text("Quick Post")
+      child: Column(
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                BlocProvider.of<AdminCubit>(context, listen: false).quickPost();
+              },
+              child: Text("Quick Post")
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AuthScreen.route);
+              },
+              child: Text("To Auth Screen")
+          ),
+        ],
       ),
     );
   }
