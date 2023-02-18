@@ -12,7 +12,7 @@ class CoreApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Qr Projem',
-      initialRoute: AdminScreen.route,
+      initialRoute: AuthScreen.route,
       routes: {
         AdminScreen.route: (context) {
           return const AdminScreen();
