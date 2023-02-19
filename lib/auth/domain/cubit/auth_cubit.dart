@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:qr_projem/auth/presentation/pages/done_page.dart';
 import 'package:qr_projem/auth/presentation/pages/sign_in_page.dart';
-import '../../data/repository/auth_repository.dart';
+import '../../../shared/data/repositories/auth_repository.dart';
 import '../../presentation/pages/sign_up_page.dart';
 import '../../presentation/pages/verification_page.dart';
 import 'auth_state.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/home/domain/cubit/home_cubit.dart';
 
-import '../../shared/widgets/nav_bar/nav_bar.dart';
+import '../../shared/presentation/widgets/nav_bar/nav_bar.dart';
 import 'home_body.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,9 +16,9 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit(),
       child: Scaffold(
         body: Stack(
-          children: const [
-            HomeBody(),
-            NavBar()
+          children: [
+            const HomeBody(),
+            const NavBar(),
           ],
         )
       ),
