@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import '../../domain/model/project.dart';
+import '../../model/project.dart';
 
 class ProjectRepository {
   final String databaseUrl =

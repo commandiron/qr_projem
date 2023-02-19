@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/admin/domain/cubit/admin_state.dart';
 
-import '../../../core/data/repository/project_repository.dart';
-import '../../../core/domain/model/project.dart';
+import '../../../core/data/repositories/project_repository.dart';
+import '../../../core/model/project.dart';
 
 class AdminCubit extends Cubit<AdminState> {
   AdminCubit() : super(AdminState());
