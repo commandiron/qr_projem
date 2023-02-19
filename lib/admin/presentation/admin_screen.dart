@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/admin/domain/cubit/admin_cubit.dart';
 import 'package:qr_projem/admin/domain/cubit/admin_state.dart';
-import 'package:qr_projem/authentication/presentation/authentication_screen.dart';
+import 'package:qr_projem/auth/presentation/auth_screen.dart';
 
 import '../../core/domain/cubit/project/project_cubit.dart';
 
@@ -38,7 +38,7 @@ class QuickPostPage extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(AuthenticationScreen.route);
+                Navigator.of(context).pushNamed(AuthScreen.route);
               },
               child: Text("To Auth Screen")
           ),
