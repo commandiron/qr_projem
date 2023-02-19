@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/auth/domain/cubit/auth_cubit.dart';
-import 'package:qr_projem/core/presentation/config/app_space.dart';
-import 'package:qr_projem/core/presentation/config/app_text_style.dart';
+import 'package:qr_projem/authentication/domain/cubit/authentication_cubit.dart';
+import 'package:qr_projem/shared/config/app_space.dart';
+import 'package:qr_projem/shared/config/app_text_style.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
           AppSpace.verticalL!,
           ElevatedButton(
             onPressed: () {
-              BlocProvider.of<AuthCubit>(context, listen: false).jumpToPage(1);
+              BlocProvider.of<AuthenticationCubit>(context, listen: false).jumpToPage(1);
             },
             child: Text("Next Page")
           )

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/home/domain/cubit/home_cubit.dart';
+
+import '../../shared/widgets/nav_bar/nav_bar.dart';
+import 'home_body.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -7,6 +12,16 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocProvider<HomeCubit>(
+      create: (context) => HomeCubit(),
+      child: Scaffold(
+        body: Stack(
+          children: const [
+            HomeBody(),
+            NavBar()
+          ],
+        )
+      ),
+    );
   }
 }

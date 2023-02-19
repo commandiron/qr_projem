@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/cubit/auth_state.dart';
+import '../../domain/cubit/authentication_state.dart';
 
 class CurrentPage extends StatelessWidget {
   const CurrentPage({required this.pages, required this.pageIndex, Key? key}) : super(key: key);

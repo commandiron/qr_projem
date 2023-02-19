@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/presentation/config/app_space.dart';
-import '../../domain/cubit/auth_cubit.dart';
-import '../../domain/cubit/auth_state.dart';
+import '../../../shared/config/app_space.dart';
+import '../../domain/cubit/authentication_cubit.dart';
+import '../../domain/cubit/authentication_state.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class SignUpPage extends StatelessWidget {
           AppSpace.verticalL!,
           SizedBox(
             width: 400,
-            child: BlocBuilder<AuthCubit, AuthState>(
+            child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 return TextField(
                   inputFormatters: [
@@ -31,7 +31,7 @@ class SignUpPage extends StatelessWidget {
           AppSpace.verticalL!,
           ElevatedButton(
             onPressed: () {
-              BlocProvider.of<AuthCubit>(context, listen: false)
+              BlocProvider.of<AuthenticationCubit>(context, listen: false)
                 .singInWithPhoneNumber();
             },
             child: Text("Sign In")

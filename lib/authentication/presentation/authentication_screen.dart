@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/auth/domain/cubit/auth_cubit.dart';
-import 'package:qr_projem/auth/presentation/pages/current_page.dart';
-import '../domain/cubit/auth_state.dart';
+import 'package:qr_projem/authentication/presentation/pages/current_page.dart';
 
-class AuthScreen extends StatelessWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+import '../domain/cubit/authentication_cubit.dart';
+import '../domain/cubit/authentication_state.dart';
 
-  static const route = "/auth";
+class AuthenticationScreen extends StatelessWidget {
+  const AuthenticationScreen({Key? key}) : super(key: key);
+
+  static const route = "/authentication";
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthCubit>(
-        create: (context) => AuthCubit(),
+    return BlocProvider<AuthenticationCubit>(
+        create: (context) => AuthenticationCubit(),
         child: const AuthChild()
     );
   }
@@ -25,7 +26,7 @@ class AuthChild extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
-      body: BlocBuilder<AuthCubit, AuthState>(
+      body: BlocBuilder<AuthenticationCubit, AuthenticationState>(
         builder: (context, state) {
           return Column(
             children: [

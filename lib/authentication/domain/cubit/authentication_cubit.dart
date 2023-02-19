@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:qr_projem/auth/presentation/pages/sign_in_page.dart';
-import 'package:qr_projem/auth/presentation/pages/welcome_page.dart';
+import 'package:qr_projem/authentication/presentation/pages/sign_in_page.dart';
 
 import '../../../core/data/repositories/auth_repository.dart';
 import '../../presentation/pages/sign_up_page.dart';
-import 'auth_state.dart';
+import '../../presentation/pages/welcome_page.dart';
+import 'authentication_state.dart';
 
-class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(
-    AuthState(
+class AuthenticationCubit extends Cubit<AuthenticationState> {
+  AuthenticationCubit() : super(
+    AuthenticationState(
       pages: [
         PageItem(
           index: 0,
@@ -41,7 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void jumpToPage(int index) {
     emit(
-      AuthState(
+        AuthenticationState(
         pages: state.pages,
         pageIndex: index,
         phoneFormatter: state.phoneFormatter
