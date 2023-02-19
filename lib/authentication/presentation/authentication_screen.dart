@@ -14,13 +14,13 @@ class AuthenticationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<AuthenticationCubit>(
         create: (context) => AuthenticationCubit(),
-        child: const AuthChild()
+        child: const AuthenticationChild()
     );
   }
 }
 
-class AuthChild extends StatelessWidget {
-  const AuthChild({Key? key}) : super(key: key);
+class AuthenticationChild extends StatelessWidget {
+  const AuthenticationChild({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

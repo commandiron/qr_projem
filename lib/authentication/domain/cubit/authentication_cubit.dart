@@ -4,7 +4,6 @@ import 'package:qr_projem/authentication/presentation/pages/sign_in_page.dart';
 
 import '../../../core/data/repositories/auth_repository.dart';
 import '../../presentation/pages/sign_up_page.dart';
-import '../../presentation/pages/welcome_page.dart';
 import 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
@@ -13,14 +12,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       pages: [
         PageItem(
           index: 0,
-          page: const WelcomePage()
+          page: const SignUpPage()
         ),
         PageItem(
           index: 1,
-          page: const SignUpPage()
-      ),
-      PageItem(
-          index: 2,
           page: const SignInPage()
         ),
       ],
