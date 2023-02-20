@@ -25,12 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             const HomeBody(),
             const NavBar(),
-            ElevatedButton(
-              onPressed: () {
-                getUser();
-              },
-              child: Text("Get Current User")
-            )
           ],
         )
       ),
