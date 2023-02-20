@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/home/presentation/sections/heading.dart';
+import 'package:qr_projem/home/presentation/sections/welcome.dart';
 import 'package:qr_projem/home/presentation/sections/how_to.dart';
 
 import '../domain/cubit/home_cubit.dart';
@@ -41,7 +41,7 @@ class HomeBody extends StatelessWidget {
 }
 
 const sections = [
-  Heading(),
+  Welcome(),
   HowTo(),
   Footer(),
 ];
