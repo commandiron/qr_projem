@@ -4,7 +4,6 @@ import '../../config/app_padding.dart';
 import '../../config/app_space.dart';
 import 'nav_bar_logo.dart';
 
-
 class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
 

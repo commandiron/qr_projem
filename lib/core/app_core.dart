@@ -5,7 +5,7 @@ import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import '../admin/presentation/admin_screen.dart';
 import '../auth/presentation/auth_screen.dart';
 import '../profile/presentation/profile_screen.dart';
-import '../shared/presentation/config/app_config.dart';
+import 'presentation/config/app_config.dart';
 import '../home/presentation/home_screen.dart';
 import 'domain/cubit/core/core_state.dart';
 import 'domain/cubit/project/project_cubit.dart';
@@ -31,8 +31,24 @@ class AppCore extends StatelessWidget {
   }
 }
 
-class MaterialChild extends StatelessWidget {
+class MaterialChild extends StatefulWidget {
   const MaterialChild({Key? key}) : super(key: key);
+
+  @override
+  State<MaterialChild> createState() => _MaterialChildState();
+}
+
+class _MaterialChildState extends State<MaterialChild> {
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
+  Future<void> getUser() async {
+    await BlocProvider.of<CoreCubit>(context, listen: false).getCurrentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +57,7 @@ class MaterialChild extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Qr Projem',
-          initialRoute: AuthScreen.route,
+          initialRoute: HomeScreen.route,
           routes: {
             AdminScreen.route: (context) {
               return const AdminScreen();

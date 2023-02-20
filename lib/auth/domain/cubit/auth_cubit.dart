@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:qr_projem/auth/presentation/pages/done_page.dart';
 import 'package:qr_projem/auth/presentation/pages/sign_in_page.dart';
-import '../../../shared/data/repositories/auth_repository.dart';
+import '../../../core/data/repositories/auth_repository.dart';
 import '../../presentation/pages/sign_up_page.dart';
 import '../../presentation/pages/verification_page.dart';
 import 'auth_state.dart';
@@ -10,7 +10,6 @@ import 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(
     AuthState(
-      isUserAuthenticated: false,
       isLoading: false,
       pages: [
         PageItem(
@@ -40,14 +39,6 @@ class AuthCubit extends Cubit<AuthState> {
   );
 
   final AuthRepository _authRepository = AuthRepository();
-
-  void getCurrentUser() {
-    emit(
-      copyStateWith(
-        isUserAuthenticated: _authRepository.getFirebaseUser() != null
-      )
-    );
-  }
 
   void singInWithPhoneNumber() async {
     emit(
@@ -85,7 +76,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthState copyStateWith(
     {
-      bool? isUserAuthenticated,
       bool? isLoading,
       List<PageItem>? pages,
       int? pageIndex,
@@ -93,7 +83,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   ) {
     return AuthState(
-      isUserAuthenticated: isUserAuthenticated ?? state.isUserAuthenticated,
       isLoading: isLoading ?? state.isLoading,
       pages: pages ?? state.pages,
       pageIndex: pageIndex ?? state.pageIndex,

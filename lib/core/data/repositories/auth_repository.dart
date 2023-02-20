@@ -6,8 +6,10 @@ class AuthRepository {
 
   late ConfirmationResult confirmationResult;
 
-  User? getFirebaseUser() {
-    return FirebaseAuth.instance.currentUser;
+  Future<User?> getFirebaseUser() async {
+    final user = await FirebaseAuth.instance.authStateChanges().first;
+    print(user);
+    return user;
   }
 
   void singInWithPhoneNumber(String phoneNumber, {void Function()? onSuccess}) async {

@@ -17,20 +17,8 @@ class AuthScreen extends StatelessWidget {
   }
 }
 
-class AuthChild extends StatefulWidget {
+class AuthChild extends StatelessWidget {
   const AuthChild({Key? key}) : super(key: key);
-
-  @override
-  State<AuthChild> createState() => _AuthChildState();
-}
-
-class _AuthChildState extends State<AuthChild> {
-
-  @override
-  void initState() {
-    BlocProvider.of<AuthCubit>(context, listen: false).getCurrentUser();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +26,16 @@ class _AuthChildState extends State<AuthChild> {
       backgroundColor: Colors.grey,
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
-          return state.isUserAuthenticated
-            ? const Center(child: Text("User daha önce giriş yapmış"),)
-            : state.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
-                children: [
-                  CurrentPage(
-                    pages: state.pages,
-                    pageIndex: state.pageIndex
-                  ),
-                ],
-              );
+          return state.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+              children: [
+                CurrentPage(
+                  pages: state.pages,
+                  pageIndex: state.pageIndex
+                ),
+              ],
+            );
         },
       )
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class AuthState {
-  bool isUserAuthenticated;
   bool isLoading;
   List<PageItem> pages;
   int pageIndex;
@@ -10,7 +9,6 @@ class AuthState {
 
   AuthState(
     {
-      required this.isUserAuthenticated,
       required this.isLoading,
       required this.pages,
       required this.pageIndex,
