@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/admin/presentation/admin_screen.dart';
 
 import '../../../core/presentation/config/app_space.dart';
 import '../../domain/cubit/auth_cubit.dart';
@@ -36,6 +37,12 @@ class SignUpPage extends StatelessWidget {
               BlocProvider.of<AuthCubit>(context, listen: false).singInWithPhoneNumber();
             },
             child: Text("Sign In")
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AdminScreen.route);
+              },
+              child: Text("To Admin Page")
           ),
         ],
       ),

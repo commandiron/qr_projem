@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:firebase_database/firebase_database.dart';
 import '../../domain/model/project.dart';
 
 class ProjectRepository {
@@ -8,7 +6,7 @@ class ProjectRepository {
       "https://qrprojem-default-rtdb.europe-west1.firebasedatabase.app/projects";
 
   void insertProject(Project project) {
-    final databaseUri = Uri.parse("$databaseUrl/${project.id}.json");
-    http.put(databaseUri, body: json.encode(project.toJson()));
+    DatabaseReference ref = FirebaseDatabase.instance.ref("projects/${project.id}");
+    ref.set(project.toJson());
   }
 }
