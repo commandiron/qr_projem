@@ -10,7 +10,13 @@ class ProjectCubit extends Cubit<ProjectState> {
 
   final ProjectRepository _projectRepository = ProjectRepository();
 
+  void adminInsert(String uid, String id, Project project) {
+    _projectRepository.adminInsert(uid, id, project);
+  }
+
   void insertProject(Project project) {
     _projectRepository.insertProject(project);
   }
+
+
 }

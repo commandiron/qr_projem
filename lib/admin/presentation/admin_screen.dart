@@ -32,7 +32,12 @@ class QuickPostPage extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                BlocProvider.of<ProjectCubit>(context, listen: false).insertProject(AdminState.projectDemirliIns);
+                BlocProvider.of<ProjectCubit>(context, listen: false)
+                  .adminInsert(
+                    "We6kFC7cKVgAtPa8zV0SukNPCnH3",
+                    "0",
+                    AdminState.projectDemirliIns
+                  );
               },
               child: Text("Quick Post")
           ),

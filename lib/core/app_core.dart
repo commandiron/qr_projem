@@ -57,7 +57,7 @@ class _MaterialChildState extends State<MaterialChild> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Qr Projem',
-          initialRoute: AdminScreen.route,
+          initialRoute: HomeScreen.route,
           routes: {
             AdminScreen.route: (context) {
               return const AdminScreen();
