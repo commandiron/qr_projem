@@ -7,7 +7,7 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 768,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/qr_projem_cover.jpg"),
           fit: BoxFit.cover
