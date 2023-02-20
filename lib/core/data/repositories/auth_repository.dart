@@ -4,10 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 
 class AuthRepository {
 
+  final auth = FirebaseAuth.instance;
   late ConfirmationResult confirmationResult;
 
   Future<User?> getFirebaseUser() async {
-    final user = await FirebaseAuth.instance.authStateChanges().first;
+    final user = await auth.authStateChanges().first;
     print(user);
     return user;
   }
@@ -17,7 +18,7 @@ class AuthRepository {
       app: Firebase.apps.first,
       pluginConstants: {},
     );
-    confirmationResult =  await FirebaseAuth.instance.signInWithPhoneNumber(
+    confirmationResult =  await auth.signInWithPhoneNumber(
       phoneNumber,
       RecaptchaVerifier(
         size: RecaptchaVerifierSize.compact,
