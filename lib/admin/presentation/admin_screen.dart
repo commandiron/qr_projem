@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/admin/domain/cubit/admin_cubit.dart';
-import 'package:qr_projem/admin/domain/cubit/admin_state.dart';
 import 'package:qr_projem/auth/presentation/auth_screen.dart';
-
-import '../../core/domain/cubit/project/project_cubit.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -32,12 +29,7 @@ class QuickPostPage extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                BlocProvider.of<ProjectCubit>(context, listen: false)
-                  .adminInsert(
-                    "We6kFC7cKVgAtPa8zV0SukNPCnH3",
-                    "0",
-                    AdminState.projectDemirliIns
-                  );
+                BlocProvider.of<AdminCubit>(context, listen: false).adminInsert();
               },
               child: Text("Quick Post")
           ),
