@@ -16,9 +16,9 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit(),
       child: Scaffold(
         body: Stack(
-          children: [
-            const HomeBody(),
-            const NavBar(),
+          children: const [
+            HomeBody(),
+            NavBar(),
           ],
         )
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
+import 'package:qr_projem/core/presentation/config/app_theme.dart';
 
 import '../admin/presentation/admin_screen.dart';
 import '../auth/presentation/auth_screen.dart';
@@ -57,6 +58,8 @@ class _MaterialChildState extends State<MaterialChild> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Qr Projem',
+          theme: themeLight,
+          darkTheme: themeDark,
           initialRoute: HomeScreen.route,
           routes: {
             AdminScreen.route: (context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qr_projem/core/presentation/widgets/nav_bar/sing_in_up_button.dart';
 
 import '../../config/app_padding.dart';
-import '../../config/app_space.dart';
 import 'nav_bar_logo.dart';
 
 class NavBar extends StatelessWidget {
@@ -12,12 +12,13 @@ class NavBar extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 96,
-      padding: AppPadding.horizontalL!.add(AppPadding.verticalM!),
-      color: Colors.white,
+      padding: AppPadding.horizontalXXXL!.add(AppPadding.verticalM!),
+      color: Theme.of(context).navigationBarTheme.backgroundColor,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AppSpace.horizontalXL!,
           const NavBarLogo(),
+          const SignInUpButton()
         ],
       ),
     );

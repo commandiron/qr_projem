@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:qr_projem/auth/domain/cubit/auth_cubit.dart';
 
-class VerificationPage extends StatelessWidget {
-  const VerificationPage({Key? key}) : super(key: key);
+class Verification extends StatelessWidget {
+  const Verification({Key? key}) : super(key: key);
 
   static const pageIndex = 1;
 

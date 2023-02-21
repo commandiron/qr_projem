@@ -11,6 +11,8 @@ class AppTextStyle {
   static TextStyle? h2b;
   static TextStyle? h3;
   static TextStyle? h3b;
+  static TextStyle? h4;
+  static TextStyle? h4b;
 
   // Body
   static TextStyle? b1;
@@ -33,14 +35,17 @@ class AppTextStyle {
     final color = Theme.of(context).colorScheme.onBackground;
     const bold = FontWeight.bold;
 
-    h1 = baseStyle.copyWith(fontSize: 36, color: color);
+    h1 = baseStyle.copyWith(fontSize: 48, color: color);
     h1b = h1!.copyWith(fontWeight: bold);
 
-    h2 = baseStyle.copyWith(fontSize: 22, color: color);
+    h2 = baseStyle.copyWith(fontSize: 36, color: color);
     h2b = h2!.copyWith(fontWeight: bold);
 
-    h3 = baseStyle.copyWith(fontSize: 18, color: color);
+    h3 = baseStyle.copyWith(fontSize: 22, color: color);
     h3b = h3!.copyWith(fontWeight: bold);
+
+    h4 = baseStyle.copyWith(fontSize: 18, color: color);
+    h4b = h4!.copyWith(fontWeight: bold);
 
     b1 = baseStyle.copyWith(fontSize: 16, color: color);
     b1b = b1!.copyWith(fontWeight: bold);

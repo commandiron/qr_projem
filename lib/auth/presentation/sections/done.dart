@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DonePage extends StatelessWidget {
-  const DonePage({Key? key}) : super(key: key);
+class Done extends StatelessWidget {
+  const Done({Key? key}) : super(key: key);
 
   static const pageIndex = 2;
 

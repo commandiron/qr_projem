@@ -1,35 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:qr_projem/auth/presentation/pages/done_page.dart';
-import 'package:qr_projem/auth/presentation/pages/sign_in_page.dart';
+import 'package:qr_projem/auth/presentation/sections/done.dart';
 import '../../../core/data/repositories/auth_repository.dart';
-import '../../presentation/pages/sign_up_page.dart';
-import '../../presentation/pages/verification_page.dart';
+import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(
     AuthState(
+      pageController: PageController(),
       isLoading: false,
-      pages: [
-        PageItem(
-          index: SignUpPage.pageIndex,
-          page: const SignUpPage()
-        ),
-        PageItem(
-          index: VerificationPage.pageIndex,
-          page: const VerificationPage()
-        ),
-        PageItem(
-          index: DonePage.pageIndex,
-          page: const DonePage()
-        ),
-        PageItem(
-          index: SignInPage.pageIndex,
-          page: const SignInPage()
-        ),
-      ],
-      pageIndex: SignUpPage.pageIndex,
       phoneFormatter: MaskTextInputFormatter(
         mask: '+90 (###) ###-##-##',
         filter: { "#": RegExp(r'[0-9]') },
@@ -50,7 +31,7 @@ class AuthCubit extends Cubit<AuthState> {
     _authRepository.singInWithPhoneNumber(
       "+90${state.phoneFormatter.getUnmaskedText()}",
       onSuccess: () {
-        jumpToPage(VerificationPage.pageIndex);
+        jumpToPage(Verification.pageIndex);
       },
     );
   }
@@ -62,31 +43,29 @@ class AuthCubit extends Cubit<AuthState> {
       )
     );
     await _authRepository.singInVerification(verificationCode);
-    jumpToPage(DonePage.pageIndex);
+    jumpToPage(Done.pageIndex);
   }
 
   void jumpToPage(int index) {
+    state.pageController.jumpToPage(index);
     emit(
       copyStateWith(
         isLoading: false,
-        pageIndex: index
       )
     );
   }
 
   AuthState copyStateWith(
     {
+      PageController? pageController,
       bool? isLoading,
-      List<PageItem>? pages,
-      int? pageIndex,
       MaskTextInputFormatter? phoneFormatter,
     }
   ) {
     return AuthState(
+      pageController: pageController ?? state.pageController,
       isLoading: isLoading ?? state.isLoading,
-      pages: pages ?? state.pages,
-      pageIndex: pageIndex ?? state.pageIndex,
-      phoneFormatter: phoneFormatter ?? state.phoneFormatter
+      phoneFormatter: phoneFormatter ?? state.phoneFormatter,
     );
   }
 }

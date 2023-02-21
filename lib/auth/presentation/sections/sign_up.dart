@@ -6,8 +6,8 @@ import '../../../core/presentation/config/app_space.dart';
 import '../../domain/cubit/auth_cubit.dart';
 import '../../domain/cubit/auth_state.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignUp extends StatelessWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   static const pageIndex = 0;
 
