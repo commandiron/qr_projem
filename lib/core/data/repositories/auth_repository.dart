@@ -32,4 +32,8 @@ class AuthRepository {
   Future<void> singInVerification(String verificationCode) async {
     await confirmationResult.confirm(verificationCode);
   }
+
+  Future<void> signOut() async {
+    await auth.signOut();
+  }
 }

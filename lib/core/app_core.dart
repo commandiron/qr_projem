@@ -61,19 +61,45 @@ class _MaterialChildState extends State<MaterialChild> {
           theme: themeLight,
           darkTheme: themeDark,
           initialRoute: HomeScreen.route,
-          routes: {
-            AdminScreen.route: (context) {
-              return const AdminScreen();
-            },
-            HomeScreen.route: (context) {
-              return const HomeScreen();
-            },
-            AuthScreen.route: (context) {
-              return const AuthScreen();
-            },
-            ProfileScreen.route: (context) {
-              return const ProfileScreen();
-            },
+          onGenerateRoute: (settings) {
+            switch(settings.name) {
+              case AdminScreen.route :
+                return PageRouteBuilder(
+                  settings: const RouteSettings(
+                    name: AdminScreen.route
+                  ),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const AdminScreen();
+                  },
+                );
+              case HomeScreen.route :
+                return PageRouteBuilder(
+                  settings: const RouteSettings(
+                    name: HomeScreen.route
+                  ),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const HomeScreen();
+                  },
+                );
+              case AuthScreen.route :
+                return PageRouteBuilder(
+                  settings: const RouteSettings(
+                    name: AuthScreen.route
+                  ),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const AuthScreen();
+                  },
+                );
+              case ProfileScreen.route :
+                return PageRouteBuilder(
+                  settings: const RouteSettings(
+                    name: ProfileScreen.route
+                  ),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const ProfileScreen();
+                  },
+                );
+            }
           },
         );
       },

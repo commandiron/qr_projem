@@ -16,4 +16,11 @@ class CoreCubit extends Cubit<CoreState> {
       CoreState(isUserAuthenticated: await _authRepository.getFirebaseUser() != null)
     );
   }
+
+  Future<void> signOut() async {
+    await _authRepository.signOut();
+    emit(
+      CoreState(isUserAuthenticated: await _authRepository.getFirebaseUser() != null)
+    );
+  }
 }
