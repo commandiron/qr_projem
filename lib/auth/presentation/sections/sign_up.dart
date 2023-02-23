@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/admin/presentation/admin_screen.dart';
+import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 
 import '../../../core/presentation/config/app_space.dart';
 import '../../domain/cubit/auth_cubit.dart';
@@ -15,9 +16,8 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Auth Page"),
+          Text("Kayıt Ol", style: AppTextStyle.h2!,),
           AppSpace.verticalL!,
           SizedBox(
             width: 400,

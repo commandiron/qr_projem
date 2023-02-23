@@ -82,9 +82,13 @@ class _MaterialChildState extends State<MaterialChild> {
                   },
                 );
               case AuthScreen.route :
+
+                final initialPage = settings.arguments as int?;
+
                 return PageRouteBuilder(
-                  settings: const RouteSettings(
-                    name: AuthScreen.route
+                  settings: RouteSettings(
+                    name: AuthScreen.route,
+                    arguments: initialPage
                   ),
                   pageBuilder: (context, animation, secondaryAnimation) {
                     return const AuthScreen();

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../core/presentation/widgets/nav_bar/nav_bar.dart';
+import 'package:qr_projem/core/presentation/widgets/app_bar/custom_app_bar.dart';
 import '../domain/cubit/auth_cubit.dart';
 import 'auth_body.dart';
 
@@ -12,15 +11,14 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final initialPage = ModalRoute.of(context)!.settings.arguments as int?;
+
     return BlocProvider<AuthCubit>(
-      create: (context) => AuthCubit(),
-      child: Scaffold(
-          body: Stack(
-            children: const [
-              AuthBody(),
-              NavBar(),
-            ],
-          )
+      create: (context) => AuthCubit(initialPage),
+      child: const Scaffold(
+        appBar: CustomAppBar(),
+        body: AuthBody(),
       ),
     );
   }

@@ -9,7 +9,6 @@ class AuthRepository {
 
   Future<User?> getFirebaseUser() async {
     final user = await auth.authStateChanges().first;
-    print(user);
     return user;
   }
 

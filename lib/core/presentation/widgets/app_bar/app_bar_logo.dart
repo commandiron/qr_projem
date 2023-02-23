@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_projem/home/presentation/home_screen.dart';
 
-class NavBarLogo extends StatelessWidget {
-  const NavBarLogo({Key? key}) : super(key: key);
+class AppBarLogo extends StatelessWidget {
+  const AppBarLogo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

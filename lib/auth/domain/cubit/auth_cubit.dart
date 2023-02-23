@@ -7,9 +7,9 @@ import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(
+  AuthCubit(int? initialPage) : super(
     AuthState(
-      pageController: PageController(),
+      pageController: PageController(initialPage: initialPage ?? 0),
       isLoading: false,
       phoneFormatter: MaskTextInputFormatter(
         mask: '+90 (###) ###-##-##',
