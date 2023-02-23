@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/admin/presentation/admin_screen.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 
 import '../../../core/presentation/config/app_space.dart';
@@ -17,13 +16,19 @@ class SignUp extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Text("Kayıt Ol", style: AppTextStyle.h2!,),
-          AppSpace.verticalL!,
+          AppSpace.verticalXXXL!,
+          Text("Kayıt Ol", style: AppTextStyle.h1!,),
+          AppSpace.verticalXXXL!,
           SizedBox(
             width: 400,
             child: BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {
                 return TextField(
+                  controller: state.textEditingController,
+                  decoration: InputDecoration(
+                    hintText: "+90 (XXX) XXX-XX-XX",
+                    errorText: state.textFieldErrorMessage
+                  ),
                   inputFormatters: [
                     state.phoneFormatter
                   ],
@@ -36,13 +41,7 @@ class SignUp extends StatelessWidget {
             onPressed: () {
               BlocProvider.of<AuthCubit>(context, listen: false).singInWithPhoneNumber();
             },
-            child: Text("Sign In")
-          ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(AdminScreen.route);
-              },
-              child: Text("To Admin Page")
+            child: Text("Devam et")
           ),
         ],
       ),

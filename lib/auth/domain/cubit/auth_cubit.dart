@@ -10,62 +10,76 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(int? initialPage) : super(
     AuthState(
       pageController: PageController(initialPage: initialPage ?? 0),
-      isLoading: false,
+      textEditingController: TextEditingController(),
+      textFieldErrorMessage: "",
       phoneFormatter: MaskTextInputFormatter(
         mask: '+90 (###) ###-##-##',
         filter: { "#": RegExp(r'[0-9]') },
         type: MaskAutoCompletionType.lazy
-      )
+      ),
+      isLoading: false
     )
   );
 
   final AuthRepository _authRepository = AuthRepository();
 
   void singInWithPhoneNumber() async {
-    emit(
-      copyStateWith(
-        isLoading: true
-      )
-    );
 
-    _authRepository.singInWithPhoneNumber(
-      "+90${state.phoneFormatter.getUnmaskedText()}",
-      onSuccess: () {
-        jumpToPage(Verification.pageIndex);
-      },
-    );
+    validatePhoneNumber();
+
+    if(state.textFieldErrorMessage.isEmpty) {
+      emit(
+        copyStateWith(
+          isLoading: true
+        )
+      );
+      _authRepository.singInWithPhoneNumber(
+        "+90${state.phoneFormatter.getUnmaskedText()}",
+        onSuccess: () {
+          jumpToPage(Verification.pageIndex);
+        },
+      );
+    }
+  }
+
+  void validatePhoneNumber() {
+    final number = state.textEditingController.value.text;
+    if(number.characters.length < 19) {
+     emit(copyStateWith(textFieldErrorMessage: "Lütfen telefon numaranızı doğru giriniz."));
+    } else {
+      emit(copyStateWith(textFieldErrorMessage: ""));
+    }
   }
 
   void singInVerification(String verificationCode) async {
-    emit(
-      copyStateWith(
-        isLoading: true
-      )
-    );
     await _authRepository.singInVerification(verificationCode);
     jumpToPage(Done.pageIndex);
   }
 
   void jumpToPage(int index) {
-    state.pageController.jumpToPage(index);
     emit(
       copyStateWith(
         isLoading: false,
       )
     );
+    state.pageController.jumpToPage(index);
   }
 
   AuthState copyStateWith(
     {
       PageController? pageController,
-      bool? isLoading,
+      TextEditingController? textEditingController,
+      String? textFieldErrorMessage,
       MaskTextInputFormatter? phoneFormatter,
+      bool? isLoading,
     }
   ) {
     return AuthState(
       pageController: pageController ?? state.pageController,
-      isLoading: isLoading ?? state.isLoading,
+      textEditingController: textEditingController ?? state.textEditingController,
+      textFieldErrorMessage: textFieldErrorMessage ?? state.textFieldErrorMessage,
       phoneFormatter: phoneFormatter ?? state.phoneFormatter,
+      isLoading: isLoading ?? state.isLoading,
     );
   }
 }

@@ -15,13 +15,15 @@ class AuthBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        return PageView.builder(
-          controller: state.pageController,
-          itemCount: sections.length,
-          itemBuilder: (context, index) {
-            return sections[index];
-          },
-        );
+        return state.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : PageView.builder(
+              controller: state.pageController,
+              itemCount: sections.length,
+              itemBuilder: (context, index) {
+                return sections[index];
+              },
+            );
       },
     );
   }
