@@ -24,10 +24,11 @@ class Welcome extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text("İnşaat projeleri için proje tanıtımının kolay yolu.", style: AppTextStyle.h3!.copyWith(
-            fontStyle: FontStyle.italic
+            fontStyle: FontStyle.italic,
+            color: Colors.white
           ),),
           AppSpace.verticalXL!,
-          Text("Hemen proje bilgilerinizi girin ve Qr kodunuzu oluşturun", style: AppTextStyle.h1,),
+          Text("Hemen proje bilgilerinizi girin ve Qr kodunuzu oluşturun", style: AppTextStyle.h1!.copyWith(color: Colors.white),),
           AppSpace.verticalXL!,
           ElevatedButton(
             style: ButtonStyle(

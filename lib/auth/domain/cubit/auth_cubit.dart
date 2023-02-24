@@ -28,11 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
     validatePhoneNumber();
 
     if(state.textFieldErrorMessage.isEmpty) {
-      emit(
-        copyStateWith(
-          isLoading: true
-        )
-      );
+      emit(copyStateWith(isLoading: true));
       _authRepository.singInWithPhoneNumber(
         "+90${state.phoneFormatter.getUnmaskedText()}",
         onSuccess: () {
@@ -52,17 +48,19 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void singInVerification(String verificationCode) async {
-    await _authRepository.singInVerification(verificationCode);
-    jumpToPage(Done.pageIndex);
+    emit(copyStateWith(isLoading: true,));
+    _authRepository.singInVerification(
+      verificationCode,
+      onSuccess: () {
+        emit(copyStateWith(isLoading: false,));
+        jumpToPage(Done.pageIndex);
+      }
+    );
   }
 
   void jumpToPage(int index) {
-    emit(
-      copyStateWith(
-        isLoading: false,
-      )
-    );
     state.pageController.jumpToPage(index);
+    emit(copyStateWith(isLoading: false,));
   }
 
   AuthState copyStateWith(

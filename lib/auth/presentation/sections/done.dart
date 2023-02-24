@@ -14,8 +14,13 @@ class _DoneState extends State<Done> {
 
   @override
   void initState() {
-    Navigator.of(context).pushNamed(ProfileScreen.route);
+    delayedNavigateToProfileScreen();
     super.initState();
+  }
+
+  void delayedNavigateToProfileScreen() async {
+    await Future.delayed(const Duration(seconds: 2));
+    Navigator.of(context).pushNamed(ProfileScreen.route);
   }
 
   @override

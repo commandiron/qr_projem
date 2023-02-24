@@ -23,13 +23,22 @@ class AuthRepository {
         size: RecaptchaVerifierSize.compact,
         theme: RecaptchaVerifierTheme.dark,
         auth: authPlatform,
-        onSuccess: onSuccess
+        onSuccess: onSuccess,
+        onError: (exception) {
+          print("RecaptchaVerifier error: ${exception.message}");
+        },
+        onExpired: () {
+          print("RecaptchaVerifier expired");
+        },
       )
     );
   }
 
-  Future<void> singInVerification(String verificationCode) async {
-    await confirmationResult.confirm(verificationCode);
+  void singInVerification(String verificationCode, {required void Function() onSuccess}) async {
+    final userCredential =  await confirmationResult.confirm(verificationCode);
+    if(userCredential != null) {
+      onSuccess();
+    }
   }
 
   Future<void> signOut() async {

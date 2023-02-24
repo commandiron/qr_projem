@@ -26,7 +26,6 @@ class SignUp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Zaten hesabım var.", style: AppTextStyle.h4!.copyWith(color: Colors.grey),),
-              AppSpace.horizontalS!,
               TextButton(
                 child: Text("Giriş yap",
                   style: AppTextStyle.h4!.copyWith(color: Theme.of(context).colorScheme.primary),
