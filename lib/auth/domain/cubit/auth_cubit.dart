@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:qr_projem/auth/presentation/sections/done.dart';
+import 'package:qr_projem/auth/presentation/sections/sign_in.dart';
 import '../../../core/data/repositories/auth_repository.dart';
 import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
@@ -54,7 +55,11 @@ class AuthCubit extends Cubit<AuthState> {
       onSuccess: () {
         emit(copyStateWith(isLoading: false,));
         jumpToPage(Done.pageIndex);
-      }
+      },
+      onError: () {
+        emit(copyStateWith(isLoading: false,));
+        jumpToPage(SignIn.pageIndex);
+      },
     );
   }
 

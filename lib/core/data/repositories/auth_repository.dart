@@ -7,9 +7,13 @@ class AuthRepository {
   final auth = FirebaseAuth.instance;
   late ConfirmationResult confirmationResult;
 
-  Future<User?> getFirebaseUser() async {
-    final user = await auth.authStateChanges().first;
-    return user;
+  void getFirebaseUser(void Function(User?)? onData) async {
+    auth.authStateChanges().listen(
+      onData,
+      onDone: () {
+        print("onDone");
+      },
+    );
   }
 
   void singInWithPhoneNumber(String phoneNumber, {void Function()? onSuccess}) async {
@@ -34,10 +38,17 @@ class AuthRepository {
     );
   }
 
-  void singInVerification(String verificationCode, {required void Function() onSuccess}) async {
+  void singInVerification(
+    String verificationCode,
+    {
+      required void Function() onSuccess,
+      required void Function() onError}
+    ) async {
     final userCredential =  await confirmationResult.confirm(verificationCode);
     if(userCredential != null) {
       onSuccess();
+    } else {
+      onError();
     }
   }
 
