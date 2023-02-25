@@ -50,7 +50,7 @@ class AuthCubit extends Cubit<AuthState> {
   void validatePhoneNumber() {
     final number = state.textEditingController.value.text;
     if(number.characters.length < 19) {
-     emit(copyStateWith(textFieldErrorMessage: "Lütfen telefon numaranızı doğru giriniz."));
+      emit(copyStateWith(textFieldErrorMessage: "Lütfen telefon numaranızı doğru giriniz."));
     } else {
       emit(copyStateWith(textFieldErrorMessage: ""));
     }
