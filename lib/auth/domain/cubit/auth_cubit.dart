@@ -24,6 +24,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   final AuthRepository _authRepository = AuthRepository();
 
+  Future<void> getCurrentUser() async {
+    _authRepository.getFirebaseUser(
+      (user) {
+        print(user);
+      }
+    );
+  }
+
   void singInWithPhoneNumber() async {
 
     validatePhoneNumber();
@@ -55,6 +63,7 @@ class AuthCubit extends Cubit<AuthState> {
       onSuccess: () {
         emit(copyStateWith(isLoading: false,));
         jumpToPage(Done.pageIndex);
+        getCurrentUser();
       },
       onError: () {
         emit(copyStateWith(isLoading: false,));

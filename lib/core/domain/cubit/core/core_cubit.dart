@@ -14,7 +14,6 @@ class CoreCubit extends Cubit<CoreState> {
   Future<void> getCurrentUser() async {
     _authRepository.getFirebaseUser(
       (user) {
-        print(user);
         emit(
           CoreState(isUserAuthenticated: user != null)
         );

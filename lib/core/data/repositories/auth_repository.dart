@@ -8,12 +8,7 @@ class AuthRepository {
   late ConfirmationResult confirmationResult;
 
   void getFirebaseUser(void Function(User?)? onData) async {
-    auth.authStateChanges().listen(
-      onData,
-      onDone: () {
-        print("onDone");
-      },
-    );
+    auth.authStateChanges().listen(onData,);
   }
 
   void singInWithPhoneNumber(String phoneNumber, {void Function()? onSuccess}) async {
@@ -28,12 +23,8 @@ class AuthRepository {
         theme: RecaptchaVerifierTheme.dark,
         auth: authPlatform,
         onSuccess: onSuccess,
-        onError: (exception) {
-          print("RecaptchaVerifier error: ${exception.message}");
-        },
-        onExpired: () {
-          print("RecaptchaVerifier expired");
-        },
+        onError: (exception) {},
+        onExpired: () {},
       )
     );
   }
