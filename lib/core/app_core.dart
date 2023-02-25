@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/core/data/repositories/auth_repository.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/config/app_theme.dart';
 
@@ -11,8 +12,16 @@ import '../home/presentation/home_screen.dart';
 import 'domain/cubit/core/core_state.dart';
 import 'domain/cubit/project/project_cubit.dart';
 
-class AppCore extends StatelessWidget {
+class AppCore extends StatefulWidget {
   const AppCore({Key? key}) : super(key: key);
+
+  @override
+  State<AppCore> createState() => _AppCoreState();
+}
+
+class _AppCoreState extends State<AppCore> {
+
+  final AuthRepository _authRepository = AuthRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +30,21 @@ class AppCore extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<CoreCubit>(
-            create: (context) => CoreCubit(),
+            create: (context) => CoreCubit(_authRepository),
           ),
           BlocProvider<ProjectCubit>(
             create: (context) => ProjectCubit(),
           ),
         ],
-        child: const MaterialChild()
+        child: MaterialChild(authRepository: _authRepository,)
     );
   }
 }
 
 class MaterialChild extends StatefulWidget {
-  const MaterialChild({Key? key}) : super(key: key);
+  const MaterialChild({required this.authRepository, Key? key}) : super(key: key);
+
+  final AuthRepository authRepository;
 
   @override
   State<MaterialChild> createState() => _MaterialChildState();
@@ -43,12 +54,8 @@ class _MaterialChildState extends State<MaterialChild> {
 
   @override
   void initState() {
-    getUser();
+    BlocProvider.of<CoreCubit>(context, listen: false).getCurrentUser();
     super.initState();
-  }
-
-  Future<void> getUser() async {
-    await BlocProvider.of<CoreCubit>(context, listen: false).getCurrentUser();
   }
 
   @override
@@ -91,7 +98,7 @@ class _MaterialChildState extends State<MaterialChild> {
                     arguments: initialPage
                   ),
                   pageBuilder: (context, animation, secondaryAnimation) {
-                    return const AuthScreen();
+                    return AuthScreen(authRepository: widget.authRepository);
                   },
                 );
               case ProfileScreen.route :

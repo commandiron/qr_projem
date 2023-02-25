@@ -5,15 +5,13 @@ import '../../../data/repositories/auth_repository.dart';
 import 'core_state.dart';
 
 class CoreCubit extends Cubit<CoreState> {
-
-  CoreCubit() : super(CoreState(isUserAuthenticated: false));
-
-  final AuthRepository _authRepository = AuthRepository();
-
+  final AuthRepository authRepository;
+  CoreCubit(this.authRepository,) : super(CoreState(isUserAuthenticated: false));
 
   Future<void> getCurrentUser() async {
-    _authRepository.getFirebaseUser(
+    authRepository.getFirebaseUser(
       (user) {
+        print(user);
         emit(
           CoreState(isUserAuthenticated: user != null)
         );
@@ -22,6 +20,6 @@ class CoreCubit extends Cubit<CoreState> {
   }
 
   Future<void> signOut() async {
-    await _authRepository.signOut();
+    await authRepository.signOut();
   }
 }

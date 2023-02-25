@@ -8,7 +8,8 @@ import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(int? initialPage) : super(
+  final AuthRepository authRepository;
+  AuthCubit(this.authRepository, int? initialPage) : super(
     AuthState(
       pageController: PageController(initialPage: initialPage ?? 0),
       textEditingController: TextEditingController(),
@@ -22,12 +23,10 @@ class AuthCubit extends Cubit<AuthState> {
     )
   );
 
-  final AuthRepository _authRepository = AuthRepository();
-
   Future<void> getCurrentUser() async {
-    _authRepository.getFirebaseUser(
+    authRepository.getFirebaseUser(
       (user) {
-        print(user);
+
       }
     );
   }
@@ -38,7 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     if(state.textFieldErrorMessage.isEmpty) {
       emit(copyStateWith(isLoading: true));
-      _authRepository.singInWithPhoneNumber(
+      authRepository.singInWithPhoneNumber(
         "+90${state.phoneFormatter.getUnmaskedText()}",
         onSuccess: () {
           jumpToPage(Verification.pageIndex);
@@ -58,7 +57,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void singInVerification(String verificationCode) async {
     emit(copyStateWith(isLoading: true,));
-    _authRepository.singInVerification(
+    authRepository.singInVerification(
       verificationCode,
       onSuccess: () {
         emit(copyStateWith(isLoading: false,));
