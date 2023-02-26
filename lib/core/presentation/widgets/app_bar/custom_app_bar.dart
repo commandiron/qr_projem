@@ -22,7 +22,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   void initState() {
-    BlocProvider.of<CoreCubit>(context).getCurrentUser();
+    BlocProvider.of<CoreCubit>(context, listen: false).getCurrentUser();
     super.initState();
   }
 

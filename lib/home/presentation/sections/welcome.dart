@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_projem/auth/presentation/auth_screen.dart';
 import 'package:qr_projem/core/presentation/config/app_padding.dart';
 import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
@@ -36,7 +37,9 @@ class Welcome extends StatelessWidget {
                 AppPadding.horizontalL!.add(AppPadding.verticalM!)
               )
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AuthScreen.route);
+            },
             child: Text("Hemen Başla", style: AppTextStyle.h3,)
           )
         ],
