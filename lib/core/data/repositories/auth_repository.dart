@@ -43,7 +43,8 @@ class AuthRepository {
     String verificationCode,
     {
       required void Function() onSuccess,
-      required void Function() onError}
+      required void Function() onError
+    }
     ) async {
     final userCredential =  await confirmationResult.confirm(verificationCode);
     if(userCredential != null) {
