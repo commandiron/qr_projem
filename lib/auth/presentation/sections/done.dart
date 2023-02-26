@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:qr_projem/core/presentation/config/app_space.dart';
+import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/profile/presentation/profile_screen.dart';
+
+import '../widget/auth_base.dart';
 
 class Done extends StatefulWidget {
   const Done({Key? key}) : super(key: key);
@@ -25,8 +29,23 @@ class _DoneState extends State<Done> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("DONE!!!!!!!!!!!!!"),
+    return AuthBase(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Giriş Başarılı", style: AppTextStyle.h3!,),
+          AppSpace.verticalL!,
+          CircleAvatar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            radius: 32,
+            child: Icon(
+              Icons.done,
+              size: 32,
+              color: Theme.of(context).colorScheme.background,
+            )
+          )
+        ],
+      ),
     );
   }
 }

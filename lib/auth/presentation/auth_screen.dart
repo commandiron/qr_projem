@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/data/repositories/auth_repository.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/widgets/app_bar/custom_app_bar.dart';
-import 'package:qr_projem/profile/presentation/profile_screen.dart';
-import '../../core/domain/cubit/core/core_state.dart';
 import '../domain/cubit/auth_cubit.dart';
 import 'auth_body.dart';
 
@@ -34,18 +32,11 @@ class _AuthScreenState extends State<AuthScreen> {
         .settings
         .arguments as int?;
 
-    return BlocListener<CoreCubit, CoreState>(
-      listener: (context, state) {
-        if(state.isUserAuthenticated) {
-          Navigator.of(context).pushNamed(ProfileScreen.route);
-        }
-      },
-      child: BlocProvider<AuthCubit>(
-        create: (context) => AuthCubit(widget.authRepository, initialPage),
-        child: const Scaffold(
-          appBar: CustomAppBar(),
-          body: AuthBody(),
-        ),
+    return BlocProvider<AuthCubit>(
+      create: (context) => AuthCubit(widget.authRepository, initialPage),
+      child: const Scaffold(
+        appBar: CustomAppBar(),
+        body: AuthBody(),
       ),
     );
   }

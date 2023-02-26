@@ -7,19 +7,7 @@ class AuthRepository {
   final auth = FirebaseAuth.instance;
   late ConfirmationResult confirmationResult;
 
-  void getFirebaseUser({required void Function(User?) onResponse}) async {
-    auth.authStateChanges().listen(
-      (user) {
-        onResponse(user);
-      },
-      onDone: () {
-        print("onDone");
-      },
-      onError: (object, StackTrace error) {
-        print("onError:");
-      },
-    );
-  }
+  Stream<User?> get user => auth.authStateChanges();
 
   void singInWithPhoneNumber(String phoneNumber, {void Function()? onSuccess}) async {
     FirebaseAuthPlatform authPlatform = FirebaseAuthPlatform.instanceFor(

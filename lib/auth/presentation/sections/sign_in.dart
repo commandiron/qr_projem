@@ -6,6 +6,7 @@ import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
 import '../../domain/cubit/auth_cubit.dart';
 import '../../domain/cubit/auth_state.dart';
+import '../widget/auth_base.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -14,10 +15,10 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return AuthBase(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AppSpace.verticalXXXL!,
           Text("Giriş Yap", style: AppTextStyle.h2!,),
           AppSpace.verticalL!,
           Text("Hoşgeldiniz", style: AppTextStyle.h3!,),

@@ -4,6 +4,7 @@ import 'package:qr_projem/auth/presentation/sections/done.dart';
 import 'package:qr_projem/auth/presentation/sections/sign_in.dart';
 import 'package:qr_projem/auth/presentation/sections/sign_up.dart';
 import 'package:qr_projem/auth/presentation/sections/verification.dart';
+import 'package:qr_projem/auth/presentation/widget/auth_base.dart';
 
 import '../domain/cubit/auth_cubit.dart';
 import '../domain/cubit/auth_state.dart';
@@ -20,7 +21,7 @@ class AuthBody extends StatelessWidget {
           itemCount: sections.length,
           itemBuilder: (context, index) {
             if(state.isLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const AuthBase(child: Center(child: CircularProgressIndicator()));
             }
             return sections[index];
           },

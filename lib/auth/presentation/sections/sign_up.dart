@@ -6,6 +6,7 @@ import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import '../../../core/presentation/config/app_space.dart';
 import '../../domain/cubit/auth_cubit.dart';
 import '../../domain/cubit/auth_state.dart';
+import '../widget/auth_base.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -14,10 +15,10 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return AuthBase(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AppSpace.verticalXXXL!,
           Text("Kayıt Ol", style: AppTextStyle.h2!,),
           AppSpace.verticalL!,
           Text("Hesap Oluştur", style: AppTextStyle.h3!,),
