@@ -5,6 +5,9 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      height: 256,
+      color: Colors.grey.shade800,
+    );
   }
 }
