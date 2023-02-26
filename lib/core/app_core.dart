@@ -41,22 +41,10 @@ class _AppCoreState extends State<AppCore> {
   }
 }
 
-class MaterialChild extends StatefulWidget {
+class MaterialChild extends StatelessWidget {
   const MaterialChild({required this.authRepository, Key? key}) : super(key: key);
 
   final AuthRepository authRepository;
-
-  @override
-  State<MaterialChild> createState() => _MaterialChildState();
-}
-
-class _MaterialChildState extends State<MaterialChild> {
-
-  @override
-  void initState() {
-    BlocProvider.of<CoreCubit>(context, listen: false).getCurrentUser();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +86,7 @@ class _MaterialChildState extends State<MaterialChild> {
                     arguments: initialPage
                   ),
                   pageBuilder: (context, animation, secondaryAnimation) {
-                    return AuthScreen(authRepository: widget.authRepository);
+                    return AuthScreen(authRepository: authRepository);
                   },
                 );
               case ProfileScreen.route :

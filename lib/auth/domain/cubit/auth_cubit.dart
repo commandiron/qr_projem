@@ -8,7 +8,7 @@ import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final AuthRepository authRepository;
+
   AuthCubit(this.authRepository, int? initialPage) : super(
     AuthState(
       pageController: PageController(initialPage: initialPage ?? 0),
@@ -23,13 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
     )
   );
 
-  Future<void> getCurrentUser() async {
-    authRepository.getFirebaseUser(
-      (user) {
-
-      }
-    );
-  }
+  final AuthRepository authRepository;
 
   void singInWithPhoneNumber() async {
 
@@ -62,7 +56,6 @@ class AuthCubit extends Cubit<AuthState> {
       onSuccess: () {
         emit(copyStateWith(isLoading: false,));
         jumpToPage(Done.pageIndex);
-        getCurrentUser();
       },
       onError: () {
         emit(copyStateWith(isLoading: false,));

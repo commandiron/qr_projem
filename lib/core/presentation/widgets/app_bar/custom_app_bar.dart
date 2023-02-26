@@ -8,8 +8,23 @@ import 'package:qr_projem/core/presentation/widgets/app_bar/sing_in_up_button.da
 import '../../config/app_padding.dart';
 import 'app_bar_logo.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   const CustomAppBar({Key? key}) : super(key: key);
+
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+
+  @override
+  Size get preferredSize => const Size(double.infinity, 96);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+
+  @override
+  void initState() {
+    BlocProvider.of<CoreCubit>(context).getCurrentUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +49,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       },
     );
   }
-
-  @override
-  Size get preferredSize => const Size(double.infinity, 96);
 }

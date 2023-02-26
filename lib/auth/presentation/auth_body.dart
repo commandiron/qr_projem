@@ -8,20 +8,8 @@ import 'package:qr_projem/auth/presentation/sections/verification.dart';
 import '../domain/cubit/auth_cubit.dart';
 import '../domain/cubit/auth_state.dart';
 
-class AuthBody extends StatefulWidget {
+class AuthBody extends StatelessWidget {
   const AuthBody({Key? key}) : super(key: key);
-
-  @override
-  State<AuthBody> createState() => _AuthBodyState();
-}
-
-class _AuthBodyState extends State<AuthBody> {
-
-  @override
-  void initState() {
-    BlocProvider.of<AuthCubit>(context, listen: false).getCurrentUser();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
