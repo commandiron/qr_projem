@@ -9,7 +9,14 @@ class AuthRepository {
 
   Stream<User?> get user => auth.authStateChanges();
 
-  void singInWithPhoneNumber(String phoneNumber, {void Function()? onSuccess}) async {
+  void singInWithPhoneNumber(
+      String phoneNumber,
+      {
+        required void Function() onSuccess,
+        required void Function() onError,
+        required void Function() onExpired,
+      }
+  ) async {
     FirebaseAuthPlatform authPlatform = FirebaseAuthPlatform.instanceFor(
       app: Firebase.apps.first,
       pluginConstants: {},
@@ -21,8 +28,8 @@ class AuthRepository {
         theme: RecaptchaVerifierTheme.dark,
         auth: authPlatform,
         onSuccess: onSuccess,
-        onError: (exception) {},
-        onExpired: () {},
+        onError: (exception) { onError(); },
+        onExpired: onExpired,
       )
     );
   }

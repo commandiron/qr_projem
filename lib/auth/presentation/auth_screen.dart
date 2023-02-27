@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/data/repositories/auth_repository.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/widgets/app_bar/custom_app_bar.dart';
+import 'package:qr_projem/home/presentation/sections/footer.dart';
 import '../domain/cubit/auth_cubit.dart';
 import 'auth_body.dart';
 
@@ -34,10 +35,17 @@ class _AuthScreenState extends State<AuthScreen> {
 
     return BlocProvider<AuthCubit>(
       create: (context) => AuthCubit(widget.authRepository, initialPage),
-      child: const Scaffold(
+      child: Scaffold(
         appBar: CustomAppBar(),
-        body: AuthBody(),
-      ),
+        body: Column(
+          children: [
+            Expanded(
+              child: AuthBody()
+            ),
+            Footer()
+          ],
+        )
+      )
     );
   }
 }

@@ -36,6 +36,8 @@ class AuthCubit extends Cubit<AuthState> {
         onSuccess: () {
           jumpToPage(Verification.pageIndex);
         },
+        onError: () {  },
+        onExpired: () {  },
       );
     }
   }
