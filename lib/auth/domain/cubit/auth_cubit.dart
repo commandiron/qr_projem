@@ -1,8 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:qr_projem/auth/presentation/sections/done.dart';
-import 'package:qr_projem/auth/presentation/sections/sign_in.dart';
+import 'package:qr_projem/auth/presentation/sections/sign_up.dart';
 import '../../../core/data/repositories/auth_repository.dart';
 import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
@@ -11,6 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this.authRepository, int? initialPage) : super(
     AuthState(
+      authPageState: AuthPageState.neutral,
       pageController: PageController(initialPage: initialPage ?? 0),
       textEditingController: TextEditingController(),
       textFieldErrorMessage: "",
@@ -19,7 +21,7 @@ class AuthCubit extends Cubit<AuthState> {
         filter: { "#": RegExp(r'[0-9]') },
         type: MaskAutoCompletionType.lazy
       ),
-      isLoading: false
+      snackBarErrorMessage: ""
     )
   );
 
@@ -30,14 +32,30 @@ class AuthCubit extends Cubit<AuthState> {
     validatePhoneNumber();
 
     if(state.textFieldErrorMessage.isEmpty) {
-      emit(copyStateWith(isLoading: true));
+      emit(copyStateWith(authPageState: AuthPageState.loading));
       authRepository.singInWithPhoneNumber(
         "+90${state.phoneFormatter.getUnmaskedText()}",
         onSuccess: () {
           jumpToPage(Verification.pageIndex);
         },
-        onError: () {  },
-        onExpired: () {  },
+        onError: () {
+          emit(
+            copyStateWith(
+              authPageState: AuthPageState.error,
+              snackBarErrorMessage: "Doğrulama sağlanamadı."
+            )
+          );
+          jumpToPage(SignUp.pageIndex);
+        },
+        onTimeout: () {
+          emit(
+            copyStateWith(
+              authPageState: AuthPageState.error,
+              snackBarErrorMessage: "Doğrulama sağlanamadı."
+            )
+          );
+          jumpToPage(SignUp.pageIndex);
+        },
       );
     }
   }
@@ -52,40 +70,56 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void singInVerification(String verificationCode) async {
-    emit(copyStateWith(isLoading: true,));
+    emit(copyStateWith(authPageState: AuthPageState.loading));
     authRepository.singInVerification(
       verificationCode,
       onSuccess: () {
-        emit(copyStateWith(isLoading: false,));
+        emit(copyStateWith(authPageState: AuthPageState.neutral));
         jumpToPage(Done.pageIndex);
       },
       onError: () {
-        emit(copyStateWith(isLoading: false,));
-        jumpToPage(SignIn.pageIndex);
+        emit(
+          copyStateWith(
+            authPageState: AuthPageState.error,
+            snackBarErrorMessage: "Kod doğrulanamadı."
+          )
+        );
+        jumpToPage(SignUp.pageIndex);
+      },
+      onTimeout: () {
+        emit(
+          copyStateWith(
+            authPageState: AuthPageState.error,
+            snackBarErrorMessage: "Kod girilmedi."
+          )
+        );
+        jumpToPage(SignUp.pageIndex);
       },
     );
   }
 
   void jumpToPage(int index) {
     state.pageController.jumpToPage(index);
-    emit(copyStateWith(isLoading: false,));
+    emit(copyStateWith(authPageState: AuthPageState.neutral));
   }
 
   AuthState copyStateWith(
     {
+      AuthPageState? authPageState,
       PageController? pageController,
       TextEditingController? textEditingController,
       String? textFieldErrorMessage,
       MaskTextInputFormatter? phoneFormatter,
-      bool? isLoading,
+      String? snackBarErrorMessage
     }
   ) {
     return AuthState(
+      authPageState: authPageState ?? state.authPageState,
       pageController: pageController ?? state.pageController,
       textEditingController: textEditingController ?? state.textEditingController,
       textFieldErrorMessage: textFieldErrorMessage ?? state.textFieldErrorMessage,
       phoneFormatter: phoneFormatter ?? state.phoneFormatter,
-      isLoading: isLoading ?? state.isLoading,
+      snackBarErrorMessage: snackBarErrorMessage ?? state.snackBarErrorMessage
     );
   }
 }

@@ -14,13 +14,23 @@ class AuthBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (blocContext, state) {
+        if(state.authPageState == AuthPageState.error) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: Text(state.snackBarErrorMessage),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return PageView.builder(
           controller: state.pageController,
           itemCount: sections.length,
           itemBuilder: (context, index) {
-            if(state.isLoading) {
+            if(state.authPageState == AuthPageState.loading) {
               return const AuthBase(child: Center(child: CircularProgressIndicator()));
             }
             return sections[index];

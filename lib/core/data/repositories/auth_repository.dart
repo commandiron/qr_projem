@@ -1,11 +1,11 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class AuthRepository {
 
   final auth = FirebaseAuth.instance;
-  late ConfirmationResult confirmationResult;
+  ConfirmationResult? confirmationResult;
 
   Stream<User?> get user => auth.authStateChanges();
 
@@ -14,37 +14,36 @@ class AuthRepository {
       {
         required void Function() onSuccess,
         required void Function() onError,
-        required void Function() onExpired,
+        required void Function() onTimeout
       }
   ) async {
-    FirebaseAuthPlatform authPlatform = FirebaseAuthPlatform.instanceFor(
-      app: Firebase.apps.first,
-      pluginConstants: {},
-    );
-    confirmationResult =  await auth.signInWithPhoneNumber(
-      phoneNumber,
-      RecaptchaVerifier(
-        size: RecaptchaVerifierSize.compact,
-        theme: RecaptchaVerifierTheme.dark,
-        auth: authPlatform,
-        onSuccess: onSuccess,
-        onError: (exception) { onError(); },
-        onExpired: onExpired,
-      )
-    );
+    try {
+      confirmationResult =  await auth.signInWithPhoneNumber(phoneNumber,)
+          .timeout(const Duration(minutes: 1));
+      onSuccess();
+    } on TimeoutException catch(_) {
+      onTimeout();
+    } on Exception catch(_) {
+      onError();
+    }
   }
 
   void singInVerification(
     String verificationCode,
     {
       required void Function() onSuccess,
-      required void Function() onError
+      required void Function() onError,
+      required void Function() onTimeout
     }
     ) async {
-    final userCredential =  await confirmationResult.confirm(verificationCode);
-    if(userCredential != null) {
+    try {
+      await confirmationResult!
+        .confirm(verificationCode)
+        .timeout(const Duration(minutes: 1));
       onSuccess();
-    } else {
+    } on TimeoutException catch(_) {
+      onTimeout();
+    } on Exception catch(_) {
       onError();
     }
   }
