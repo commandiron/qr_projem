@@ -32,7 +32,7 @@ class SignUp extends StatelessWidget {
                   style: AppTextStyle.h4!.copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
                 onPressed: () {
-                  BlocProvider.of<AuthCubit>(context, listen: false).jumpToPage(SignIn.pageIndex);
+                  BlocProvider.of<AuthCubit>(context, listen: false).delayedJumpToPage(SignIn.pageIndex);
                 },
               )
             ],

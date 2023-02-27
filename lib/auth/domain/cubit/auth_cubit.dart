@@ -103,6 +103,13 @@ class AuthCubit extends Cubit<AuthState> {
     emit(copyStateWith(authPageState: AuthPageState.neutral));
   }
 
+  Future<void> delayedJumpToPage(int index) async {
+    emit(copyStateWith(authPageState: AuthPageState.loading));
+    await Future.delayed(const Duration(seconds: 1));
+    state.pageController.jumpToPage(index);
+    emit(copyStateWith(authPageState: AuthPageState.neutral));
+  }
+
   AuthState copyStateWith(
     {
       AuthPageState? authPageState,

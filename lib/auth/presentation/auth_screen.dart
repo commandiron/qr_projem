@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/data/repositories/auth_repository.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/widgets/app_bar/custom_app_bar.dart';
-import 'package:qr_projem/home/presentation/sections/footer.dart';
+import 'package:qr_projem/core/presentation/widgets/footer/footer.dart';
 import '../domain/cubit/auth_cubit.dart';
 import 'auth_body.dart';
 
