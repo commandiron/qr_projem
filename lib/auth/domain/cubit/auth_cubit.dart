@@ -12,7 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this.authRepository, int? initialPage) : super(
     AuthState(
-      authPageState: AuthPageState.neutral,
+      authPageState: AuthPageStateDone(),
       pageController: PageController(initialPage: initialPage ?? 0),
       textEditingController: TextEditingController(),
       textFieldErrorMessage: "",
@@ -21,7 +21,6 @@ class AuthCubit extends Cubit<AuthState> {
         filter: { "#": RegExp(r'[0-9]') },
         type: MaskAutoCompletionType.lazy
       ),
-      snackBarErrorMessage: ""
     )
   );
 
@@ -32,7 +31,7 @@ class AuthCubit extends Cubit<AuthState> {
     validatePhoneNumber();
 
     if(state.textFieldErrorMessage.isEmpty) {
-      emit(copyStateWith(authPageState: AuthPageState.loading));
+      emit(copyStateWith(authPageState: AuthPageStateLoading()));
       authRepository.singInWithPhoneNumber(
         "+90${state.phoneFormatter.getUnmaskedText()}",
         onSuccess: () {
@@ -41,8 +40,7 @@ class AuthCubit extends Cubit<AuthState> {
         onError: () {
           emit(
             copyStateWith(
-              authPageState: AuthPageState.error,
-              snackBarErrorMessage: "Doğrulama sağlanamadı."
+              authPageState: AuthPageStateError("Doğrulama sağlanamadı."),
             )
           );
           jumpToPage(SignUp.pageIndex);
@@ -50,8 +48,7 @@ class AuthCubit extends Cubit<AuthState> {
         onTimeout: () {
           emit(
             copyStateWith(
-              authPageState: AuthPageState.error,
-              snackBarErrorMessage: "Doğrulama sağlanamadı."
+              authPageState: AuthPageStateError("Doğrulama sağlanamadı."),
             )
           );
           jumpToPage(SignUp.pageIndex);
@@ -70,29 +67,19 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void singInVerification(String verificationCode) async {
-    emit(copyStateWith(authPageState: AuthPageState.loading));
+    emit(copyStateWith(authPageState: AuthPageStateLoading()));
     authRepository.singInVerification(
       verificationCode,
       onSuccess: () {
-        emit(copyStateWith(authPageState: AuthPageState.neutral));
+        emit(copyStateWith(authPageState: AuthPageStateDone()));
         jumpToPage(Done.pageIndex);
       },
       onError: () {
-        emit(
-          copyStateWith(
-            authPageState: AuthPageState.error,
-            snackBarErrorMessage: "Kod doğrulanamadı."
-          )
-        );
+        emit(copyStateWith(authPageState: AuthPageStateError("Kod doğrulanamadı.")));
         jumpToPage(SignUp.pageIndex);
       },
       onTimeout: () {
-        emit(
-          copyStateWith(
-            authPageState: AuthPageState.error,
-            snackBarErrorMessage: "Kod girilmedi."
-          )
-        );
+        emit(copyStateWith(authPageState: AuthPageStateError("Kod girilmedi.")));
         jumpToPage(SignUp.pageIndex);
       },
     );
@@ -100,14 +87,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   void jumpToPage(int index) {
     state.pageController.jumpToPage(index);
-    emit(copyStateWith(authPageState: AuthPageState.neutral));
+    emit(copyStateWith(authPageState: AuthPageStateDone()));
   }
 
   Future<void> delayedJumpToPage(int index) async {
-    emit(copyStateWith(authPageState: AuthPageState.loading));
+    emit(copyStateWith(authPageState: AuthPageStateLoading()));
     await Future.delayed(const Duration(seconds: 1));
     state.pageController.jumpToPage(index);
-    emit(copyStateWith(authPageState: AuthPageState.neutral));
+    emit(copyStateWith(authPageState: AuthPageStateDone()));
   }
 
   AuthState copyStateWith(
@@ -117,7 +104,6 @@ class AuthCubit extends Cubit<AuthState> {
       TextEditingController? textEditingController,
       String? textFieldErrorMessage,
       MaskTextInputFormatter? phoneFormatter,
-      String? snackBarErrorMessage
     }
   ) {
     return AuthState(
@@ -126,7 +112,6 @@ class AuthCubit extends Cubit<AuthState> {
       textEditingController: textEditingController ?? state.textEditingController,
       textFieldErrorMessage: textFieldErrorMessage ?? state.textFieldErrorMessage,
       phoneFormatter: phoneFormatter ?? state.phoneFormatter,
-      snackBarErrorMessage: snackBarErrorMessage ?? state.snackBarErrorMessage
     );
   }
 }

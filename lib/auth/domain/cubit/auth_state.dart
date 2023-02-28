@@ -7,7 +7,6 @@ class AuthState {
   TextEditingController textEditingController;
   String textFieldErrorMessage;
   MaskTextInputFormatter phoneFormatter;
-  String snackBarErrorMessage;
 
   AuthState(
     {
@@ -16,11 +15,15 @@ class AuthState {
       required this.textEditingController,
       required this.textFieldErrorMessage,
       required this.phoneFormatter,
-      required this.snackBarErrorMessage
     }
   );
 }
 
-enum AuthPageState{
- neutral, loading, error
+abstract class AuthPageState {}
+
+class AuthPageStateLoading extends AuthPageState {}
+class AuthPageStateError extends AuthPageState {
+  final String? message;
+  AuthPageStateError([this.message]);
 }
+class AuthPageStateDone extends AuthPageState {}

@@ -16,11 +16,11 @@ class AuthBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (blocContext, state) {
-        if(state.authPageState == AuthPageState.error) {
+        if(state.authPageState is AuthPageStateError) {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              content: Text(state.snackBarErrorMessage),
+              content: Text((state.authPageState as AuthPageStateError).message ?? ""),
             ),
           );
         }
@@ -30,7 +30,7 @@ class AuthBody extends StatelessWidget {
           controller: state.pageController,
           itemCount: sections.length,
           itemBuilder: (context, index) {
-            if(state.authPageState == AuthPageState.loading) {
+            if(state.authPageState is AuthPageStateLoading) {
               return const AuthBase(child: Center(child: CircularProgressIndicator()));
             }
             return sections[index];
