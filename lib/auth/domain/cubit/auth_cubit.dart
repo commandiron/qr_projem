@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:qr_projem/auth/presentation/sections/done.dart';
-import 'package:qr_projem/auth/presentation/sections/sign_up.dart';
 import '../../../core/data/repositories/auth_repository.dart';
 import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
@@ -38,20 +37,14 @@ class AuthCubit extends Cubit<AuthState> {
           jumpToPage(Verification.pageIndex);
         },
         onError: () {
-          emit(
-            state.copyWith(
-              authPageState: AuthPageStateError("Doğrulama sağlanamadı."),
-            )
+          emit(state.copyWith(authPageState: AuthPageStateError("Doğrulama sağlanamadı."),)
           );
-          jumpToPage(SignUp.pageIndex);
+          jumpToPage(state.pageController.initialPage);
         },
         onTimeout: () {
-          emit(
-            state.copyWith(
-              authPageState: AuthPageStateError("Doğrulama sağlanamadı."),
-            )
+          emit(state.copyWith(authPageState: AuthPageStateError("Doğrulama sağlanamadı."),)
           );
-          jumpToPage(SignUp.pageIndex);
+          jumpToPage(state.pageController.initialPage);
         },
       );
     }
@@ -76,11 +69,11 @@ class AuthCubit extends Cubit<AuthState> {
       },
       onError: () {
         emit(state.copyWith(authPageState: AuthPageStateError("Kod doğrulanamadı.")));
-        jumpToPage(SignUp.pageIndex);
+        jumpToPage(state.pageController.initialPage);
       },
       onTimeout: () {
         emit(state.copyWith(authPageState: AuthPageStateError("Kod girilmedi.")));
-        jumpToPage(SignUp.pageIndex);
+        jumpToPage(state.pageController.initialPage);
       },
     );
   }
