@@ -19,9 +19,11 @@ class AuthState {
   );
 }
 
+@immutable
 abstract class AuthPageState {}
 
 class AuthPageStateLoading extends AuthPageState {}
+
 class AuthPageStateError extends AuthPageState {
   final String? message;
   AuthPageStateError([this.message]);
