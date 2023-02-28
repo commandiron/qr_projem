@@ -55,7 +55,7 @@ class MaterialChild extends StatelessWidget {
           title: 'Qr Projem',
           theme: themeLight,
           darkTheme: themeDark,
-          initialRoute: HomeScreen.route,
+          initialRoute: AdminScreen.route,
           onGenerateRoute: (settings) {
             switch(settings.name) {
               case AdminScreen.route :

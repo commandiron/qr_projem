@@ -3,6 +3,7 @@ import '../../../core/domain/model/project.dart';
 class AdminState {
 
   static Project projectDemirliIns = Project(
+    templateVersion: "v1",
     companyLogoUrl: "https://firebasestorage.googleapis.com/v0/b/qrprojem.appspot.com/o/f6c423a0-adf7-11ed-afa1-0242ac120002.png?alt=media&token=9c3e9c6f-7cb3-41c2-926b-36553b77b268",
     primaryColorValue: 0xff137CC0,
     companyPhone: "+905355085552",
