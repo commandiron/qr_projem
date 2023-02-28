@@ -2,12 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/core/presentation/widgets/copyright_footer.dart';
 import 'package:qr_projem/home/presentation/widgets/welcome.dart';
 import 'package:qr_projem/home/presentation/widgets/how_to.dart';
 
 import '../domain/cubit/home_cubit.dart';
 import '../domain/cubit/home_state.dart';
-import '../../core/presentation/widgets/footer/footer.dart';
+import '../../core/presentation/widgets/footer.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({Key? key}) : super(key: key);
@@ -34,6 +35,7 @@ class HomeBody extends StatelessWidget {
                   Welcome(),
                   HowTo(),
                   Footer(),
+                  CopyrightFooter()
                 ]
               ),
             )

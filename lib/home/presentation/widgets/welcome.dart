@@ -28,6 +28,8 @@ class Welcome extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Image.asset("assets/images/qr/qr-code.png"),
+          AppSpace.verticalXL!,
           Text("İnşaat projeleri için proje tanıtımının kolay yolu.", style: AppTextStyle.h3!.copyWith(
             fontStyle: FontStyle.italic,
             color: Colors.white
