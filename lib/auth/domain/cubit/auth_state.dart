@@ -17,6 +17,24 @@ class AuthState {
       required this.phoneFormatter,
     }
   );
+
+  AuthState copyWith(
+    {
+      AuthPageState? authPageState,
+      PageController? pageController,
+      TextEditingController? textEditingController,
+      String? textFieldErrorMessage,
+      MaskTextInputFormatter? phoneFormatter,
+    }
+  ) {
+    return AuthState(
+      authPageState: authPageState ?? this.authPageState,
+      pageController: pageController ?? this.pageController,
+      textEditingController: textEditingController ?? this.textEditingController,
+      textFieldErrorMessage: textFieldErrorMessage ?? this.textFieldErrorMessage,
+      phoneFormatter: phoneFormatter ?? this.phoneFormatter,
+    );
+  }
 }
 
 @immutable

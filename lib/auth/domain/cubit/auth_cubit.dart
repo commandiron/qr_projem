@@ -31,7 +31,7 @@ class AuthCubit extends Cubit<AuthState> {
     validatePhoneNumber();
 
     if(state.textFieldErrorMessage.isEmpty) {
-      emit(copyStateWith(authPageState: AuthPageStateLoading()));
+      emit(state.copyWith(authPageState: AuthPageStateLoading()));
       authRepository.singInWithPhoneNumber(
         "+90${state.phoneFormatter.getUnmaskedText()}",
         onSuccess: () {
@@ -39,7 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
         },
         onError: () {
           emit(
-            copyStateWith(
+            state.copyWith(
               authPageState: AuthPageStateError("Doğrulama sağlanamadı."),
             )
           );
@@ -47,7 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
         },
         onTimeout: () {
           emit(
-            copyStateWith(
+            state.copyWith(
               authPageState: AuthPageStateError("Doğrulama sağlanamadı."),
             )
           );
@@ -60,26 +60,26 @@ class AuthCubit extends Cubit<AuthState> {
   void validatePhoneNumber() {
     final number = state.textEditingController.value.text;
     if(number.characters.length < 19) {
-      emit(copyStateWith(textFieldErrorMessage: "Lütfen telefon numaranızı doğru giriniz."));
+      emit(state.copyWith(textFieldErrorMessage: "Lütfen telefon numaranızı doğru giriniz."));
     } else {
-      emit(copyStateWith(textFieldErrorMessage: ""));
+      emit(state.copyWith(textFieldErrorMessage: ""));
     }
   }
 
   void singInVerification(String verificationCode) async {
-    emit(copyStateWith(authPageState: AuthPageStateLoading()));
+    emit(state.copyWith(authPageState: AuthPageStateLoading()));
     authRepository.singInVerification(
       verificationCode,
       onSuccess: () {
-        emit(copyStateWith(authPageState: AuthPageStateDone()));
+        emit(state.copyWith(authPageState: AuthPageStateDone()));
         jumpToPage(Done.pageIndex);
       },
       onError: () {
-        emit(copyStateWith(authPageState: AuthPageStateError("Kod doğrulanamadı.")));
+        emit(state.copyWith(authPageState: AuthPageStateError("Kod doğrulanamadı.")));
         jumpToPage(SignUp.pageIndex);
       },
       onTimeout: () {
-        emit(copyStateWith(authPageState: AuthPageStateError("Kod girilmedi.")));
+        emit(state.copyWith(authPageState: AuthPageStateError("Kod girilmedi.")));
         jumpToPage(SignUp.pageIndex);
       },
     );
@@ -87,31 +87,13 @@ class AuthCubit extends Cubit<AuthState> {
 
   void jumpToPage(int index) {
     state.pageController.jumpToPage(index);
-    emit(copyStateWith(authPageState: AuthPageStateDone()));
+    emit(state.copyWith(authPageState: AuthPageStateDone()));
   }
 
   Future<void> delayedJumpToPage(int index) async {
-    emit(copyStateWith(authPageState: AuthPageStateLoading()));
+    emit(state.copyWith(authPageState: AuthPageStateLoading()));
     await Future.delayed(const Duration(seconds: 1));
     state.pageController.jumpToPage(index);
-    emit(copyStateWith(authPageState: AuthPageStateDone()));
-  }
-
-  AuthState copyStateWith(
-    {
-      AuthPageState? authPageState,
-      PageController? pageController,
-      TextEditingController? textEditingController,
-      String? textFieldErrorMessage,
-      MaskTextInputFormatter? phoneFormatter,
-    }
-  ) {
-    return AuthState(
-      authPageState: authPageState ?? state.authPageState,
-      pageController: pageController ?? state.pageController,
-      textEditingController: textEditingController ?? state.textEditingController,
-      textFieldErrorMessage: textFieldErrorMessage ?? state.textFieldErrorMessage,
-      phoneFormatter: phoneFormatter ?? state.phoneFormatter,
-    );
+    emit(state.copyWith(authPageState: AuthPageStateDone()));
   }
 }
