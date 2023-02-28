@@ -8,6 +8,7 @@ class HowTo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 768,
+      color: Theme.of(context).colorScheme.primaryContainer,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

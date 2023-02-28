@@ -9,7 +9,7 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 256,
-      color: Theme.of(context).colorScheme.primaryContainer,
+      color: Theme.of(context).colorScheme.secondaryContainer,
       padding: AppPadding.horizontalXXXL!,
       alignment: Alignment.centerLeft,
       child: Image.asset("assets/images/logo/qr_projem_logo_with_text_black_white.png"),
