@@ -6,7 +6,6 @@ import 'package:qr_projem/core/presentation/widgets/footer/widgets/footer_text_b
 import 'package:qr_projem/core/presentation/widgets/footer/widgets/footer_title.dart';
 
 import '../../../domain/cubit/core/core_state.dart';
-import '../../config/app_padding.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -16,51 +15,59 @@ class Footer extends StatelessWidget {
     return Container(
       height: 256,
       color: Theme.of(context).colorScheme.secondaryContainer,
-      padding: AppPadding.horizontalXXXL!,
       alignment: Alignment.centerLeft,
       child: Row(
         children: [
+          AppSpace.horizontalExpanded!,
           Expanded(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Image.asset("assets/images/logo/qr_projem_logo_with_text_black_white.png")
-            )
-          ),
-          Expanded(
+            flex: 6,
             child: Row(
               children: [
-                BlocBuilder<CoreCubit, CoreState>(
-                  builder: (context, state) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Image.asset("assets/images/logo/qr_projem_logo_with_text_black_white.png")
+                  )
+                ),
+                AppSpace.horizontalXL!,
+                Expanded(
+                    child: Row(
                       children: [
-                        const FooterTitle(title: "Hesabım"),
-                        AppSpace.verticalL!,
-                        state.isUserAuthenticated
-                          ? FooterTextButton(
-                            label: "Profilim",
-                            onPressed: () {},
-                          )
-                          : Column(
-                            children: [
-                              FooterTextButton(
-                                label: "Giriş Yap",
-                                onPressed: () {},
-                              ),
-                              FooterTextButton(
-                                label: "Kayıt Ol",
-                                onPressed: () {},
-                              )
-                            ],
-                          )
-
+                        BlocBuilder<CoreCubit, CoreState>(
+                          builder: (context, state) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const FooterTitle(title: "Hesabım"),
+                                AppSpace.verticalL!,
+                                state.isUserAuthenticated
+                                    ? FooterTextButton(
+                                  label: "Profilim",
+                                  onPressed: () {},
+                                )
+                                    : Column(
+                                  children: [
+                                    FooterTextButton(
+                                      label: "Giriş Yap",
+                                      onPressed: () {},
+                                    ),
+                                    FooterTextButton(
+                                      label: "Kayıt Ol",
+                                      onPressed: () {},
+                                    )
+                                  ],
+                                )
+                              ],
+                            );
+                          },
+                        )
                       ],
-                    );
-                  },
+                    )
                 )
               ],
             )
-          )
+          ),
+          AppSpace.horizontalExpanded!,
         ],
       ),
     );

@@ -30,12 +30,20 @@ class Welcome extends StatelessWidget {
         children: [
           Image.asset("assets/images/qr/qr-code.png"),
           AppSpace.verticalXL!,
-          Text("İnşaat projeleri için proje tanıtımının kolay yolu.", style: AppTextStyle.h3!.copyWith(
-            fontStyle: FontStyle.italic,
-            color: Colors.white
-          ),),
+          Text(
+            "İnşaat projeleri için proje tanıtımının kolay yolu.",
+            textAlign: TextAlign.center,
+            style: AppTextStyle.h3!.copyWith(
+              fontStyle: FontStyle.italic,
+              color: Colors.white
+            ),
+          ),
           AppSpace.verticalXL!,
-          Text("Hemen proje bilgilerinizi girin ve Qr kodunuzu oluşturun", style: AppTextStyle.h1!.copyWith(color: Colors.white),),
+          Text(
+            "Hemen proje bilgilerinizi girin ve Qr kodunuzu oluşturun",
+            style: AppTextStyle.h1!.copyWith(color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
           AppSpace.verticalXL!,
           ElevatedButton(
             style: ButtonStyle(
