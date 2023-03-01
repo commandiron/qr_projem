@@ -8,7 +8,7 @@ import 'package:qr_projem/home/presentation/widgets/how_to.dart';
 
 import '../domain/cubit/home_cubit.dart';
 import '../domain/cubit/home_state.dart';
-import '../../core/presentation/widgets/footer.dart';
+import '../../core/presentation/widgets/footer/footer.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({Key? key}) : super(key: key);

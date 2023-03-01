@@ -5,7 +5,7 @@ import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/widgets/app_bar/custom_app_bar.dart';
 import 'package:qr_projem/core/presentation/widgets/copyright_footer.dart';
 import 'package:qr_projem/core/presentation/widgets/floating_buttons/floating_buttons.dart';
-import 'package:qr_projem/core/presentation/widgets/footer.dart';
+import 'package:qr_projem/core/presentation/widgets/footer/footer.dart';
 import '../domain/cubit/auth_cubit.dart';
 import 'auth_body.dart';
 
