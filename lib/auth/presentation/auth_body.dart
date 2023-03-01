@@ -28,6 +28,7 @@ class AuthBody extends StatelessWidget {
       builder: (context, state) {
         return PageView.builder(
           controller: state.pageController,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: sections.length,
           itemBuilder: (context, index) {
             if(state.authPageState is AuthPageStateLoading) {

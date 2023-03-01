@@ -18,7 +18,7 @@ class Verification extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Lütfen telefonunuza gelen kodu giriniz", style: AppTextStyle.h4,),
+          Text("Lütfen telefonunuza gelen kodu giriniz", style: AppTextStyle.h3,),
           AppSpace.verticalXL!,
           VerificationCode(
             fullBorder: true,

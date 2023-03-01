@@ -45,8 +45,8 @@ class SignIn extends StatelessWidget {
                 return TextField(
                   controller: state.textEditingController,
                   decoration: InputDecoration(
-                      hintText: "+90 (XXX) XXX-XX-XX",
-                      errorText: state.textFieldErrorMessage
+                    hintText: "+90 (XXX) XXX-XX-XX",
+                    errorText: state.textFieldErrorMessage
                   ),
                   inputFormatters: [
                     state.phoneFormatter
