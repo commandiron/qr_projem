@@ -4,7 +4,7 @@ import 'package:qr_projem/core/data/repositories/auth_repository.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/widgets/app_bar/custom_app_bar.dart';
 import 'package:qr_projem/core/presentation/widgets/copyright_footer.dart';
-import 'package:qr_projem/core/presentation/widgets/floating_whatsapp_button.dart';
+import 'package:qr_projem/core/presentation/widgets/floating_buttons/floating_buttons.dart';
 import 'package:qr_projem/core/presentation/widgets/footer.dart';
 import '../domain/cubit/auth_cubit.dart';
 import 'auth_body.dart';
@@ -39,7 +39,7 @@ class _AuthScreenState extends State<AuthScreen> {
       create: (context) => AuthCubit(widget.authRepository, initialPage),
       child: Scaffold(
         appBar: const CustomAppBar(),
-        floatingActionButton: const FloatingWhatsappButton(),
+        floatingActionButton: const FloatingButtons(),
         body: Column(
           children: const [
             Expanded(
