@@ -20,33 +20,33 @@ class ControlPanel extends StatelessWidget {
               child: Padding(
                 padding: AppPadding.verticalL!,
                 child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(32)
-                      )
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(32)
+                    )
                   ),
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 1,
-                          child: Card(
-                            color: Theme.of(context).colorScheme.primary,
-                            margin: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(32),
-                                  bottomLeft: Radius.circular(32),
-                                )
+                        flex: 1,
+                        child: Card(
+                          color: Theme.of(context).colorScheme.primary,
+                          margin: EdgeInsets.zero,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(32),
+                              bottomLeft: Radius.circular(32),
+                            )
+                          ),
+                          child: Padding(
+                            padding: AppPadding.verticalL!.add(AppPadding.horizontalS!),
+                            child: Column(
+                              children: [
+                                Text("Kontrol Paneli", style: AppTextStyle.h3,)
+                              ],
                             ),
-                            child: Padding(
-                              padding: AppPadding.verticalL!.add(AppPadding.horizontalS!),
-                              child: Column(
-                                children: [
-                                  Text("Kontrol Paneli", style: AppTextStyle.h3,)
-                                ],
-                              ),
-                            ),
-                          )
+                          ),
+                        )
                       ),
                       Expanded(
                           flex: 3,

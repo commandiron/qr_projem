@@ -18,13 +18,13 @@ class ProfileBody extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    ControlPanel(),
-                    Footer(),
-                    CopyrightFooter()
-                  ]
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  ControlPanel(),
+                  Footer(),
+                  CopyrightFooter()
+                ]
               ),
             )
           ],
