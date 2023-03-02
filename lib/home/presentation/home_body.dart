@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/presentation/widgets/copyright_footer.dart';
@@ -19,13 +17,6 @@ class HomeBody extends StatelessWidget {
       builder: (context, state) {
         return CustomScrollView(
           controller: state.scrollController,
-          scrollBehavior: const MaterialScrollBehavior().copyWith(
-            dragDevices: {
-              PointerDeviceKind.mouse,
-              PointerDeviceKind.trackpad,
-              PointerDeviceKind.touch
-            },
-          ),
           slivers: [
             SliverToBoxAdapter(
               child: ListView(
