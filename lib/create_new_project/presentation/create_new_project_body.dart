@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/profile/presentation/widgets/my_projects.dart';
+import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
+import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
+import 'package:qr_projem/create_new_project/presentation/widgets/create_new.dart';
 
 import '../../core/presentation/widgets/copyright_footer.dart';
 import '../../core/presentation/widgets/footer/footer.dart';
-import '../domain/cubit/profile_cubit.dart';
-import '../domain/cubit/profile_state.dart';
 
-class ProfileBody extends StatelessWidget {
-  const ProfileBody({Key? key}) : super(key: key);
+class CreateNewProjectBody extends StatelessWidget {
+  const CreateNewProjectBody({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileState>(
+    return BlocBuilder<CreateNewProjectCubit, CreateNewProjectState>(
       builder: (context, state) {
         return CustomScrollView(
           controller: state.scrollController,
@@ -21,7 +21,7 @@ class ProfileBody extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: const [
-                  MyProjects(),
+                  CreateNew(),
                   Footer(),
                   CopyrightFooter()
                 ]

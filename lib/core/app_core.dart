@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/data/repositories/auth_repository.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/config/app_theme.dart';
+import 'package:qr_projem/create_new_project/presentation/create_new_project_screen.dart';
 
 import '../admin/presentation/admin_screen.dart';
 import '../auth/presentation/auth_screen.dart';
@@ -98,6 +99,15 @@ class MaterialChild extends StatelessWidget {
                   ),
                   pageBuilder: (context, animation, secondaryAnimation) {
                     return const ProfileScreen();
+                  },
+                );
+              case CreateNewProjectScreen.route :
+                return PageRouteBuilder(
+                  settings: const RouteSettings(
+                      name: CreateNewProjectScreen.route
+                  ),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const CreateNewProjectScreen();
                   },
                 );
             }
