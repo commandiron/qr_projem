@@ -58,7 +58,7 @@ class CreateNewSteps extends StatelessWidget {
                           AppSpace.verticalM!,
                           Text("${state.stepPageIndex + 1} / ${state.stepPages.length}"),
                           Expanded(
-                            child: state.stepPages[state.stepPageIndex].view
+                            child: state.stepPages.firstWhere((stepPage) => stepPage.index == state.stepPageIndex).view
                           ),
                           ElevatedButton(
                             onPressed: () {

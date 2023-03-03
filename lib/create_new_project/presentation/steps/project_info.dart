@@ -10,7 +10,7 @@ import '../../../core/presentation/config/app_text_style.dart';
 class ProjectInfo extends StatelessWidget {
   const ProjectInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 0;
+  static const stepPageIndex = 1;
 
   @override
   Widget build(BuildContext context) {

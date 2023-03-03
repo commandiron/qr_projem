@@ -11,20 +11,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   CreateNewProjectCubit() : super(
     CreateNewProjectState(
       scrollController: ScrollController(),
-      stepPages: [
-        StepPage(
-            index: ProjectInfo.stepPageIndex,
-            title: "Proje Bilgileri",
-            view: const ProjectInfo(),
-            isDone: false
-        ),
-        StepPage(
-            index: ContactInfo.stepPageIndex,
-            title: "İletişim Bilgileri",
-            view: const ContactInfo(),
-            isDone: false
-        ),
-      ],
+      stepPages: StepPage.items,
       stepPageIndex: 0,
       nameTextEditingController: TextEditingController(),
       startTimeTextEditingController: TextEditingController(),

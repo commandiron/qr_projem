@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../presentation/steps/contact_info.dart';
+import '../presentation/steps/project_info.dart';
+
 
 class CreateNewProjectState {
   ScrollController scrollController;
@@ -92,4 +95,19 @@ class StepPage {
       isDone: isDone ?? this.isDone
     );
   }
+
+  static final items = [
+    StepPage(
+      index: ProjectInfo.stepPageIndex,
+      title: "Proje Bilgileri",
+      view: const ProjectInfo(),
+      isDone: false
+    ),
+    StepPage(
+      index: ContactInfo.stepPageIndex,
+      title: "İletişim Bilgileri",
+      view: const ContactInfo(),
+      isDone: false
+    ),
+  ];
 }
