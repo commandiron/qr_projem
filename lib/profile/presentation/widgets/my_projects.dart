@@ -32,7 +32,9 @@ class MyProjects extends StatelessWidget {
                     child: Column(
                       children: [
                         Text("Projelerim", style: AppTextStyle.h2,),
-                        AppSpace.verticalExpanded!,
+                        AppSpace.verticalXL!,
+                        Text("Projenize Qr kod oluşturmak için hemen projenizi ekleyin", style: AppTextStyle.h4,),
+                        AppSpace.verticalXL!,
                         Expanded(
                           flex: 3,
                           child: AddProjectButton(

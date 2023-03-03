@@ -53,14 +53,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       )
                     ),
                     AppSpace.horizontalXL!,
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Expanded(
-                        child: state.isUserAuthenticated
-                          ? const ProfileSignOutButton()
-                          : const SignInUpButton(),
-                      ),
-                    )
+                    Expanded(
+                      child: state.isUserAuthenticated
+                        ? const ProfileSignOutButton()
+                        : const SignInUpButton(),
+                    ),
                   ],
                 )
               ),

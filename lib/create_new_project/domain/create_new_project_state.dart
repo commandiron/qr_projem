@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
-import 'entiries/project_entry.dart';
 
 class CreateNewProjectState {
   ScrollController scrollController;
   TextEditingController nameTextEditingController;
-  ProjectEntry projectEntry;
+  String? name;
+  DateTime? startTime;
+  DateTime? finishTime;
+
 
   CreateNewProjectState(
     {
       required this.scrollController,
       required this.nameTextEditingController,
-      required this.projectEntry
+      this.name,
+      this.startTime,
+      this.finishTime
     }
   );
 
@@ -19,13 +23,17 @@ class CreateNewProjectState {
       {
         ScrollController? scrollController,
         TextEditingController? nameTextEditingController,
-        ProjectEntry? projectEntry,
+        String? name,
+        DateTime? startTime,
+        DateTime? finishTime
       }
       ) {
     return CreateNewProjectState(
       scrollController: scrollController ?? this.scrollController,
       nameTextEditingController: nameTextEditingController ?? this.nameTextEditingController,
-      projectEntry: projectEntry ?? this.projectEntry,
+      name: name ?? this.name,
+      startTime: startTime ?? this.startTime,
+      finishTime: finishTime ?? this.finishTime
     );
   }
 }
