@@ -28,7 +28,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
      if(validateStepsPage()) {
        final nextPageIndex = state.stepPageIndex + 1;
        if(nextPageIndex < state.stepPages.length) {
-         state.stepPages[state.stepPageIndex].isDone = true;
          jumpToStepPage(nextPageIndex);
        }
      }
@@ -39,16 +38,22 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       case ProjectInfo.stepPageIndex : {
         if(state.projectInfoFormKey.currentState!.validate()) {
           state.projectInfoFormKey.currentState!.save();
+          state.stepPages[state.stepPageIndex].isDone = true;
           return true;
         } else {
+          state.stepPages[state.stepPageIndex].isDone = false;
+          emit(state.copyWith(stepPages: state.stepPages));
           return false;
         }
       }
       case ContactInfo.stepPageIndex : {
         if(state.contactInfoFormKey.currentState!.validate()) {
           state.contactInfoFormKey.currentState!.save();
+          state.stepPages[state.stepPageIndex].isDone = true;
           return true;
         } else {
+          state.stepPages[state.stepPageIndex].isDone = false;
+          emit(state.copyWith(stepPages: state.stepPages));
           return false;
         }
       }
