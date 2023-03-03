@@ -91,9 +91,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   void setStartTime(DateTime dateTime) {
     state.startTimeTextEditingController.text = DateFormat("dd/MM/yyyy").format(dateTime);
-    emit(
-      state.copyWith(startTime: dateTime)
-    );
+    emit(state.copyWith(startTime: dateTime));
   }
   void setFinishTime(DateTime dateTime) {
     state.finishTimeTextEditingController.text = DateFormat("dd/MM/yyyy").format(dateTime);
