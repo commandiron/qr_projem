@@ -39,6 +39,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         if(state.projectInfoFormKey.currentState!.validate()) {
           state.projectInfoFormKey.currentState!.save();
           state.stepPages[state.stepPageIndex].isDone = true;
+          emit(state.copyWith(stepPages: state.stepPages));
           return true;
         } else {
           state.stepPages[state.stepPageIndex].isDone = false;
@@ -50,6 +51,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         if(state.contactInfoFormKey.currentState!.validate()) {
           state.contactInfoFormKey.currentState!.save();
           state.stepPages[state.stepPageIndex].isDone = true;
+          emit(state.copyWith(stepPages: state.stepPages));
           return true;
         } else {
           state.stepPages[state.stepPageIndex].isDone = false;
