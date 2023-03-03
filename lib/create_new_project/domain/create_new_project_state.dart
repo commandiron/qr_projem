@@ -7,7 +7,11 @@ class CreateNewProjectState {
   int stepPageIndex;
   TextEditingController nameTextEditingController;
   String? nameTextFieldErrorMessage;
+  TextEditingController startTimeTextEditingController;
+  String? startTimeTextFieldErrorMessage;
   DateTime? startTime;
+  TextEditingController finishTimeTextEditingController;
+  String? finishTimeTextFieldErrorMessage;
   DateTime? finishTime;
 
 
@@ -18,7 +22,11 @@ class CreateNewProjectState {
       required this.stepPageIndex,
       required this.nameTextEditingController,
       this.nameTextFieldErrorMessage,
+      required this.startTimeTextEditingController,
+      this.startTimeTextFieldErrorMessage,
       this.startTime,
+      required this.finishTimeTextEditingController,
+      this.finishTimeTextFieldErrorMessage,
       this.finishTime
     }
   );
@@ -30,7 +38,11 @@ class CreateNewProjectState {
         int? stepPageIndex,
         TextEditingController? nameTextEditingController,
         String? nameTextFieldErrorMessage,
+        TextEditingController? startTimeTextEditingController,
+        String? startTimeTextFieldErrorMessage,
         DateTime? startTime,
+        TextEditingController? finishTimeTextEditingController,
+        String? finishTimeTextFieldErrorMessage,
         DateTime? finishTime
       }
       ) {
@@ -39,8 +51,12 @@ class CreateNewProjectState {
       stepPages: stepPages ?? this.stepPages,
       stepPageIndex: stepPageIndex ?? this.stepPageIndex,
       nameTextEditingController: nameTextEditingController ?? this.nameTextEditingController,
-      nameTextFieldErrorMessage: nameTextFieldErrorMessage ?? this.nameTextFieldErrorMessage,
+      nameTextFieldErrorMessage: nameTextFieldErrorMessage,
+      startTimeTextEditingController: startTimeTextEditingController ?? this.startTimeTextEditingController,
+      startTimeTextFieldErrorMessage: startTimeTextFieldErrorMessage,
       startTime: startTime ?? this.startTime,
+      finishTimeTextEditingController: finishTimeTextEditingController ?? this.finishTimeTextEditingController,
+      finishTimeTextFieldErrorMessage: finishTimeTextFieldErrorMessage,
       finishTime: finishTime ?? this.finishTime
     );
   }

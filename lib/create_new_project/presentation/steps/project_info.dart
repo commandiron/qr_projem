@@ -29,15 +29,18 @@ class ProjectInfo extends StatelessWidget {
                     children: [
                       Text("Proje Bilgileri", style: AppTextStyle.h3),
                       AppSpace.verticalM!,
+                      Text("Proje adı:", style: AppTextStyle.b1,),
                       TextField(
                         controller: state.nameTextEditingController,
                         decoration: InputDecoration(
-                          hintText: "Proje adını giriniz.",
+                          hintText: "Ör: Maltepe | Yüksel Apartmanı",
                           errorText: state.nameTextFieldErrorMessage
                         ),
                       ),
                       AppSpace.verticalL!,
                       ProjectDatePicker(
+                        textEditingController: state.startTimeTextEditingController,
+                        errorText: state.startTimeTextFieldErrorMessage,
                         title: "Proje Başlangıç tarihi:",
                         startTime: state.startTime,
                         onSubmit: (dateTime) {
@@ -46,6 +49,8 @@ class ProjectInfo extends StatelessWidget {
                       ),
                       AppSpace.verticalL!,
                       ProjectDatePicker(
+                        textEditingController: state.finishTimeTextEditingController,
+                        errorText: state.finishTimeTextFieldErrorMessage,
                         title: "Proje Bitiş tarihi:",
                         startTime: state.finishTime,
                         onSubmit: (dateTime) {
