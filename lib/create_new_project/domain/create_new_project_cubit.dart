@@ -15,7 +15,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       stepPageIndex: 0,
       nameTextEditingController: TextEditingController(),
       startTimeTextEditingController: TextEditingController(),
-      finishTimeTextEditingController: TextEditingController()
+      finishTimeTextEditingController: TextEditingController(),
+      contactInfoFormKey: GlobalKey<FormState>()
     )
   );
 
@@ -37,7 +38,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   }
 
   bool validateStepsPage() {
-    switch(state.stepPages[state.stepPageIndex].index) {
+    switch(state.stepPageIndex) {
       case ProjectInfo.stepPageIndex : {
         if(state.nameTextEditingController.text.isEmpty) {
           emit(state.copyWith(nameTextFieldErrorMessage: "Lütfen ilgili alanı doldurunuz."));
@@ -64,7 +65,11 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         return true;
       }
       case ContactInfo.stepPageIndex : {
-        return true;
+        if(state.contactInfoFormKey.currentState!.validate()) {
+          return true;
+        } else {
+          return false;
+        }
       }
       default : {
         return false;

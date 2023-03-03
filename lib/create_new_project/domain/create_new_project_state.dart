@@ -17,6 +17,8 @@ class CreateNewProjectState {
   String? finishTimeTextFieldErrorMessage;
   DateTime? finishTime;
 
+  GlobalKey<FormState> contactInfoFormKey;
+
 
   CreateNewProjectState(
     {
@@ -30,7 +32,8 @@ class CreateNewProjectState {
       this.startTime,
       required this.finishTimeTextEditingController,
       this.finishTimeTextFieldErrorMessage,
-      this.finishTime
+      this.finishTime,
+      required this.contactInfoFormKey,
     }
   );
 
@@ -46,7 +49,8 @@ class CreateNewProjectState {
         DateTime? startTime,
         TextEditingController? finishTimeTextEditingController,
         String? finishTimeTextFieldErrorMessage,
-        DateTime? finishTime
+        DateTime? finishTime,
+        GlobalKey<FormState>? contactInfoFormKey
       }
       ) {
     return CreateNewProjectState(
@@ -60,7 +64,8 @@ class CreateNewProjectState {
       startTime: startTime ?? this.startTime,
       finishTimeTextEditingController: finishTimeTextEditingController ?? this.finishTimeTextEditingController,
       finishTimeTextFieldErrorMessage: finishTimeTextFieldErrorMessage,
-      finishTime: finishTime ?? this.finishTime
+      finishTime: finishTime ?? this.finishTime,
+      contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey
     );
   }
 }
