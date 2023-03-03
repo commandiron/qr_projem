@@ -21,7 +21,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
             index: ContactInfo.stepPageIndex,
             title: "İletişim Bilgileri",
             view: const ContactInfo(),
-            isDone: true
+            isDone: false
         ),
       ],
       stepPageIndex: 0,
@@ -40,6 +40,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
      if(validateStepsPage()) {
        final nextPageIndex = state.stepPageIndex + 1;
        if(nextPageIndex < state.stepPages.length) {
+         state.stepPages[state.stepPageIndex].isDone = true;
          jumpToStepPage(nextPageIndex);
        }
      }
