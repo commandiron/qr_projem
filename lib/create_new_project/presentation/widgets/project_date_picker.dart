@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
 import 'date_picker_alert_dialog.dart';
 
-class ProjectDatePicker extends StatelessWidget {
-  const ProjectDatePicker({required this.textEditingController, required this.errorText, required this.title, required this.startTime, required this.onSubmit, Key? key}) : super(key: key);
+class ProjectDatePicker extends StatefulWidget {
+  const ProjectDatePicker({required this.title, Key? key}) : super(key: key);
 
-  final TextEditingController textEditingController;
-  final String? errorText;
   final String title;
-  final DateTime? startTime;
-  final void Function(DateTime dateTime) onSubmit;
+
+  @override
+  State<ProjectDatePicker> createState() => _ProjectDatePickerState();
+}
+
+class _ProjectDatePickerState extends State<ProjectDatePicker> {
+
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +26,10 @@ class ProjectDatePicker extends StatelessWidget {
         context: context,
         builder: (dialogContext) {
           return DatePickerAlertDialog(
-            initialDate: startTime,
             onSubmit: (dateTime) {
-              onSubmit(dateTime);
+              setState(() {
+                _controller.text = DateFormat("dd/MM/yyyy").format(dateTime);
+              });
               Navigator.pop(dialogContext);
             },
             onCancel: () {
@@ -37,18 +43,22 @@ class ProjectDatePicker extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,  style: AppTextStyle.b1,),
+        Text(widget.title,  style: AppTextStyle.b1,),
         AppSpace.verticalM!,
         Row(
           children: [
             Expanded(
-              child: TextField(
-                controller: textEditingController,
+              child: TextFormField(
+                controller: _controller,
                 readOnly: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "__/__/____",
-                  errorText: errorText,
                 ),
+                validator: (value) {
+                  if(value == "") {
+                    return "Lütfen ilgili alanı doldurunuz.";
+                  }
+                },
                 onTap: () {
                   showDatePickerDialog();
                 },

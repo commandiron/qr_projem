@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../../core/data/repositories/project_repository.dart';
 import '../presentation/steps/contact_info.dart';
@@ -13,9 +12,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       scrollController: ScrollController(),
       stepPages: StepPage.items,
       stepPageIndex: 0,
-      nameTextEditingController: TextEditingController(),
-      startTimeTextEditingController: TextEditingController(),
-      finishTimeTextEditingController: TextEditingController(),
+      projectInfoFormKey: GlobalKey<FormState>(),
       contactInfoFormKey: GlobalKey<FormState>()
     )
   );
@@ -40,32 +37,16 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   bool validateStepsPage() {
     switch(state.stepPageIndex) {
       case ProjectInfo.stepPageIndex : {
-        if(state.nameTextEditingController.text.isEmpty) {
-          emit(state.copyWith(nameTextFieldErrorMessage: "Lütfen ilgili alanı doldurunuz."));
+        if(state.projectInfoFormKey.currentState!.validate()) {
+          state.projectInfoFormKey.currentState!.save();
+          return true;
+        } else {
           return false;
         }
-        if(state.nameTextEditingController.text.isNotEmpty) {
-          emit(state.copyWith(nameTextFieldErrorMessage: null));
-        }
-        if(state.startTimeTextEditingController.text.isEmpty) {
-          emit(state.copyWith(startTimeTextFieldErrorMessage: "Lütfen ilgili alanı doldurunuz."));
-          return false;
-        }
-        if(state.startTimeTextEditingController.text.isNotEmpty) {
-          emit(state.copyWith(startTimeTextFieldErrorMessage: null));
-          print(state.startTimeTextFieldErrorMessage);
-        }
-        if(state.finishTimeTextEditingController.text.isEmpty) {
-          emit(state.copyWith(finishTimeTextFieldErrorMessage: "Lütfen ilgili alanı doldurunuz."));
-          return false;
-        }
-        if(state.finishTimeTextEditingController.text.isNotEmpty) {
-          emit(state.copyWith(finishTimeTextFieldErrorMessage: null));
-        }
-        return true;
       }
       case ContactInfo.stepPageIndex : {
         if(state.contactInfoFormKey.currentState!.validate()) {
+          state.contactInfoFormKey.currentState!.save();
           return true;
         } else {
           return false;
@@ -79,15 +60,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   void jumpToStepPage(int index) {
     emit(state.copyWith(stepPageIndex: index));
-  }
-
-  void setStartTime(DateTime dateTime) {
-    state.startTimeTextEditingController.text = DateFormat("dd/MM/yyyy").format(dateTime);
-    emit(state.copyWith(startTime: dateTime));
-  }
-  void setFinishTime(DateTime dateTime) {
-    state.finishTimeTextEditingController.text = DateFormat("dd/MM/yyyy").format(dateTime);
-    emit(state.copyWith(finishTime: dateTime));
   }
 
   final ProjectRepository _projectRepository = ProjectRepository();

@@ -8,31 +8,15 @@ class CreateNewProjectState {
   ScrollController scrollController;
   List<StepPage> stepPages;
   int stepPageIndex;
-  TextEditingController nameTextEditingController;
-  String? nameTextFieldErrorMessage;
-  TextEditingController startTimeTextEditingController;
-  String? startTimeTextFieldErrorMessage;
-  DateTime? startTime;
-  TextEditingController finishTimeTextEditingController;
-  String? finishTimeTextFieldErrorMessage;
-  DateTime? finishTime;
-
+  GlobalKey<FormState> projectInfoFormKey;
   GlobalKey<FormState> contactInfoFormKey;
-
 
   CreateNewProjectState(
     {
       required this.scrollController,
       required this.stepPages,
       required this.stepPageIndex,
-      required this.nameTextEditingController,
-      this.nameTextFieldErrorMessage,
-      required this.startTimeTextEditingController,
-      this.startTimeTextFieldErrorMessage,
-      this.startTime,
-      required this.finishTimeTextEditingController,
-      this.finishTimeTextFieldErrorMessage,
-      this.finishTime,
+      required this.projectInfoFormKey,
       required this.contactInfoFormKey,
     }
   );
@@ -42,14 +26,9 @@ class CreateNewProjectState {
         ScrollController? scrollController,
         List<StepPage>? stepPages,
         int? stepPageIndex,
-        TextEditingController? nameTextEditingController,
-        String? nameTextFieldErrorMessage,
-        TextEditingController? startTimeTextEditingController,
-        String? startTimeTextFieldErrorMessage,
         DateTime? startTime,
-        TextEditingController? finishTimeTextEditingController,
-        String? finishTimeTextFieldErrorMessage,
         DateTime? finishTime,
+        GlobalKey<FormState>? projectInfoFormKey,
         GlobalKey<FormState>? contactInfoFormKey
       }
       ) {
@@ -57,14 +36,7 @@ class CreateNewProjectState {
       scrollController: scrollController ?? this.scrollController,
       stepPages: stepPages ?? this.stepPages,
       stepPageIndex: stepPageIndex ?? this.stepPageIndex,
-      nameTextEditingController: nameTextEditingController ?? this.nameTextEditingController,
-      nameTextFieldErrorMessage: nameTextFieldErrorMessage,
-      startTimeTextEditingController: startTimeTextEditingController ?? this.startTimeTextEditingController,
-      startTimeTextFieldErrorMessage: startTimeTextFieldErrorMessage,
-      startTime: startTime ?? this.startTime,
-      finishTimeTextEditingController: finishTimeTextEditingController ?? this.finishTimeTextEditingController,
-      finishTimeTextFieldErrorMessage: finishTimeTextFieldErrorMessage,
-      finishTime: finishTime ?? this.finishTime,
+      projectInfoFormKey: projectInfoFormKey ?? this.projectInfoFormKey,
       contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey
     );
   }

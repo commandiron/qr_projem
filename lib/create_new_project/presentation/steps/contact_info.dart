@@ -9,7 +9,7 @@ import '../../../core/presentation/config/app_text_style.dart';
 class ContactInfo extends StatefulWidget {
   const ContactInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 0;
+  static const stepPageIndex = 1;
 
   @override
   State<ContactInfo> createState() => _ContactInfoState();

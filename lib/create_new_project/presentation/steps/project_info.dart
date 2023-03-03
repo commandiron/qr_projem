@@ -10,7 +10,7 @@ import '../../../core/presentation/config/app_text_style.dart';
 class ProjectInfo extends StatelessWidget {
   const ProjectInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 1;
+  static const stepPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,40 +24,37 @@ class ProjectInfo extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: FractionallySizedBox(
                   widthFactor: 0.75,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Proje Bilgileri", style: AppTextStyle.h3),
-                      AppSpace.verticalM!,
-                      Text("Proje adı:", style: AppTextStyle.b1,),
-                      TextField(
-                        controller: state.nameTextEditingController,
-                        decoration: InputDecoration(
-                          hintText: "Ör: Maltepe | Yüksel Apartmanı",
-                          errorText: state.nameTextFieldErrorMessage
+                  child: Form(
+                    key: state.projectInfoFormKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Proje Bilgileri", style: AppTextStyle.h3),
+                        AppSpace.verticalM!,
+                        Text("Proje adı:", style: AppTextStyle.b1,),
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: "Ör: Maltepe | Yüksel Apartmanı",
+                          ),
+                          validator: (value) {
+                            if(value == "") {
+                              return "Lütfen ilgili alanı doldurunuz.";
+                            }
+                          },
+                          onSaved: (newValue) {
+                            //Burada cubite değeri kaydet.
+                          },
                         ),
-                      ),
-                      AppSpace.verticalL!,
-                      ProjectDatePicker(
-                        textEditingController: state.startTimeTextEditingController,
-                        errorText: state.startTimeTextFieldErrorMessage,
-                        title: "Proje Başlangıç tarihi:",
-                        startTime: state.startTime,
-                        onSubmit: (dateTime) {
-                          BlocProvider.of<CreateNewProjectCubit>(context, listen: false).setStartTime(dateTime);
-                        },
-                      ),
-                      AppSpace.verticalL!,
-                      ProjectDatePicker(
-                        textEditingController: state.finishTimeTextEditingController,
-                        errorText: state.finishTimeTextFieldErrorMessage,
-                        title: "Proje Bitiş tarihi:",
-                        startTime: state.finishTime,
-                        onSubmit: (dateTime) {
-                          BlocProvider.of<CreateNewProjectCubit>(context, listen: false).setFinishTime(dateTime);
-                        },
-                      ),
-                    ]
+                        AppSpace.verticalL!,
+                        const ProjectDatePicker(
+                          title: "Proje Başlangıç tarihi:",
+                        ),
+                        AppSpace.verticalL!,
+                        const ProjectDatePicker(
+                          title: "Proje Bitiş tarihi:",
+                        ),
+                      ]
+                    ),
                   ),
                 ),
               )
