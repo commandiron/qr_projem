@@ -38,7 +38,7 @@ class _ContactInfoState extends State<ContactInfo> {
                         Text("İletişim Bilgileri", style: AppTextStyle.h3),
                         AppSpace.verticalM!,
                         TextFormField(
-                          controller: TextEditingController(),
+                          controller: TextEditingController(text: state.companyPhone),
                           decoration: const InputDecoration(
                             hintText: "Telefon:",
                           ),
@@ -46,7 +46,12 @@ class _ContactInfoState extends State<ContactInfo> {
                             PhoneInputMask.mask
                           ],
                           onSaved: (newValue) {
-
+                            if(newValue != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                .savePhoneNumber(
+                                  "+90${PhoneInputMask.mask.unmaskText(newValue)}"
+                                );
+                            }
                           },
                           validator: (value) {
                             if(value != null) {
@@ -58,10 +63,16 @@ class _ContactInfoState extends State<ContactInfo> {
                         ),
                         AppSpace.verticalL!,
                         TextFormField(
-                          controller: TextEditingController(text: null),
+                          controller: TextEditingController(text: state.companyMail),
                           decoration: const InputDecoration(
                             hintText: "E-posta:",
                           ),
+                          onSaved: (newValue) {
+                            if(newValue != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                .saveEmail(newValue);
+                            }
+                          },
                           validator: (value) {
                             if(value != null) {
                               if(!validator.email(value)) {

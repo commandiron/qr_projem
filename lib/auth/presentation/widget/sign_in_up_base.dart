@@ -73,10 +73,10 @@ class SignInUpBase extends StatelessWidget {
                           }
                         }
                       },
-                      onSaved: (value) {
-                        if(value != null) {
+                      onSaved: (newValue) {
+                        if(newValue != null) {
                           BlocProvider.of<AuthCubit>(context, listen: false).singInWithPhoneNumber(
-                              "+90${PhoneInputMask.mask.unmaskText(value)}"
+                              "+90${PhoneInputMask.mask.unmaskText(newValue)}"
                           );
                         }
                       },

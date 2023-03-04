@@ -42,7 +42,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       case ProjectInfo.stepPageIndex : {
         if(state.projectInfoFormKey.currentState!.validate()) {
           state.projectInfoFormKey.currentState!.save();
-          emit(state.copyWith(stepPages: state.stepPages));
           return true;
         } else {
           return false;
@@ -65,13 +64,21 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void saveName(String? name) {
     emit(state.copyWith(name: name));
   }
-
   void saveStartTime(DateTime? startTime) {
     emit(state.copyWith(startTime: startTime));
   }
   void saveFinishTime(DateTime? finishTime) {
     emit(state.copyWith(finishTime: finishTime));
   }
+
+  void savePhoneNumber(String? phoneNumber) {
+    emit(state.copyWith(companyPhone: phoneNumber));
+  }
+  void saveEmail(String? email) {
+    emit(state.copyWith(companyMail: email));
+  }
+
+
 
   void jumpToStepPage(int index) {
     emit(state.copyWith(stepPageIndex: index));

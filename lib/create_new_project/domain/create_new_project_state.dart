@@ -10,9 +10,15 @@ class CreateNewProjectState {
   int stepPageIndex;
   GlobalKey<FormState> projectInfoFormKey;
   GlobalKey<FormState> contactInfoFormKey;
+
   String? name;
   DateTime? startTime;
   DateTime? finishTime;
+
+  String? companyPhone;
+  String? companyMail;
+
+
 
   CreateNewProjectState(
     {
@@ -23,7 +29,10 @@ class CreateNewProjectState {
       required this.contactInfoFormKey,
       this.name,
       this.startTime,
-      this.finishTime
+      this.finishTime,
+
+      this.companyPhone,
+      this.companyMail
     }
   );
 
@@ -37,6 +46,8 @@ class CreateNewProjectState {
         String? name,
         DateTime? startTime,
         DateTime? finishTime,
+        String? companyPhone,
+        String? companyMail,
       }
       ) {
     return CreateNewProjectState(
@@ -47,7 +58,9 @@ class CreateNewProjectState {
       contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey,
       name: name ?? this.name,
       startTime: startTime ?? this.startTime,
-      finishTime: finishTime ?? this.finishTime
+      finishTime: finishTime ?? this.finishTime,
+      companyPhone: companyPhone ?? this.companyPhone,
+      companyMail: companyMail ?? this.companyMail
     );
   }
 }
