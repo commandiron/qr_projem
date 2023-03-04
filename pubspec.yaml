@@ -23,6 +23,7 @@ dependencies:
   url_launcher: ^6.1.7
   syncfusion_flutter_datepicker: ^20.4.52
   intl: ^0.17.0
+  regexed_validator: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:

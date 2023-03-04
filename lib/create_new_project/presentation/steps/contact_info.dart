@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
+import 'package:regexed_validator/regexed_validator.dart';
 import '../../../core/presentation/config/app_padding.dart';
 import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
+import '../../../core/presentation/helper/phone_input_mask.dart';
 
 class ContactInfo extends StatefulWidget {
   const ContactInfo({Key? key}) : super(key: key);
@@ -42,29 +43,30 @@ class _ContactInfoState extends State<ContactInfo> {
                             hintText: "Telefon:",
                           ),
                           inputFormatters: [
-                            MaskTextInputFormatter(
-                              mask: '+90 (###) ### ## ##',
-                              filter: { "#": RegExp(r'[0-9]') },
-                              type: MaskAutoCompletionType.lazy
-                            ),
+                            PhoneInputMask.mask
                           ],
                           onSaved: (newValue) {
 
                           },
                           validator: (value) {
-                            if(value == "") {
-                              return "Lütfen ilgili alanı doldurunuz.";
+                            if(value != null) {
+                              if((!validator.phone(PhoneInputMask.mask.unmaskText(value)) || value.length < 19)) {
+                                return "Lütfen ilgili alanı doldurunuz.";
+                              }
                             }
                           },
                         ),
                         AppSpace.verticalL!,
                         TextFormField(
+                          controller: TextEditingController(text: null),
                           decoration: const InputDecoration(
                             hintText: "E-posta:",
                           ),
                           validator: (value) {
-                            if(value == "") {
-                              return "Lütfen ilgili alanı doldurunuz.";
+                            if(value != null) {
+                              if(!validator.email(value)) {
+                                return "Lütfen geçerli bir e-posta giriniz.";
+                              }
                             }
                           },
                         ),
