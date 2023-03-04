@@ -10,6 +10,9 @@ class CreateNewProjectState {
   int stepPageIndex;
   GlobalKey<FormState> projectInfoFormKey;
   GlobalKey<FormState> contactInfoFormKey;
+  String? name;
+  DateTime? startTime;
+  DateTime? finishTime;
 
   CreateNewProjectState(
     {
@@ -18,6 +21,9 @@ class CreateNewProjectState {
       required this.stepPageIndex,
       required this.projectInfoFormKey,
       required this.contactInfoFormKey,
+      this.name,
+      this.startTime,
+      this.finishTime
     }
   );
 
@@ -26,10 +32,11 @@ class CreateNewProjectState {
         ScrollController? scrollController,
         List<StepPage>? stepPages,
         int? stepPageIndex,
+        GlobalKey<FormState>? projectInfoFormKey,
+        GlobalKey<FormState>? contactInfoFormKey,
+        String? name,
         DateTime? startTime,
         DateTime? finishTime,
-        GlobalKey<FormState>? projectInfoFormKey,
-        GlobalKey<FormState>? contactInfoFormKey
       }
       ) {
     return CreateNewProjectState(
@@ -37,7 +44,10 @@ class CreateNewProjectState {
       stepPages: stepPages ?? this.stepPages,
       stepPageIndex: stepPageIndex ?? this.stepPageIndex,
       projectInfoFormKey: projectInfoFormKey ?? this.projectInfoFormKey,
-      contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey
+      contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey,
+      name: name ?? this.name,
+      startTime: startTime ?? this.startTime,
+      finishTime: finishTime ?? this.finishTime
     );
   }
 }

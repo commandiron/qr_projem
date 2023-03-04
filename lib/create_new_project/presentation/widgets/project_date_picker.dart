@@ -6,9 +6,11 @@ import '../../../core/presentation/config/app_text_style.dart';
 import 'date_picker_alert_dialog.dart';
 
 class ProjectDatePicker extends StatefulWidget {
-  const ProjectDatePicker({required this.title, Key? key}) : super(key: key);
+  const ProjectDatePicker({required this.title, required this.dateTime, required this.onSaved, Key? key}) : super(key: key);
 
   final String title;
+  final DateTime? dateTime;
+  final void Function(DateTime? dateTime) onSaved;
 
   @override
   State<ProjectDatePicker> createState() => _ProjectDatePickerState();
@@ -16,7 +18,7 @@ class ProjectDatePicker extends StatefulWidget {
 
 class _ProjectDatePickerState extends State<ProjectDatePicker> {
 
-  final TextEditingController _controller = TextEditingController();
+  DateTime? _selectedDateTime;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class _ProjectDatePickerState extends State<ProjectDatePicker> {
           return DatePickerAlertDialog(
             onSubmit: (dateTime) {
               setState(() {
-                _controller.text = DateFormat("dd/MM/yyyy").format(dateTime);
+                _selectedDateTime = dateTime;
               });
               Navigator.pop(dialogContext);
             },
@@ -49,7 +51,13 @@ class _ProjectDatePickerState extends State<ProjectDatePicker> {
           children: [
             Expanded(
               child: TextFormField(
-                controller: _controller,
+                controller: TextEditingController(
+                  text: widget.dateTime == null
+                    ? _selectedDateTime == null
+                      ? ""
+                      : DateFormat("dd/MM/yyyy").format(_selectedDateTime!)
+                    : DateFormat("dd/MM/yyyy").format(widget.dateTime!)
+                ),
                 readOnly: true,
                 decoration: const InputDecoration(
                   hintText: "__/__/____",
@@ -61,6 +69,9 @@ class _ProjectDatePickerState extends State<ProjectDatePicker> {
                 },
                 onTap: () {
                   showDatePickerDialog();
+                },
+                onSaved: (_) {
+                  widget.onSaved(_selectedDateTime);
                 },
               ),
             ),

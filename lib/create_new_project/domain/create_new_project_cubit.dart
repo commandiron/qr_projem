@@ -13,9 +13,13 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       stepPages: StepPage.items,
       stepPageIndex: 0,
       projectInfoFormKey: GlobalKey<FormState>(),
-      contactInfoFormKey: GlobalKey<FormState>()
+      contactInfoFormKey: GlobalKey<FormState>(),
     )
   );
+
+  void init() {
+    state.stepPages.sort((a, b) => a.index.compareTo(b.index),);
+  }
 
   void back() {
     final backPageIndex = state.stepPageIndex - 1;
@@ -38,24 +42,17 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       case ProjectInfo.stepPageIndex : {
         if(state.projectInfoFormKey.currentState!.validate()) {
           state.projectInfoFormKey.currentState!.save();
-          state.stepPages[state.stepPageIndex].isDone = true;
           emit(state.copyWith(stepPages: state.stepPages));
           return true;
         } else {
-          state.stepPages[state.stepPageIndex].isDone = false;
-          emit(state.copyWith(stepPages: state.stepPages));
           return false;
         }
       }
       case ContactInfo.stepPageIndex : {
         if(state.contactInfoFormKey.currentState!.validate()) {
           state.contactInfoFormKey.currentState!.save();
-          state.stepPages[state.stepPageIndex].isDone = true;
-          emit(state.copyWith(stepPages: state.stepPages));
           return true;
         } else {
-          state.stepPages[state.stepPageIndex].isDone = false;
-          emit(state.copyWith(stepPages: state.stepPages));
           return false;
         }
       }
@@ -63,6 +60,17 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         return false;
       }
     }
+  }
+
+  void saveName(String? name) {
+    emit(state.copyWith(name: name));
+  }
+
+  void saveStartTime(DateTime? startTime) {
+    emit(state.copyWith(startTime: startTime));
+  }
+  void saveFinishTime(DateTime? finishTime) {
+    emit(state.copyWith(finishTime: finishTime));
   }
 
   void jumpToStepPage(int index) {

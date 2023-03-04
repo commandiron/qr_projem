@@ -33,6 +33,7 @@ class ProjectInfo extends StatelessWidget {
                         AppSpace.verticalM!,
                         Text("Proje adı:", style: AppTextStyle.b1,),
                         TextFormField(
+                          controller: TextEditingController(text: state.name),
                           decoration: const InputDecoration(
                             hintText: "Ör: Maltepe | Yüksel Apartmanı",
                           ),
@@ -42,16 +43,20 @@ class ProjectInfo extends StatelessWidget {
                             }
                           },
                           onSaved: (newValue) {
-                            //Burada cubite değeri kaydet.
+                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveName(newValue);
                           },
                         ),
                         AppSpace.verticalL!,
-                        const ProjectDatePicker(
+                        ProjectDatePicker(
                           title: "Proje Başlangıç tarihi:",
+                          dateTime: state.startTime,
+                          onSaved: (dateTime) =>  BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveStartTime(dateTime),
                         ),
                         AppSpace.verticalL!,
-                        const ProjectDatePicker(
+                        ProjectDatePicker(
                           title: "Proje Bitiş tarihi:",
+                          dateTime: state.finishTime,
+                          onSaved: (dateTime) =>  BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveFinishTime(dateTime),
                         ),
                       ]
                     ),

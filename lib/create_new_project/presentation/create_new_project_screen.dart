@@ -14,7 +14,7 @@ class CreateNewProjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CreateNewProjectCubit>(
-      create: (context) => CreateNewProjectCubit(),
+      create: (context) => CreateNewProjectCubit()..init(),
       child: const Scaffold(
         appBar: CustomAppBar(),
         floatingActionButton: FloatingButtons(),
