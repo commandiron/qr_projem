@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/company_logo.dart';
 
 import '../presentation/steps/contact_info.dart';
 import '../presentation/steps/project_info.dart';
@@ -110,6 +111,11 @@ class StepPage {
       index: ContactInfo.stepPageIndex,
       title: "İletişim Bilgileri",
       view: const ContactInfo(),
+    ),
+    StepPage(
+      index: CompanyLogo.stepPageIndex,
+      title: "Şirket logosu",
+      view: const CompanyLogo(),
     ),
   ];
 }
