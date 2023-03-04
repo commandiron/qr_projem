@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:qr_projem/auth/presentation/sections/done.dart';
+import 'package:qr_projem/core/presentation/helper/phone_input_mask.dart';
 import '../../../core/data/repositories/auth_repository.dart';
 import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
@@ -15,11 +15,6 @@ class AuthCubit extends Cubit<AuthState> {
       pageController: PageController(initialPage: initialPage ?? 0),
       textEditingController: TextEditingController(),
       textFieldErrorMessage: "",
-      phoneFormatter: MaskTextInputFormatter(
-        mask: '+90 (###) ### ## ##',
-        filter: { "#": RegExp(r'[0-9]') },
-        type: MaskAutoCompletionType.lazy
-      ),
     )
   );
 
@@ -32,7 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
     if(state.textFieldErrorMessage.isEmpty) {
       emit(state.copyWith(authPageState: AuthPageStateLoading()));
       authRepository.singInWithPhoneNumber(
-        "+90${state.phoneFormatter.getUnmaskedText()}",
+        "+90${PhoneInputMask.mask.unmaskText(state.textEditingController.text)}",
         onSuccess: () {
           jumpToPage(Verification.pageIndex);
         },
