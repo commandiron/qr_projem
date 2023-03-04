@@ -17,6 +17,8 @@ class CreateNewProjectState {
 
   String? companyPhone;
   String? companyMail;
+  String? companyAddress;
+  String? companyLocationUrl;
 
 
 
@@ -32,7 +34,9 @@ class CreateNewProjectState {
       this.finishTime,
 
       this.companyPhone,
-      this.companyMail
+      this.companyMail,
+      this.companyAddress,
+      this.companyLocationUrl
     }
   );
 
@@ -48,6 +52,8 @@ class CreateNewProjectState {
         DateTime? finishTime,
         String? companyPhone,
         String? companyMail,
+        String? companyAddress,
+        String? companyLocationUrl,
       }
       ) {
     return CreateNewProjectState(
@@ -60,7 +66,9 @@ class CreateNewProjectState {
       startTime: startTime ?? this.startTime,
       finishTime: finishTime ?? this.finishTime,
       companyPhone: companyPhone ?? this.companyPhone,
-      companyMail: companyMail ?? this.companyMail
+      companyMail: companyMail ?? this.companyMail,
+      companyAddress: companyAddress ?? this.companyAddress,
+      companyLocationUrl: companyLocationUrl ?? companyLocationUrl
     );
   }
 }

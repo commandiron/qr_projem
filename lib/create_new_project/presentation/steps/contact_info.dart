@@ -38,26 +38,31 @@ class _ContactInfoState extends State<ContactInfo> {
                         Text("İletişim Bilgileri", style: AppTextStyle.h3),
                         AppSpace.verticalM!,
                         TextFormField(
-                          controller: TextEditingController(text: state.companyPhone),
+                          controller: TextEditingController(text: state.companyPhone)
+                            ..value = PhoneInputMask.mask
+                              .formatEditUpdate(
+                                const TextEditingValue(text: ""),
+                                TextEditingValue(text: state.companyPhone ?? "")
+                              ),
                           decoration: const InputDecoration(
                             hintText: "Telefon:",
                           ),
                           inputFormatters: [
                             PhoneInputMask.mask
                           ],
+                          validator: (value) {
+                            if(value != null) {
+                              if((!validator.phone(PhoneInputMask.mask.unmaskText(value)) || value.length < 19)) {
+                                return "Lütfen ilgili alanı doldurunuz.";
+                              }
+                            }
+                          },
                           onSaved: (newValue) {
                             if(newValue != null) {
                               BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
                                 .savePhoneNumber(
                                   "+90${PhoneInputMask.mask.unmaskText(newValue)}"
                                 );
-                            }
-                          },
-                          validator: (value) {
-                            if(value != null) {
-                              if((!validator.phone(PhoneInputMask.mask.unmaskText(value)) || value.length < 19)) {
-                                return "Lütfen ilgili alanı doldurunuz.";
-                              }
                             }
                           },
                         ),
@@ -67,12 +72,6 @@ class _ContactInfoState extends State<ContactInfo> {
                           decoration: const InputDecoration(
                             hintText: "E-posta:",
                           ),
-                          onSaved: (newValue) {
-                            if(newValue != null) {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                .saveEmail(newValue);
-                            }
-                          },
                           validator: (value) {
                             if(value != null) {
                               if(!validator.email(value)) {
@@ -80,9 +79,16 @@ class _ContactInfoState extends State<ContactInfo> {
                               }
                             }
                           },
+                          onSaved: (newValue) {
+                            if(newValue != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                .saveEmail(newValue);
+                            }
+                          },
                         ),
                         AppSpace.verticalL!,
                         TextFormField(
+                          controller: TextEditingController(text: state.companyAddress),
                           decoration: const InputDecoration(
                             hintText: "Adres:",
                           ),
@@ -91,9 +97,14 @@ class _ContactInfoState extends State<ContactInfo> {
                               return "Lütfen ilgili alanı doldurunuz.";
                             }
                           },
+                          onSaved: (newValue) {
+                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                .saveAddress(newValue);
+                          },
                         ),
                         AppSpace.verticalL!,
                         TextFormField(
+                          controller: TextEditingController(text: state.companyLocationUrl),
                           decoration: const InputDecoration(
                             hintText: "Konum: (Lütfen google haritalardan projenizin adress kordinat linkini yapıştırın)",
                           ),
@@ -101,6 +112,10 @@ class _ContactInfoState extends State<ContactInfo> {
                             if(value == "") {
                               return "Lütfen ilgili alanı doldurunuz.";
                             }
+                          },
+                          onSaved: (newValue) {
+                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                .saveLocationUrl(newValue);
                           },
                         ),
                         AppSpace.verticalL!,

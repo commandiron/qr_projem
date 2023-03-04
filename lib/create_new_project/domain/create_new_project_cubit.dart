@@ -77,6 +77,12 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void saveEmail(String? email) {
     emit(state.copyWith(companyMail: email));
   }
+  void saveAddress(String? address) {
+    emit(state.copyWith(companyAddress: address));
+  }
+  void saveLocationUrl(String? locationUrl) {
+    emit(state.copyWith(companyLocationUrl: locationUrl));
+  }
 
 
 
