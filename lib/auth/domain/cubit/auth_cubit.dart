@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/auth/presentation/sections/done.dart';
-import 'package:qr_projem/core/presentation/helper/phone_input_mask.dart';
 import '../../../core/data/repositories/auth_repository.dart';
 import '../../presentation/sections/verification.dart';
 import 'auth_state.dart';
@@ -13,45 +12,36 @@ class AuthCubit extends Cubit<AuthState> {
     AuthState(
       authPageState: AuthPageStateDone(),
       pageController: PageController(initialPage: initialPage ?? 0),
-      textEditingController: TextEditingController(),
-      textFieldErrorMessage: "",
+      phoneNumberFormKey: GlobalKey<FormState>(),
     )
   );
 
   final AuthRepository authRepository;
 
-  void singInWithPhoneNumber() async {
-
-    validatePhoneNumber();
-
-    if(state.textFieldErrorMessage.isEmpty) {
-      emit(state.copyWith(authPageState: AuthPageStateLoading()));
-      authRepository.singInWithPhoneNumber(
-        "+90${PhoneInputMask.mask.unmaskText(state.textEditingController.text)}",
-        onSuccess: () {
-          jumpToPage(Verification.pageIndex);
-        },
-        onError: () {
-          emit(state.copyWith(authPageState: AuthPageStateError("Doğrulama sağlanamadı."),)
-          );
-          jumpToPage(state.pageController.initialPage);
-        },
-        onTimeout: () {
-          emit(state.copyWith(authPageState: AuthPageStateError("Doğrulama sağlanamadı."),)
-          );
-          jumpToPage(state.pageController.initialPage);
-        },
-      );
+  void next() {
+    if(state.phoneNumberFormKey.currentState!.validate()) {
+      state.phoneNumberFormKey.currentState!.save();
     }
   }
 
-  void validatePhoneNumber() {
-    final number = state.textEditingController.value.text;
-    if(number.characters.length < 19) {
-      emit(state.copyWith(textFieldErrorMessage: "Lütfen telefon numaranızı doğru giriniz."));
-    } else {
-      emit(state.copyWith(textFieldErrorMessage: ""));
-    }
+  void singInWithPhoneNumber(String phoneNumber) async {
+    emit(state.copyWith(authPageState: AuthPageStateLoading()));
+    authRepository.singInWithPhoneNumber(
+      phoneNumber,
+      onSuccess: () {
+        jumpToPage(Verification.pageIndex);
+      },
+      onError: () {
+        emit(state.copyWith(authPageState: AuthPageStateError("Doğrulama sağlanamadı."),)
+        );
+        jumpToPage(state.pageController.initialPage);
+      },
+      onTimeout: () {
+        emit(state.copyWith(authPageState: AuthPageStateError("Doğrulama sağlanamadı."),)
+        );
+        jumpToPage(state.pageController.initialPage);
+      },
+    );
   }
 
   void singInVerification(String verificationCode) async {

@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 class AuthState {
   AuthPageState authPageState;
   PageController pageController;
-  TextEditingController textEditingController;
-  String textFieldErrorMessage;
+  GlobalKey<FormState> phoneNumberFormKey;
 
   AuthState(
     {
       required this.authPageState,
       required this.pageController,
-      required this.textEditingController,
-      required this.textFieldErrorMessage,
+      required this.phoneNumberFormKey,
     }
   );
 
@@ -19,15 +17,13 @@ class AuthState {
     {
       AuthPageState? authPageState,
       PageController? pageController,
-      TextEditingController? textEditingController,
-      String? textFieldErrorMessage,
+      GlobalKey<FormState>? phoneNumberFormKey,
     }
   ) {
     return AuthState(
       authPageState: authPageState ?? this.authPageState,
       pageController: pageController ?? this.pageController,
-      textEditingController: textEditingController ?? this.textEditingController,
-      textFieldErrorMessage: textFieldErrorMessage ?? this.textFieldErrorMessage,
+      phoneNumberFormKey: phoneNumberFormKey ?? this.phoneNumberFormKey,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/auth/presentation/widget/auth_base.dart';
+import 'package:regexed_validator/regexed_validator.dart';
 
 import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
@@ -56,15 +57,30 @@ class SignInUpBase extends StatelessWidget {
               width: 360,
               child: BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
-                  return TextField(
-                    controller: state.textEditingController,
-                    decoration: InputDecoration(
-                      hintText: "+90 (XXX) XXX XX XX",
-                      errorText: state.textFieldErrorMessage
+                  return Form(
+                    key: state.phoneNumberFormKey,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: "+90 (XXX) XXX XX XX",
+                      ),
+                      inputFormatters: [
+                        PhoneInputMask.mask
+                      ],
+                      validator: (value) {
+                        if(value != null) {
+                          if((!validator.phone(PhoneInputMask.mask.unmaskText(value)) || value.length < 19)) {
+                            return "Lütfen ilgili alanı doldurunuz.";
+                          }
+                        }
+                      },
+                      onSaved: (value) {
+                        if(value != null) {
+                          BlocProvider.of<AuthCubit>(context, listen: false).singInWithPhoneNumber(
+                              "+90${PhoneInputMask.mask.unmaskText(value)}"
+                          );
+                        }
+                      },
                     ),
-                    inputFormatters: [
-                      PhoneInputMask.mask
-                    ],
                   );
                 },
               )
@@ -72,9 +88,9 @@ class SignInUpBase extends StatelessWidget {
           AppSpace.verticalL!,
           ElevatedButton(
             onPressed: () {
-              BlocProvider.of<AuthCubit>(context, listen: false).singInWithPhoneNumber();
+              BlocProvider.of<AuthCubit>(context, listen: false).next();
             },
-            child: Text("Devam et")
+            child: const Text("Devam et")
           ),
         ],
       ),
