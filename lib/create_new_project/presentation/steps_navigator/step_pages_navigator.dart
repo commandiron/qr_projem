@@ -29,7 +29,7 @@ class StepPagesNavigator extends StatelessWidget {
                 Text(
                   item.title,
                   style: AppTextStyle.h3!.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary
+                    color: Theme.of(context).colorScheme.onPrimary
                   ),
                 ),
                 if (item.isDone)
