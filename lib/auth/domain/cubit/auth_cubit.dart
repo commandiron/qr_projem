@@ -16,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
       textEditingController: TextEditingController(),
       textFieldErrorMessage: "",
       phoneFormatter: MaskTextInputFormatter(
-        mask: '+90 (###) ###-##-##',
+        mask: '+90 (###) ### ## ##',
         filter: { "#": RegExp(r'[0-9]') },
         type: MaskAutoCompletionType.lazy
       ),

@@ -5,9 +5,10 @@ import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import '../../domain/create_new_project_state.dart';
 
 class StepPagesNavigator extends StatelessWidget {
-  const StepPagesNavigator({required this.items, Key? key}) : super(key: key);
+  const StepPagesNavigator({required this.items, required this.selectedIndex, Key? key}) : super(key: key);
 
   final List<StepPage> items;
+  final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class StepPagesNavigator extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onPrimary
                   ),
                 ),
-                if (item.isDone)
+                if (selectedIndex > item.index)
                   Row(
                     children: [
                       AppSpace.horizontalM!,

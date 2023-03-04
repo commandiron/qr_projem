@@ -69,6 +69,7 @@ class CreateNewSteps extends StatelessWidget {
                           AppSpace.verticalXXL!,
                           StepPagesNavigator(
                             items: state.stepPages,
+                            selectedIndex: state.stepPageIndex,
                           )
                         ],
                       );

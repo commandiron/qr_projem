@@ -56,14 +56,12 @@ class StepPage {
   int index;
   String title;
   Widget view;
-  bool isDone;
 
   StepPage(
       {
         required this.index,
         required this.title,
         required this.view,
-        required this.isDone
       }
       );
 
@@ -72,14 +70,12 @@ class StepPage {
         int? index,
         String? title,
         Widget? view,
-        bool? isDone,
       }
       ) {
     return StepPage(
       index: index ?? this.index,
       title: title ?? this.title,
       view: view ?? this.view,
-      isDone: isDone ?? this.isDone
     );
   }
 
@@ -88,13 +84,11 @@ class StepPage {
       index: ProjectInfo.stepPageIndex,
       title: "Proje Bilgileri",
       view: const ProjectInfo(),
-      isDone: false
     ),
     StepPage(
       index: ContactInfo.stepPageIndex,
       title: "İletişim Bilgileri",
       view: const ContactInfo(),
-      isDone: false
     ),
   ];
 }

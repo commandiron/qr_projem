@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
 import '../../../core/presentation/config/app_padding.dart';
@@ -9,7 +10,7 @@ import '../../../core/presentation/config/app_text_style.dart';
 class ContactInfo extends StatefulWidget {
   const ContactInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 1;
+  static const stepPageIndex = 0;
 
   @override
   State<ContactInfo> createState() => _ContactInfoState();
@@ -21,7 +22,7 @@ class _ContactInfoState extends State<ContactInfo> {
     return BlocBuilder<CreateNewProjectCubit, CreateNewProjectState>(
       builder: (context, state) {
         return Padding(
-          padding: AppPadding.horizontalXL!.add(AppPadding.verticalL!),
+          padding: AppPadding.horizontalXL!,
           child: Column(
             children: [
               Align(
@@ -40,7 +41,15 @@ class _ContactInfoState extends State<ContactInfo> {
                           decoration: const InputDecoration(
                             hintText: "Telefon:",
                           ),
+                          inputFormatters: [
+                            MaskTextInputFormatter(
+                              mask: '+90 (###) ### ## ##',
+                              filter: { "#": RegExp(r'[0-9]') },
+                              type: MaskAutoCompletionType.lazy
+                            ),
+                          ],
                           onSaved: (newValue) {
+
                           },
                           validator: (value) {
                             if(value == "") {

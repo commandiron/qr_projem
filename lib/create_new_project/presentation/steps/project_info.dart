@@ -10,14 +10,14 @@ import '../../../core/presentation/config/app_text_style.dart';
 class ProjectInfo extends StatelessWidget {
   const ProjectInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 0;
+  static const stepPageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CreateNewProjectCubit, CreateNewProjectState>(
       builder: (context, state) {
         return Padding(
-          padding: AppPadding.horizontalXL!.add(AppPadding.verticalL!),
+          padding: AppPadding.horizontalXL!,
           child: Column(
             children: [
               Align(
