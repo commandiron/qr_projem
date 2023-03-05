@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:qr_projem/create_new_project/presentation/steps/company_logo.dart';
+import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/project_images.dart';
+
+import '../presentation/steps/company_logo.dart';
 import '../presentation/steps/contact_info.dart';
 import '../presentation/steps/project_info.dart';
-
 
 class CreateNewProjectState {
   ScrollController scrollController;
@@ -21,7 +23,9 @@ class CreateNewProjectState {
   String? companyAddress;
   String? companyLocationUrl;
 
+  Uint8List? companyImage;
 
+  List<Uint8List>? projectImages;
 
   CreateNewProjectState(
     {
@@ -37,7 +41,11 @@ class CreateNewProjectState {
       this.companyPhone,
       this.companyMail,
       this.companyAddress,
-      this.companyLocationUrl
+      this.companyLocationUrl,
+
+      this.companyImage,
+
+      this.projectImages
     }
   );
 
@@ -55,8 +63,10 @@ class CreateNewProjectState {
         String? companyMail,
         String? companyAddress,
         String? companyLocationUrl,
+        Uint8List? companyImage,
+        List<Uint8List>? projectImages,
       }
-      ) {
+    ) {
     return CreateNewProjectState(
       scrollController: scrollController ?? this.scrollController,
       stepPages: stepPages ?? this.stepPages,
@@ -69,7 +79,9 @@ class CreateNewProjectState {
       companyPhone: companyPhone ?? this.companyPhone,
       companyMail: companyMail ?? this.companyMail,
       companyAddress: companyAddress ?? this.companyAddress,
-      companyLocationUrl: companyLocationUrl ?? companyLocationUrl
+      companyLocationUrl: companyLocationUrl ?? this.companyLocationUrl,
+      companyImage: companyImage ?? this.companyImage,
+      projectImages: projectImages ?? this.projectImages
     );
   }
 }
@@ -114,8 +126,13 @@ class StepPage {
     ),
     StepPage(
       index: CompanyLogo.stepPageIndex,
-      title: "Şirket logosu",
+      title: "Şirket Logosu",
       view: const CompanyLogo(),
+    ),
+    StepPage(
+      index: ProjectImages.stepPageIndex,
+      title: "Proje Görselleri",
+      view: const ProjectImages(),
     ),
   ];
 }

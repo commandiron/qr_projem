@@ -2,52 +2,21 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
+import 'package:qr_projem/create_new_project/presentation/widgets/add_image_box_button.dart';
 import '../../../core/presentation/config/app_padding.dart';
 
-class CompanyLogo extends StatefulWidget {
+class CompanyLogo extends StatelessWidget {
   const CompanyLogo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 0;
+  static const stepPageIndex = 1;
 
-  @override
-  State<CompanyLogo> createState() => _CompanyLogoState();
-}
-
-class _CompanyLogoState extends State<CompanyLogo> {
-
-  Uint8List? _pickedImage;
-  Color? _pickedColor;
-
-  Future<void> pickImage() async {
-    _pickedImage = await ImagePickerWeb.getImageAsBytes();
-    setState(() {});
-  }
-
-  void showColorPickerDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: SingleChildScrollView(
-            child: ColorPicker(
-              pickerColor: _pickedColor ?? Color(0xffffffff),
-              portraitOnly: true,
-              onColorChanged: (value) {
-                setState(() {
-                  _pickedColor = value;
-                });
-              },
-            ),
-          ),
-        );
-      },
-    );
+  Future<Uint8List?> pickImage() async {
+    return await ImagePickerWeb.getImageAsBytes();
   }
 
   @override
@@ -66,53 +35,19 @@ class _CompanyLogoState extends State<CompanyLogo> {
               ),
               AppSpace.verticalXL!,
               Expanded(
-                child: InkWell(
-                  onTap: () {
-                    pickImage();
-                  },
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: _pickedColor,
-                          border: Border.all(
-                              color: Colors.black
-                          )
-                      ),
-                      alignment: Alignment.center,
-                      padding: AppPadding.allL,
-                      child: _pickedImage == null
-                          ? const Icon(Icons.image_outlined, size: 100,)
-                          : Image.memory(_pickedImage!,),
-                    ),
+                child: AddImageBoxButton(
+                  onTap: () => pickImage().then((value) {
+                      if(value != null) {
+                        return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                          .saveCompanyImage(value);
+                      }
+                    }
                   ),
-                ),
+                  child: state.companyImage == null
+                    ? null
+                    : Image.memory(state.companyImage!,),
+                )
               ),
-              AppSpace.verticalXL!,
-              if(_pickedImage != null)
-                Column(
-                  children: [
-                    Text(
-                      "Lütfen logonun arkaplan rengini seçiniz. (Logonuzun net olarak görülebileceği bir arka plan seçiniz)",
-                      style: AppTextStyle.b1,
-                      textAlign: TextAlign.center,
-                    ),
-                    AppSpace.verticalL!,
-                    InkWell(
-                      onTap: () {
-                        showColorPickerDialog();
-                      },
-                      child: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: Colors.black,
-                        child: CircleAvatar(
-                          radius: 14,
-                          backgroundColor: _pickedColor ?? const Color(0xffffffff),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               AppSpace.verticalXL!,
             ],
           ),

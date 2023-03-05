@@ -1,8 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/company_logo.dart';
 
 import '../../core/data/repositories/project_repository.dart';
 import '../presentation/steps/contact_info.dart';
+import '../presentation/steps/project_images.dart';
 import '../presentation/steps/project_info.dart';
 import 'create_new_project_state.dart';
 
@@ -55,6 +59,20 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
           return false;
         }
       }
+      case CompanyLogo.stepPageIndex : {
+        if(state.companyImage != null) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      case ProjectImages.stepPageIndex : {
+        if(state.projectImages != null) {
+          return true;
+        } else {
+          return false;
+        }
+      }
       default : {
         return false;
       }
@@ -82,6 +100,18 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   }
   void saveLocationUrl(String? locationUrl) {
     emit(state.copyWith(companyLocationUrl: locationUrl));
+  }
+
+  void saveCompanyImage(Uint8List image) {
+    emit(state.copyWith(companyImage: image));
+  }
+
+  void saveProjectImages(List<Uint8List> images) {
+    const imageLimit = 3;
+    if(images.length > imageLimit) {
+      images.removeRange(images.length - (images.length - imageLimit), images.length);
+    }
+    emit(state.copyWith(projectImages: images));
   }
 
 

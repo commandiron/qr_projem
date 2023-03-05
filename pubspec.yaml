@@ -25,7 +25,6 @@ dependencies:
   intl: ^0.17.0
   regexed_validator: ^2.0.0+1
   image_picker_web: ^3.0.0+1
-  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:
