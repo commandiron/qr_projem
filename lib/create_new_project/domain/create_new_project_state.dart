@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_images/project_images.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/sale_area_info/sale_area_info.dart';
 
 import '../presentation/steps/company_logo/company_logo.dart';
 import '../presentation/steps/contact_info/contact_info.dart';
@@ -114,6 +115,11 @@ class StepPage {
   }
 
   static final items = [
+    StepPage(
+        index: SaleAreaInfo.stepPageIndex,
+        title: "Satılık Alan Bilgileri",
+        view: const SaleAreaInfo()
+    ),
     StepPage(
       index: ProjectInfo.stepPageIndex,
       title: "Proje Bilgileri",

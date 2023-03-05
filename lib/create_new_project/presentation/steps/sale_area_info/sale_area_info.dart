@@ -10,10 +10,10 @@ import 'package:qr_projem/create_new_project/domain/create_new_project_state.dar
 import 'package:qr_projem/create_new_project/presentation/widgets/add_image_box_button.dart';
 import '../../../../core/presentation/config/app_padding.dart';
 
-class CompanyLogo extends StatelessWidget {
-  const CompanyLogo({Key? key}) : super(key: key);
+class SaleAreaInfo extends StatelessWidget {
+  const SaleAreaInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 3;
+  static const stepPageIndex = 0;
 
   Future<Uint8List?> pickImage() async {
     return await ImagePickerWeb.getImageAsBytes();
@@ -29,7 +29,7 @@ class CompanyLogo extends StatelessWidget {
             children: [
               AppSpace.verticalXL!,
               Text(
-                "Lütfen şirketinizin logosunu seçiniz",
+                "Satılık alanlarınızın bilgilerini ve görsellerini ekleyiniz.",
                 style: AppTextStyle.h3,
                 textAlign: TextAlign.center,
               ),
