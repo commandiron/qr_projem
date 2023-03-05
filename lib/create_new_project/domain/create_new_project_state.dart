@@ -16,7 +16,7 @@ class CreateNewProjectState {
 
   String? name;
   DateTime? startTime;
-  DateTime? finishTime;
+  DateTime? estimatedFinishTime;
 
   String? companyPhone;
   String? companyMail;
@@ -36,7 +36,7 @@ class CreateNewProjectState {
       required this.contactInfoFormKey,
       this.name,
       this.startTime,
-      this.finishTime,
+      this.estimatedFinishTime,
 
       this.companyPhone,
       this.companyMail,
@@ -58,7 +58,7 @@ class CreateNewProjectState {
         GlobalKey<FormState>? contactInfoFormKey,
         String? name,
         DateTime? startTime,
-        DateTime? finishTime,
+        DateTime? estimatedFinishTime,
         String? companyPhone,
         String? companyMail,
         String? companyAddress,
@@ -75,7 +75,7 @@ class CreateNewProjectState {
       contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey,
       name: name ?? this.name,
       startTime: startTime ?? this.startTime,
-      finishTime: finishTime ?? this.finishTime,
+      estimatedFinishTime: estimatedFinishTime ?? this.estimatedFinishTime,
       companyPhone: companyPhone ?? this.companyPhone,
       companyMail: companyMail ?? this.companyMail,
       companyAddress: companyAddress ?? this.companyAddress,

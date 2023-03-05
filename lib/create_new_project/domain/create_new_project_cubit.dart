@@ -85,8 +85,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void saveStartTime(DateTime? startTime) {
     emit(state.copyWith(startTime: startTime));
   }
-  void saveFinishTime(DateTime? finishTime) {
-    emit(state.copyWith(finishTime: finishTime));
+  void saveEstimatedFinishTime(DateTime? estimatedFinishTime) {
+    emit(state.copyWith(estimatedFinishTime: estimatedFinishTime));
   }
 
   void savePhoneNumber(String? phoneNumber) {
