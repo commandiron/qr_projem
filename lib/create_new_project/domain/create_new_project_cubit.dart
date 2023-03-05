@@ -2,12 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_projem/create_new_project/presentation/steps/company_logo.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
 
 import '../../core/data/repositories/project_repository.dart';
-import '../presentation/steps/contact_info.dart';
-import '../presentation/steps/project_images.dart';
-import '../presentation/steps/project_info.dart';
+import '../presentation/steps/contact_info/contact_info.dart';
+import '../presentation/steps/project_images/project_images.dart';
+import '../presentation/steps/project_info/project_info.dart';
 import 'create_new_project_state.dart';
 
 class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
@@ -111,6 +111,11 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     if(images.length > imageLimit) {
       images.removeRange(images.length - (images.length - imageLimit), images.length);
     }
+    emit(state.copyWith(projectImages: images));
+  }
+  void removeProjectImage(int imageIndex) {
+    final images = state.projectImages;
+    images?.removeAt(imageIndex);
     emit(state.copyWith(projectImages: images));
   }
 

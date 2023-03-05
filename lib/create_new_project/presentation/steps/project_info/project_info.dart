@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
 import 'package:qr_projem/create_new_project/presentation/widgets/project_date_picker.dart';
-import '../../../core/presentation/config/app_padding.dart';
-import '../../../core/presentation/config/app_space.dart';
-import '../../../core/presentation/config/app_text_style.dart';
+import '../../../../core/presentation/config/app_padding.dart';
+import '../../../../core/presentation/config/app_space.dart';
+import '../../../../core/presentation/config/app_text_style.dart';
 
 class ProjectInfo extends StatelessWidget {
   const ProjectInfo({Key? key}) : super(key: key);

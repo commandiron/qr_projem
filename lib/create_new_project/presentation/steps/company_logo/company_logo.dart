@@ -8,7 +8,7 @@ import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
 import 'package:qr_projem/create_new_project/presentation/widgets/add_image_box_button.dart';
-import '../../../core/presentation/config/app_padding.dart';
+import '../../../../core/presentation/config/app_padding.dart';
 
 class CompanyLogo extends StatelessWidget {
   const CompanyLogo({Key? key}) : super(key: key);

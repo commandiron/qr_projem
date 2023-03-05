@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
 import 'package:regexed_validator/regexed_validator.dart';
-import '../../../core/presentation/config/app_padding.dart';
-import '../../../core/presentation/config/app_space.dart';
-import '../../../core/presentation/config/app_text_style.dart';
-import '../../../core/presentation/helper/phone_input_mask.dart';
+import '../../../../core/presentation/config/app_padding.dart';
+import '../../../../core/presentation/config/app_space.dart';
+import '../../../../core/presentation/config/app_text_style.dart';
+import '../../../../core/presentation/helper/phone_input_mask.dart';
 
 class ContactInfo extends StatefulWidget {
   const ContactInfo({Key? key}) : super(key: key);

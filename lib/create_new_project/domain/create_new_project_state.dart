@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:qr_projem/create_new_project/presentation/steps/project_images.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/project_images/project_images.dart';
 
-import '../presentation/steps/company_logo.dart';
-import '../presentation/steps/contact_info.dart';
-import '../presentation/steps/project_info.dart';
+import '../presentation/steps/company_logo/company_logo.dart';
+import '../presentation/steps/contact_info/contact_info.dart';
+import '../presentation/steps/project_info/project_info.dart';
 
 class CreateNewProjectState {
   ScrollController scrollController;

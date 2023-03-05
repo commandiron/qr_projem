@@ -7,8 +7,10 @@ import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/project_images/widgets/delete_alert_dialog.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/project_images/widgets/image_frame.dart';
 import 'package:qr_projem/create_new_project/presentation/widgets/add_image_box_button.dart';
-import '../../../core/presentation/config/app_padding.dart';
+import '../../../../core/presentation/config/app_padding.dart';
 
 class ProjectImages extends StatelessWidget {
   const ProjectImages({Key? key}) : super(key: key);
@@ -54,24 +56,33 @@ class ProjectImages extends StatelessWidget {
                       Expanded(
                         flex: state.projectImages!.length,
                         child: Row(
-                          children: state.projectImages!.map(
-                            (projectImage) => Expanded(
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black
-                                    )
-                                  ),
-                                  alignment: Alignment.center,
-                                  padding: AppPadding.allS,
-                                  child: Image.memory(projectImage)
-                                ),
-                              ),
-                            ),
-                          ).toList(),
-                        ),
+                          children: [
+                            ...?state.projectImages?.asMap().entries.map(
+                              (projectImageEntry) {
+                                return Expanded(
+                                  child: ImageFrame(
+                                    child: Image.memory(projectImageEntry.value),
+                                    onDeleteIconPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return DeleteAlertDialog(
+                                            dialogContext: dialogContext,
+                                            onApproved: () {
+                                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                                .removeProjectImage(projectImageEntry.key);
+                                            },
+                                            onRejected: () {},
+                                          );
+                                        },
+                                      );
+                                    },
+                                  )
+                                );
+                              }
+                            )
+                          ]
+                        )
                       ),
                       Expanded(
                         child: AddImageBoxButton(
