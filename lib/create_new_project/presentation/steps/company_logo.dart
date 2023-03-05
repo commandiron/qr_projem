@@ -43,6 +43,7 @@ class CompanyLogo extends StatelessWidget {
                       }
                     }
                   ),
+                  padding: AppPadding.allM,
                   child: state.companyImage == null
                     ? null
                     : Image.memory(state.companyImage!,),

@@ -48,7 +48,7 @@ class CreateNewSteps extends StatelessWidget {
                                     ),
                                   ),
                                 AppSpace.horizontalExpanded!,
-                                Text("Yeni Proje Oluştur", style: AppTextStyle.h2,),
+                                Expanded(child: FittedBox(fit: BoxFit.scaleDown, child: Text("Yeni Proje Oluştur", style: AppTextStyle.h2,)),),
                                 AppSpace.horizontalExpanded!,
                                 if(state.stepPageIndex != 0)
                                   const SizedBox(width: 64,)

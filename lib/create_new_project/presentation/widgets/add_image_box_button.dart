@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../core/presentation/config/app_padding.dart';
 
 class AddImageBoxButton extends StatelessWidget {
-  const AddImageBoxButton({required this.onTap, this.child, Key? key}) : super(key: key);
+  const AddImageBoxButton({required this.onTap, this.padding, this.child, Key? key}) : super(key: key);
 
   final void Function() onTap;
+  final EdgeInsetsGeometry? padding;
   final Widget? child;
 
   @override
@@ -21,7 +22,7 @@ class AddImageBoxButton extends StatelessWidget {
             )
           ),
           alignment: Alignment.center,
-          padding: AppPadding.allS,
+          padding: padding ?? AppPadding.allS,
           child: FittedBox(child: child ?? const Icon(Icons.add_photo_alternate_outlined, size: 100)),
         ),
       ),
