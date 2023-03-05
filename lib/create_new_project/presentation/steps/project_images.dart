@@ -29,7 +29,7 @@ class ProjectImages extends StatelessWidget {
             children: [
               AppSpace.verticalXL!,
               Text(
-                "Lütfen proje görsellerini seçiniz.",
+                "Lütfen proje görsellerini seçiniz. (En fazla 4 adet)",
                 style: AppTextStyle.h3,
                 textAlign: TextAlign.center,
               ),
@@ -51,30 +51,37 @@ class ProjectImages extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        children: state.projectImages!.map(
-                          (projectImage) => AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black
-                                )
+                      Expanded(
+                        flex: state.projectImages!.length,
+                        child: Row(
+                          children: state.projectImages!.map(
+                            (projectImage) => Expanded(
+                              child: AspectRatio(
+                                aspectRatio: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black
+                                    )
+                                  ),
+                                  alignment: Alignment.center,
+                                  padding: AppPadding.allS,
+                                  child: Image.memory(projectImage)
+                                ),
                               ),
-                              alignment: Alignment.center,
-                              padding: AppPadding.allM,
-                              child: Image.memory(projectImage)
                             ),
-                          ),
-                        ).toList(),
+                          ).toList(),
+                        ),
                       ),
-                      AddImageBoxButton(
-                        onTap: () => pickImages().then((value) {
-                            if(value != null) {
-                              return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                .saveProjectImages(value);
+                      Expanded(
+                        child: AddImageBoxButton(
+                          onTap: () => pickImages().then((value) {
+                              if(value != null) {
+                                return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                  .saveProjectImages(value);
+                              }
                             }
-                          }
+                          ),
                         ),
                       )
                     ],

@@ -107,7 +107,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   }
 
   void saveProjectImages(List<Uint8List> images) {
-    const imageLimit = 3;
+    const imageLimit = 4;
     if(images.length > imageLimit) {
       images.removeRange(images.length - (images.length - imageLimit), images.length);
     }

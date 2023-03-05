@@ -21,8 +21,8 @@ class AddImageBoxButton extends StatelessWidget {
             )
           ),
           alignment: Alignment.center,
-          padding: AppPadding.allL,
-          child: child ?? const Icon(Icons.add_photo_alternate_outlined, size: 100,),
+          padding: AppPadding.allS,
+          child: FittedBox(child: child ?? const Icon(Icons.add_photo_alternate_outlined, size: 100)),
         ),
       ),
     );
