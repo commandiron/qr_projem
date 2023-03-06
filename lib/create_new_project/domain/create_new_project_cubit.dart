@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
 
 import '../../core/data/repositories/project_repository.dart';
+import '../../core/domain/model/project.dart';
 import '../presentation/steps/contact_info/contact_info.dart';
 import '../presentation/steps/project_images/project_images.dart';
 import '../presentation/steps/project_info/project_info.dart';
@@ -118,8 +119,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     images?.removeAt(imageIndex);
     emit(state.copyWith(projectImages: images));
   }
-
-
 
   void jumpToStepPage(int index) {
     emit(state.copyWith(stepPageIndex: index));

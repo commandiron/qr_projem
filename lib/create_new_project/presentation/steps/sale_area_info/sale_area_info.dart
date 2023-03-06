@@ -9,18 +9,21 @@ import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dar
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
 import 'package:qr_projem/create_new_project/presentation/widgets/add_image_box_button.dart';
 import '../../../../core/presentation/config/app_padding.dart';
+import '../../widgets/add_apartemet_box_button.dart';
+import '../project_images/widgets/delete_alert_dialog.dart';
+import '../project_images/widgets/image_frame.dart';
 
 class SaleAreaInfo extends StatelessWidget {
   const SaleAreaInfo({Key? key}) : super(key: key);
 
   static const stepPageIndex = 0;
 
-  Future<Uint8List?> pickImage() async {
-    return await ImagePickerWeb.getImageAsBytes();
+  Future<List<Uint8List>?> pickImages() async {
+    return await ImagePickerWeb.getMultiImagesAsBytes();
   }
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     return BlocBuilder<CreateNewProjectCubit, CreateNewProjectState>(
       builder: (context, state) {
         return Padding(
@@ -29,26 +32,73 @@ class SaleAreaInfo extends StatelessWidget {
             children: [
               AppSpace.verticalXL!,
               Text(
-                "Satılık alanlarınızın bilgilerini ve görsellerini ekleyiniz.",
+                "Lütfen satılık alan bilgilerinizi ve görselleri ekleyiniz",
                 style: AppTextStyle.h3,
                 textAlign: TextAlign.center,
               ),
               AppSpace.verticalXL!,
-              Expanded(
-                child: AddImageBoxButton(
-                  onTap: () => pickImage().then((value) {
-                      if(value != null) {
-                        return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                          .saveCompanyImage(value);
+              if(state.projectImages == null)
+                Expanded(
+                    child: AddApartmentBoxButton(
+                      onTap: () =>  pickImages().then((value) {
+                        if(value != null) {
+                          return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                              .saveProjectImages(value);
+                        }
                       }
-                    }
-                  ),
-                  padding: AppPadding.allM,
-                  child: state.companyImage == null
-                    ? null
-                    : Image.memory(state.companyImage!,),
-                )
-              ),
+                      ),
+                    )
+                ),
+              if(state.projectImages != null)
+                Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            flex: state.projectImages!.length,
+                            child: Row(
+                                children: [
+                                  ...?state.projectImages?.asMap().entries.map(
+                                          (projectImageEntry) {
+                                        return Expanded(
+                                            child: ImageFrame(
+                                              child: Image.memory(projectImageEntry.value),
+                                              onDeleteIconPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return DeleteAlertDialog(
+                                                      dialogContext: dialogContext,
+                                                      onApproved: () {
+                                                        BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                                            .removeProjectImage(projectImageEntry.key);
+                                                      },
+                                                      onRejected: () {},
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            )
+                                        );
+                                      }
+                                  )
+                                ]
+                            )
+                        ),
+                        Expanded(
+                          child: AddApartmentBoxButton(
+                            onTap: () => pickImages().then((value) {
+                              if(value != null) {
+                                return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                    .saveProjectImages(value);
+                              }
+                            }
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                ),
               AppSpace.verticalXL!,
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_images/project_images.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/sale_area_info/sale_area_info.dart';
 
+import '../../core/domain/model/project.dart';
 import '../presentation/steps/company_logo/company_logo.dart';
 import '../presentation/steps/contact_info/contact_info.dart';
 import '../presentation/steps/project_info/project_info.dart';
@@ -28,6 +29,8 @@ class CreateNewProjectState {
 
   List<Uint8List>? projectImages;
 
+  List<Apartment>? apartments;
+
   CreateNewProjectState(
     {
       required this.scrollController,
@@ -46,7 +49,9 @@ class CreateNewProjectState {
 
       this.companyImage,
 
-      this.projectImages
+      this.projectImages,
+
+      this.apartments
     }
   );
 
@@ -66,6 +71,7 @@ class CreateNewProjectState {
         String? companyLocationUrl,
         Uint8List? companyImage,
         List<Uint8List>? projectImages,
+        List<Apartment>? apartments,
       }
     ) {
     return CreateNewProjectState(
@@ -82,7 +88,8 @@ class CreateNewProjectState {
       companyAddress: companyAddress ?? this.companyAddress,
       companyLocationUrl: companyLocationUrl ?? this.companyLocationUrl,
       companyImage: companyImage ?? this.companyImage,
-      projectImages: projectImages ?? this.projectImages
+      projectImages: projectImages ?? this.projectImages,
+      apartments: apartments ?? this.apartments
     );
   }
 }
