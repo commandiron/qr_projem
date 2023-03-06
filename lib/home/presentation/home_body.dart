@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/presentation/widgets/copyright_footer.dart';
-import 'package:qr_projem/home/presentation/widgets/reference_qrs.dart';
-import 'package:qr_projem/home/presentation/widgets/welcome.dart';
-import 'package:qr_projem/home/presentation/widgets/how_to.dart';
+import 'package:qr_projem/home/presentation/body_sections/reference_qrs/reference_qrs.dart';
+import 'package:qr_projem/home/presentation/body_sections/welcome.dart';
+import 'package:qr_projem/home/presentation/body_sections/how_to.dart';
 
 import '../domain/cubit/home_cubit.dart';
 import '../domain/cubit/home_state.dart';
