@@ -13,7 +13,7 @@ import '../../../../core/presentation/config/app_padding.dart';
 class CompanyLogo extends StatelessWidget {
   const CompanyLogo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 4;
+  static const stepPageIndex = 2;
 
   Future<Uint8List?> pickImage() async {
     return await ImagePickerWeb.getImageAsBytes();
@@ -36,18 +36,17 @@ class CompanyLogo extends StatelessWidget {
               AppSpace.verticalXL!,
               Expanded(
                 child: AddImageBoxButton(
-                  showError: !state.pickedImageValidationResult,
                   onTap: () => pickImage().then((value) {
                       if(value != null) {
-                        return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                        BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
                           .saveCompanyLogo(value);
                       }
                     }
                   ),
                   padding: AppPadding.allM,
-                  child: state.companyLogo == null
+                  child: state.projectEntry.companyLogo == null
                     ? null
-                    : Image.memory(state.companyLogo!,),
+                    : Image.memory(state.projectEntry.companyLogo!,),
                 )
               ),
               AppSpace.verticalXL!,

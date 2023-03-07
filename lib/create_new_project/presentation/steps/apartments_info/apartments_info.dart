@@ -7,16 +7,16 @@ import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/apartments_info/widget/delete_frame.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_images/widgets/image_frame.dart';
-import 'package:qr_projem/create_new_project/presentation/steps/sale_area_info/widget/delete_frame.dart';
 import 'package:qr_projem/create_new_project/presentation/widgets/add_image_box_button.dart';
 import '../../../../core/presentation/config/app_padding.dart';
 import '../../widgets/add_apartemet_box_button.dart';
 
-class SaleAreaInfo extends StatelessWidget {
-  const SaleAreaInfo({Key? key}) : super(key: key);
+class ApartmentsInfo extends StatelessWidget {
+  const ApartmentsInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 0;
+  static const stepPageIndex = 4;
 
   Future<List<Uint8List>?> pickImages() async {
     return await ImagePickerWeb.getMultiImagesAsBytes();
@@ -37,28 +37,26 @@ class SaleAreaInfo extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               AppSpace.verticalXL!,
-              if(state.apartments == null)
+              if(state.projectEntry.apartments == null)
                 Expanded(
                     child: AddApartmentBoxButton(
-                      onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                          .addApartment()
+                      onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
                     )
                 ),
-              if(state.apartments != null)
+              if(state.projectEntry.apartments != null)
                 Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: state.apartments!.length,
+                          flex: state.projectEntry.apartments!.length,
                           child: Row(
                               children: [
-                                ...?state.apartments?.asMap().entries.map(
+                                ...?state.projectEntry.apartments?.asMap().entries.map(
                                   (apartment) {
                                     return Expanded(
                                       child: DeleteFrame(
-                                        onDeleteIconPressed: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                            .removeApartment(apartment.key),
+                                        onDeleteIconPressed: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartment(apartment.key),
                                         child: Form(
                                           key: state.saleAreaInfoFormKeys[apartment.key],
                                           child: Column(
@@ -78,25 +76,37 @@ class SaleAreaInfo extends StatelessWidget {
                                                           child: ImageFrame(
                                                               child: Image.memory(image.value),
                                                               onDeleteIconPressed: () {
-                                                                return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartmentImage(apartment.key,image.key);
+                                                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartmentImage(apartment.key,image.key);
                                                               },
                                                           ),
                                                         );
                                                       }
                                                     ),
-                                                    if(apartment.value.images == null)
-                                                      AddImageBoxButton(
-                                                      showError: !state.pickedImageValidationResult,
+                                                    apartment.value.images == null
+                                                      ? AddImageBoxButton(
+                                                    onTap: () {
+                                                      pickImages().then(
+                                                        (value) {
+                                                          if(value != null) {
+                                                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartment.key);
+                                                          }
+                                                        }
+                                                      );
+                                                    },
+                                                  )
+                                                      : apartment.value.images!.isEmpty
+                                                        ? AddImageBoxButton(
                                                       onTap: () {
                                                         pickImages().then(
-                                                                (value) {
+                                                            (value) {
                                                               if(value != null) {
-                                                                return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartment.key);
+                                                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartment.key);
                                                               }
                                                             }
                                                         );
                                                       },
                                                     )
+                                                        : const SizedBox.shrink()
                                                   ],
                                                 )
                                               ),
@@ -128,7 +138,7 @@ class SaleAreaInfo extends StatelessWidget {
                                                 },
                                                 onSaved: (newValue) {
                                                   if(newValue != null) {
-                                                    return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentType(newValue, apartment.key);
+                                                    BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentType(newValue, apartment.key);
                                                   }
                                                 },
                                               ),
@@ -144,7 +154,7 @@ class SaleAreaInfo extends StatelessWidget {
                                                 },
                                                 onSaved: (newValue) {
                                                   if(newValue != null) {
-                                                    return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentNetArea(newValue, apartment.key);
+                                                    BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentNetArea(newValue, apartment.key);
                                                   }
                                                 },
                                               ),
@@ -158,7 +168,7 @@ class SaleAreaInfo extends StatelessWidget {
                               ]
                           )
                         ),
-                        if(state.apartments!.length < 3)
+                        if(state.projectEntry.apartments!.length < 3)
                           Expanded(
                             child: AddApartmentBoxButton(
                               onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()

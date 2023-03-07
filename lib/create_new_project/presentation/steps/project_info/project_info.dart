@@ -10,7 +10,7 @@ import '../../../../core/presentation/config/app_text_style.dart';
 class ProjectInfo extends StatelessWidget {
   const ProjectInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 1;
+  static const stepPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class ProjectInfo extends StatelessWidget {
                         AppSpace.verticalM!,
                         Text("Proje adı:", style: AppTextStyle.b1,),
                         TextFormField(
-                          controller: TextEditingController(text: state.name),
+                          controller: TextEditingController(text: state.projectEntry.name),
                           decoration: const InputDecoration(
                             hintText: "Ör: Maltepe | Yüksel Apartmanı",
                           ),
@@ -43,23 +43,30 @@ class ProjectInfo extends StatelessWidget {
                             }
                           },
                           onSaved: (newValue) {
-                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                .saveName(newValue);
+                            if(newValue != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveName(newValue);
+                            }
                           },
                         ),
                         AppSpace.verticalL!,
                         ProjectDatePicker(
                           title: "Proje Başlangıç tarihi:",
-                          dateTime: state.startTime,
-                          onSaved: (dateTime) => BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                              .saveStartTime(dateTime),
+                          dateTime: state.projectEntry.startTime,
+                          onSaved: (dateTime) {
+                            if(dateTime != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveStartTime(dateTime);
+                            }
+                          }
                         ),
                         AppSpace.verticalL!,
                         ProjectDatePicker(
                           title: "Proje Tahmini Bitiş tarihi:",
-                          dateTime: state.estimatedFinishTime,
-                          onSaved: (dateTime) => BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                              .saveEstimatedFinishTime(dateTime),
+                          dateTime: state.projectEntry.estimatedFinishTime,
+                          onSaved: (dateTime) => {
+                            if(dateTime != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveEstimatedFinishTime(dateTime),
+                            }
+                          }
                         ),
                       ]
                     ),

@@ -11,7 +11,7 @@ import '../../../../core/presentation/helper/phone_input_mask.dart';
 class ContactInfo extends StatefulWidget {
   const ContactInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 3;
+  static const stepPageIndex = 1;
 
   @override
   State<ContactInfo> createState() => _ContactInfoState();
@@ -38,11 +38,11 @@ class _ContactInfoState extends State<ContactInfo> {
                         Text("İletişim Bilgileri", style: AppTextStyle.h3),
                         AppSpace.verticalM!,
                         TextFormField(
-                          controller: TextEditingController(text: state.companyPhone)
+                          controller: TextEditingController(text: state.projectEntry.companyPhone)
                             ..value = PhoneInputMask.mask
                               .formatEditUpdate(
                                 const TextEditingValue(text: ""),
-                                TextEditingValue(text: state.companyPhone ?? "")
+                                TextEditingValue(text: state.projectEntry.companyPhone ?? "")
                               ),
                           decoration: const InputDecoration(
                             hintText: "Telefon:",
@@ -68,7 +68,7 @@ class _ContactInfoState extends State<ContactInfo> {
                         ),
                         AppSpace.verticalL!,
                         TextFormField(
-                          controller: TextEditingController(text: state.companyMail),
+                          controller: TextEditingController(text: state.projectEntry.companyMail),
                           decoration: const InputDecoration(
                             hintText: "E-posta:",
                           ),
@@ -88,7 +88,7 @@ class _ContactInfoState extends State<ContactInfo> {
                         ),
                         AppSpace.verticalL!,
                         TextFormField(
-                          controller: TextEditingController(text: state.companyAddress),
+                          controller: TextEditingController(text: state.projectEntry.companyAddress),
                           decoration: const InputDecoration(
                             hintText: "Adres:",
                           ),
@@ -98,13 +98,15 @@ class _ContactInfoState extends State<ContactInfo> {
                             }
                           },
                           onSaved: (newValue) {
-                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                .saveAddress(newValue);
+                            if(newValue != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                  .saveAddress(newValue);
+                            }
                           },
                         ),
                         AppSpace.verticalL!,
                         TextFormField(
-                          controller: TextEditingController(text: state.companyLocationUrl),
+                          controller: TextEditingController(text: state.projectEntry.companyLocationUrl),
                           decoration: const InputDecoration(
                             hintText: "Konum: (Lütfen google haritalardan projenizin adress kordinat linkini yapıştırın)",
                           ),
@@ -114,8 +116,10 @@ class _ContactInfoState extends State<ContactInfo> {
                             }
                           },
                           onSaved: (newValue) {
-                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                .saveLocationUrl(newValue);
+                            if(newValue != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                  .saveLocationUrl(newValue);
+                            }
                           },
                         ),
                         AppSpace.verticalL!,

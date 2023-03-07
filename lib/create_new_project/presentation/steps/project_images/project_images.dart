@@ -15,7 +15,7 @@ import '../../../../core/presentation/config/app_padding.dart';
 class ProjectImages extends StatelessWidget {
   const ProjectImages({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 2;
+  static const stepPageIndex = 3;
 
   Future<List<Uint8List>?> pickImages() async {
     return await ImagePickerWeb.getMultiImagesAsBytes();
@@ -36,29 +36,27 @@ class ProjectImages extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               AppSpace.verticalXL!,
-              if(state.projectImages == null)
+              if(state.projectEntry.projectImages == null)
                 Expanded(
                   child: AddImageBoxButton(
-                    showError: !state.pickedImageValidationResult,
                     onTap: () =>  pickImages().then((value) {
                         if(value != null) {
-                          return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                              .saveProjectImages(value);
+                          BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveProjectImages(value);
                         }
                       }
                     ),
                   )
                 ),
-              if(state.projectImages != null)
+              if(state.projectEntry.projectImages != null)
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        flex: state.projectImages!.length,
+                        flex: state.projectEntry.projectImages!.length,
                         child: Row(
                           children: [
-                            ...?state.projectImages?.asMap().entries.map(
+                            ...?state.projectEntry.projectImages?.asMap().entries.map(
                               (projectImageEntry) {
                                 return Expanded(
                                   child: ImageFrame(
@@ -70,8 +68,7 @@ class ProjectImages extends StatelessWidget {
                                           return DeleteAlertDialog(
                                             dialogContext: dialogContext,
                                             onApproved: () {
-                                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                                .removeProjectImage(projectImageEntry.key);
+                                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeProjectImage(projectImageEntry.key);
                                             },
                                             onRejected: () {},
                                           );
@@ -85,18 +82,18 @@ class ProjectImages extends StatelessWidget {
                           ]
                         )
                       ),
-                      Expanded(
-                        child: AddImageBoxButton(
-                          showError: !state.pickedImageValidationResult,
-                          onTap: () => pickImages().then((value) {
-                              if(value != null) {
-                                return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                  .saveProjectImages(value);
+                      if(state.projectEntry.projectImages!.length < 4)
+                        Expanded(
+                          child: AddImageBoxButton(
+                            onTap: () => pickImages().then((value) {
+                                if(value != null) {
+                                  return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
+                                    .saveProjectImages(value);
+                                }
                               }
-                            }
+                            ),
                           ),
-                        ),
-                      )
+                        )
                     ],
                   )
                 ),
