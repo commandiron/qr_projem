@@ -5,7 +5,7 @@ import '../../../core/presentation/config/app_padding.dart';
 
 class AddImageBoxButton extends StatelessWidget {
   const AddImageBoxButton(
-      {required this.onTap, this.padding, this.child, required this.showError, Key? key}) : super(key: key);
+      {required this.onTap, this.padding, this.child, this.showError = false, Key? key}) : super(key: key);
 
   final void Function() onTap;
   final EdgeInsetsGeometry? padding;

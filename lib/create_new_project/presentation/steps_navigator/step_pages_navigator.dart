@@ -21,40 +21,24 @@ class StepPagesNavigator extends StatelessWidget {
           bottomRight: Radius.circular(32),
         )
       ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Row(
-            children: items.map(
-              (item) {
-                return Expanded(
-                  child: Padding(
-                    padding: AppPadding.allS!,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: NavigatorItem(
-                        selectedIndex: selectedIndex,
-                        itemIndex: item.index,
-                        itemTitle: item.title
-                      )
-                    ),
-                  ),
-                );
-              }
-            ).toList()
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              for (var i = 0; i < items.length - 1; i++)
-                Icon(
-                  Icons.arrow_right_alt,
-                  color: Theme.of(context).colorScheme.onPrimary,
+      child: Row(
+        children: items.map(
+          (item) {
+            return Expanded(
+              child: Padding(
+                padding: AppPadding.allS!,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: NavigatorItem(
+                    selectedIndex: selectedIndex,
+                    itemIndex: item.index,
+                    itemTitle: item.title
+                  )
                 ),
-            ]
-          )
-        ],
+              ),
+            );
+          }
+        ).toList()
       ),
     );
   }

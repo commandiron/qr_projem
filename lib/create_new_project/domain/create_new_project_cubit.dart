@@ -171,6 +171,13 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     }
     emit(state.copyWith(apartments: newApartments));
   }
+  void removeApartment(int apartmentIndex) {
+    if(state.apartments != null) {
+      final newApartments = state.apartments;
+      newApartments!.removeAt(apartmentIndex);
+      emit(state.copyWith(apartments: newApartments));
+    }
+  }
   void saveApartmentName(String title, int index) {
     if(state.apartments != null) {
       emit(
