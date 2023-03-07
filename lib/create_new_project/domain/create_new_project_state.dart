@@ -13,7 +13,7 @@ class CreateNewProjectState {
   int stepPageIndex;
   GlobalKey<FormState> projectInfoFormKey;
   GlobalKey<FormState> contactInfoFormKey;
-  List<GlobalKey<FormState>> saleAreaInfoFormKeys;
+  List<GlobalKey<FormState>> apartmentInfoFormKeys;
   ProjectEntry projectEntry;
 
   CreateNewProjectState(
@@ -23,7 +23,7 @@ class CreateNewProjectState {
       required this.stepPageIndex,
       required this.projectInfoFormKey,
       required this.contactInfoFormKey,
-      required this.saleAreaInfoFormKeys,
+      required this.apartmentInfoFormKeys,
       required this.projectEntry,
     }
   );
@@ -35,7 +35,7 @@ class CreateNewProjectState {
         int? stepPageIndex,
         GlobalKey<FormState>? projectInfoFormKey,
         GlobalKey<FormState>? contactInfoFormKey,
-        List<GlobalKey<FormState>>? saleAreaInfoFormKeys,
+        List<GlobalKey<FormState>>? apartmentInfoFormKeys,
         ProjectEntry? projectEntry,
       }
     ) {
@@ -45,7 +45,7 @@ class CreateNewProjectState {
       stepPageIndex: stepPageIndex ?? this.stepPageIndex,
       projectInfoFormKey: projectInfoFormKey ?? this.projectInfoFormKey,
       contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey,
-      saleAreaInfoFormKeys: saleAreaInfoFormKeys ?? this.saleAreaInfoFormKeys,
+      apartmentInfoFormKeys: apartmentInfoFormKeys ?? this.apartmentInfoFormKeys,
       projectEntry: projectEntry ?? this.projectEntry,
     );
   }

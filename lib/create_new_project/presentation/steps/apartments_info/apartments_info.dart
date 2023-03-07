@@ -58,7 +58,7 @@ class ApartmentsInfo extends StatelessWidget {
                                       child: DeleteFrame(
                                         onDeleteIconPressed: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartment(apartment.key),
                                         child: Form(
-                                          key: state.saleAreaInfoFormKeys[apartment.key],
+                                          key: state.apartmentInfoFormKeys[apartment.key],
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [

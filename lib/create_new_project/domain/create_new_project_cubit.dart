@@ -21,7 +21,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       stepPageIndex: 0,
       projectInfoFormKey: GlobalKey<FormState>(),
       contactInfoFormKey: GlobalKey<FormState>(),
-      saleAreaInfoFormKeys: [],
+      apartmentInfoFormKeys: [],
       projectEntry: ProjectEntry()
     )
   );
@@ -138,42 +138,46 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     validateProjectImages();
   }
   void removeProjectImage(int imageIndex) {
-    final images = state.projectEntry.projectImages;
-    images?.removeAt(imageIndex);
-    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(projectImages: images)));
+    final newImages = state.projectEntry.projectImages?..removeAt(imageIndex);
+    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(projectImages: newImages)));
   }
 
   void addApartment() {
     const apartmentLimit = 3;
-    List<ApartmentEntry>? newApartments;
-    List<GlobalKey<FormState>>? newFormKeys;
-    if(state.projectEntry.apartments == null) {
-      newApartments = [];
-      newApartments.add(ApartmentEntry());
-      newFormKeys = [];
-      newFormKeys.add(GlobalKey<FormState>());
-    } else {
-      newApartments = state.projectEntry.apartments;
-      newFormKeys = state.saleAreaInfoFormKeys;
-      if(state.projectEntry.apartments!.length < apartmentLimit) {
-        newApartments?.add(ApartmentEntry());
-        newFormKeys.add(GlobalKey<FormState>());
-      }
+    final apartments = (state.projectEntry.apartments ?? []);
+    if(apartments.length < apartmentLimit) {
+      final newApartments = apartments..add(ApartmentEntry());
+      final newFormKeys = (state.apartmentInfoFormKeys)..add(GlobalKey<FormState>());
+      emit(
+        state.copyWith(
+          projectEntry: state.projectEntry.copyWith(apartments: newApartments),
+          apartmentInfoFormKeys: newFormKeys
+        ),
+      );
     }
-    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(apartments: newApartments,), saleAreaInfoFormKeys: newFormKeys));
   }
   void removeApartment(int apartmentIndex) {
-    if(state.projectEntry.apartments != null) {
-      final newApartments = state.projectEntry.apartments;
-      newApartments!.removeAt(apartmentIndex);
-      final newFormKeys = state.saleAreaInfoFormKeys;
-      newFormKeys.removeAt(apartmentIndex);
-      emit(state.copyWith(projectEntry: state.projectEntry.copyWith(apartments: newApartments), saleAreaInfoFormKeys: newFormKeys));
+    final apartments = state.projectEntry.apartments;
+    if(apartments != null) {
+      final newApartments = apartments..removeAt(apartmentIndex);
+      final newFormKeys = (state.apartmentInfoFormKeys)..removeAt(apartmentIndex);
+      emit(
+        state.copyWith(
+          projectEntry: state.projectEntry.copyWith(apartments: newApartments),
+          apartmentInfoFormKeys: newFormKeys
+        )
+      );
     }
   }
   bool validateApartmentsInfo() {
     if(state.projectEntry.apartments == null) {
       return false;
+    }
+
+    for (var saleAreaInfoFormKey in state.apartmentInfoFormKeys) {
+      if(saleAreaInfoFormKey.currentState!.validate()) {
+        saleAreaInfoFormKey.currentState!.save();
+      }
     }
 
     for(var apartment in state.projectEntry.apartments!) {
@@ -185,26 +189,19 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       }
     }
 
-    for (var saleAreaInfoFormKey in state.saleAreaInfoFormKeys) {
-      if(saleAreaInfoFormKey.currentState!.validate()) {
-        saleAreaInfoFormKey.currentState!.save();
-      }
-    }
-
-    if(state.saleAreaInfoFormKeys.any((saleAreaInfoFormKey) => !saleAreaInfoFormKey.currentState!.validate())) {
+    if(state.apartmentInfoFormKeys.any((saleAreaInfoFormKey) => !saleAreaInfoFormKey.currentState!.validate())) {
       return false;
     }
     return true;
   }
   void saveApartmentImages(List<Uint8List> images, int index) {
     const imageLimit = 2;
-    final newImages = images;
     if(images.length > imageLimit) {
-      newImages.removeRange(images.length - (images.length - imageLimit), images.length);
+      images.removeRange(images.length - (images.length - imageLimit), images.length);
     }
     if(state.projectEntry.apartments != null) {
       final apartment = state.projectEntry.apartments![index];
-      final newApartment = apartment.copyWith(images: newImages);
+      final newApartment = apartment.copyWith(images: images);
       final newApartments = state.projectEntry.apartments;
       newApartments![index] = newApartment;
       emit(
@@ -216,8 +213,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   }
   void removeApartmentImage(int index, int imageIndex) {
     if(state.projectEntry.apartments != null) {
-      final images = state.projectEntry.apartments![index].images;
-      images?.removeAt(imageIndex);
+      final images = state.projectEntry.apartments![index].images?..removeAt(imageIndex);
       final apartment = state.projectEntry.apartments![index];
       final newApartment = apartment.copyWith(images: images);
       final newApartments = state.projectEntry.apartments;
