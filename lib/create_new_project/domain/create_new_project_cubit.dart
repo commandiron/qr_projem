@@ -95,7 +95,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void saveEstimatedFinishTime(DateTime estimatedFinishTime) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(estimatedFinishTime: estimatedFinishTime)));
   }
-
   void savePhoneNumber(String phoneNumber) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(companyPhone: phoneNumber)));
   }
@@ -108,7 +107,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void saveLocationUrl(String locationUrl) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(companyLocationUrl: locationUrl)));
   }
-
   bool validateCompanyLogo() {
     if(state.projectEntry.companyLogo == null) {
       return false;
@@ -119,7 +117,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(companyLogo: image)));
     validateCompanyLogo();
   }
-
   bool validateProjectImages() {
     if(state.projectEntry.projectImages == null) {
       return false;
@@ -141,7 +138,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     final newImages = state.projectEntry.projectImages?..removeAt(imageIndex);
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(projectImages: newImages)));
   }
-
   void addApartment() {
     const apartmentLimit = 3;
     final apartments = (state.projectEntry.apartments ?? []);
