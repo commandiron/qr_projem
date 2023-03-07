@@ -15,7 +15,7 @@ import '../../../../core/presentation/config/app_padding.dart';
 class ProjectImages extends StatelessWidget {
   const ProjectImages({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 4;
+  static const stepPageIndex = 0;
 
   Future<List<Uint8List>?> pickImages() async {
     return await ImagePickerWeb.getMultiImagesAsBytes();
@@ -39,6 +39,7 @@ class ProjectImages extends StatelessWidget {
               if(state.projectImages == null)
                 Expanded(
                   child: AddImageBoxButton(
+                    showError: !state.validationResult,
                     onTap: () =>  pickImages().then((value) {
                         if(value != null) {
                           return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
@@ -86,6 +87,7 @@ class ProjectImages extends StatelessWidget {
                       ),
                       Expanded(
                         child: AddImageBoxButton(
+                          showError: !state.validationResult,
                           onTap: () => pickImages().then((value) {
                               if(value != null) {
                                 return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)

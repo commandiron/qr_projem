@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_images/project_images.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/sale_area_info/sale_area_info.dart';
 
-import '../../core/domain/model/project.dart';
 import '../presentation/steps/company_logo/company_logo.dart';
 import '../presentation/steps/contact_info/contact_info.dart';
 import '../presentation/steps/project_info/project_info.dart';
+import 'entiries/apartment_entry.dart';
 
 class CreateNewProjectState {
   ScrollController scrollController;
@@ -15,6 +15,7 @@ class CreateNewProjectState {
   int stepPageIndex;
   GlobalKey<FormState> projectInfoFormKey;
   GlobalKey<FormState> contactInfoFormKey;
+  bool validationResult;
 
   String? name;
   DateTime? startTime;
@@ -25,11 +26,11 @@ class CreateNewProjectState {
   String? companyAddress;
   String? companyLocationUrl;
 
-  Uint8List? companyImage;
+  Uint8List? companyLogo;
 
   List<Uint8List>? projectImages;
 
-  List<Apartment>? apartments;
+  List<ApartmentEntry>? apartments;
 
   CreateNewProjectState(
     {
@@ -38,6 +39,8 @@ class CreateNewProjectState {
       required this.stepPageIndex,
       required this.projectInfoFormKey,
       required this.contactInfoFormKey,
+      required this.validationResult,
+
       this.name,
       this.startTime,
       this.estimatedFinishTime,
@@ -47,7 +50,7 @@ class CreateNewProjectState {
       this.companyAddress,
       this.companyLocationUrl,
 
-      this.companyImage,
+      this.companyLogo,
 
       this.projectImages,
 
@@ -62,6 +65,7 @@ class CreateNewProjectState {
         int? stepPageIndex,
         GlobalKey<FormState>? projectInfoFormKey,
         GlobalKey<FormState>? contactInfoFormKey,
+        bool? validationResult,
         String? name,
         DateTime? startTime,
         DateTime? estimatedFinishTime,
@@ -69,9 +73,9 @@ class CreateNewProjectState {
         String? companyMail,
         String? companyAddress,
         String? companyLocationUrl,
-        Uint8List? companyImage,
+        Uint8List? companyLogo,
         List<Uint8List>? projectImages,
-        List<Apartment>? apartments,
+        List<ApartmentEntry>? apartments,
       }
     ) {
     return CreateNewProjectState(
@@ -80,6 +84,7 @@ class CreateNewProjectState {
       stepPageIndex: stepPageIndex ?? this.stepPageIndex,
       projectInfoFormKey: projectInfoFormKey ?? this.projectInfoFormKey,
       contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey,
+      validationResult: validationResult ?? this.validationResult,
       name: name ?? this.name,
       startTime: startTime ?? this.startTime,
       estimatedFinishTime: estimatedFinishTime ?? this.estimatedFinishTime,
@@ -87,7 +92,7 @@ class CreateNewProjectState {
       companyMail: companyMail ?? this.companyMail,
       companyAddress: companyAddress ?? this.companyAddress,
       companyLocationUrl: companyLocationUrl ?? this.companyLocationUrl,
-      companyImage: companyImage ?? this.companyImage,
+      companyLogo: companyLogo ?? this.companyLogo,
       projectImages: projectImages ?? this.projectImages,
       apartments: apartments ?? this.apartments
     );

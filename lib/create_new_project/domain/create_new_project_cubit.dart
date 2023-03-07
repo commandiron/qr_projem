@@ -3,13 +3,14 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/sale_area_info/sale_area_info.dart';
 
 import '../../core/data/repositories/project_repository.dart';
-import '../../core/domain/model/project.dart';
 import '../presentation/steps/contact_info/contact_info.dart';
 import '../presentation/steps/project_images/project_images.dart';
 import '../presentation/steps/project_info/project_info.dart';
 import 'create_new_project_state.dart';
+import 'entiries/apartment_entry.dart';
 
 class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   CreateNewProjectCubit() : super(
@@ -19,6 +20,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       stepPageIndex: 0,
       projectInfoFormKey: GlobalKey<FormState>(),
       contactInfoFormKey: GlobalKey<FormState>(),
+      validationResult: true,
     )
   );
 
@@ -48,31 +50,44 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         if(state.projectInfoFormKey.currentState!.validate()) {
           state.projectInfoFormKey.currentState!.save();
           return true;
-        } else {
-          return false;
         }
+        return false;
       }
       case ContactInfo.stepPageIndex : {
         if(state.contactInfoFormKey.currentState!.validate()) {
           state.contactInfoFormKey.currentState!.save();
           return true;
-        } else {
-          return false;
         }
+        return false;
       }
       case CompanyLogo.stepPageIndex : {
-        if(state.companyImage != null) {
+        if(validateCompanyLogo()) {
           return true;
-        } else {
-          return false;
         }
+        return false;
       }
       case ProjectImages.stepPageIndex : {
-        if(state.projectImages != null) {
+        if(validateProjectImages()) {
           return true;
-        } else {
+        }
+        return false;
+      }
+      case SaleAreaInfo.stepPageIndex : {
+        if(state.apartments != null) {
+          if(state.apartments!.any(
+              (element) =>
+                element.title != null
+                  || element.imageUrls!= null
+                  || element.type!= null
+                  || element.netArea!= null
+                  || element.grossArea!= null
+            )
+          ) {
+            return true;
+          }
           return false;
         }
+        return false;
       }
       default : {
         return false;
@@ -103,21 +118,61 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     emit(state.copyWith(companyLocationUrl: locationUrl));
   }
 
-  void saveCompanyImage(Uint8List image) {
-    emit(state.copyWith(companyImage: image));
+  bool validateCompanyLogo() {
+    if(state.companyLogo == null) {
+      emit(state.copyWith(validationResult: false));
+      return false;
+    }
+    emit(state.copyWith(validationResult: true));
+    return true;
+  }
+  void saveCompanyLogo(Uint8List image) {
+    emit(state.copyWith(companyLogo: image));
+    validateCompanyLogo();
   }
 
+  bool validateProjectImages() {
+    if(state.projectImages == null) {
+      emit(state.copyWith(validationResult: false));
+      return false;
+    }
+    if(state.projectImages!.isEmpty) {
+      emit(state.copyWith(validationResult: false));
+      return false;
+    }
+    emit(state.copyWith(validationResult: true));
+    return true;
+  }
   void saveProjectImages(List<Uint8List> images) {
     const imageLimit = 4;
     if(images.length > imageLimit) {
       images.removeRange(images.length - (images.length - imageLimit), images.length);
     }
     emit(state.copyWith(projectImages: images));
+    validateProjectImages();
   }
   void removeProjectImage(int imageIndex) {
     final images = state.projectImages;
     images?.removeAt(imageIndex);
     emit(state.copyWith(projectImages: images));
+  }
+
+  void addApartment(ApartmentEntry apartment) {
+    List.from(state.apartments ?? []).add(apartment);
+    emit(state.copyWith(apartments: state.apartments));
+  }
+  void saveApartmentName(String title, int index) {
+    if(state.apartments != null) {
+      emit(
+        state.copyWith(
+          apartments: state.apartments!.map(
+            (apartment) => apartment.copyWith(
+              title: title
+            )
+          ).toList()
+        )
+      );
+    }
   }
 
   void jumpToStepPage(int index) {
