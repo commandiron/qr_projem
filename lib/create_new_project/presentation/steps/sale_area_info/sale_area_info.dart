@@ -7,6 +7,7 @@ import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/project_images/widgets/image_frame.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/sale_area_info/widget/delete_frame.dart';
 import 'package:qr_projem/create_new_project/presentation/widgets/add_image_box_button.dart';
 import '../../../../core/presentation/config/app_padding.dart';
@@ -31,7 +32,7 @@ class SaleAreaInfo extends StatelessWidget {
             children: [
               AppSpace.verticalXL!,
               Text(
-                "Lütfen satılık alan bilgilerinizi ve görselleri ekleyiniz (En fazla 3 adet)",
+                "Lütfen daire bilgilerinizi ve planları ekleyiniz (En fazla 3 adet)",
                 style: AppTextStyle.h3,
                 textAlign: TextAlign.center,
               ),
@@ -58,25 +59,97 @@ class SaleAreaInfo extends StatelessWidget {
                                       child: DeleteFrame(
                                         onDeleteIconPressed: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
                                             .removeApartment(apartment.key),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              apartment.key == 0 ? "Tip A" : apartment.key == 1 ? "Tip B" : apartment.key == 2 ? "Tip C" : "Tip A",
-                                              style: AppTextStyle.b1,
-                                            ),
-                                            Expanded(
-                                              child: AddImageBoxButton(
-                                                onTap: () {
-
+                                        child: Form(
+                                          key: state.saleAreaInfoFormKeys[apartment.key],
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                apartment.key == 0 ? "Tip A" : apartment.key == 1 ? "Tip B" : apartment.key == 2 ? "Tip C" : "Tip A",
+                                                style: AppTextStyle.b1,
+                                              ),
+                                              Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    ...?apartment.value.images?.asMap().entries.map(
+                                                      (image) {
+                                                        return Expanded(
+                                                          child: ImageFrame(
+                                                              child: Image.memory(image.value),
+                                                              onDeleteIconPressed: () {
+                                                                return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartmentImage(apartment.key,image.key);
+                                                              },
+                                                          ),
+                                                        );
+                                                      }
+                                                    ),
+                                                    if(apartment.value.images == null)
+                                                      AddImageBoxButton(
+                                                      showError: !state.pickedImageValidationResult,
+                                                      onTap: () {
+                                                        pickImages().then(
+                                                                (value) {
+                                                              if(value != null) {
+                                                                return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartment.key);
+                                                              }
+                                                            }
+                                                        );
+                                                      },
+                                                    )
+                                                  ],
+                                                )
+                                              ),
+                                              TextFormField(
+                                                controller: TextEditingController(text: apartment.value.title),
+                                                decoration: const InputDecoration(
+                                                  hintText: "Başlık: Ör: 8.Kat Normal Daire",
+                                                ),
+                                                validator: (value) {
+                                                  if(value == "") {
+                                                    return "Lütfen ilgili alanı doldurunuz.";
+                                                  }
+                                                },
+                                                onSaved: (newValue) {
+                                                  if(newValue != null) {
+                                                    return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentTitle(newValue, apartment.key);
+                                                  }
                                                 },
                                               ),
-                                            ),
-                                            Text(
-                                              "Bilgileri gir",
-                                              style: AppTextStyle.b1,
-                                            ),
-                                          ],
+                                              TextFormField(
+                                                controller: TextEditingController(text: apartment.value.type),
+                                                decoration: const InputDecoration(
+                                                  hintText: "Tip: Ör: 3+1",
+                                                ),
+                                                validator: (value) {
+                                                  if(value == "") {
+                                                    return "Lütfen ilgili alanı doldurunuz.";
+                                                  }
+                                                },
+                                                onSaved: (newValue) {
+                                                  if(newValue != null) {
+                                                    return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentType(newValue, apartment.key);
+                                                  }
+                                                },
+                                              ),
+                                              TextFormField(
+                                                controller: TextEditingController(text: apartment.value.netArea),
+                                                decoration: const InputDecoration(
+                                                  hintText: "Net Alan: Ör: 90 m2",
+                                                ),
+                                                validator: (value) {
+                                                  if(value == "") {
+                                                    return "Lütfen ilgili alanı doldurunuz.";
+                                                  }
+                                                },
+                                                onSaved: (newValue) {
+                                                  if(newValue != null) {
+                                                    return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentNetArea(newValue, apartment.key);
+                                                  }
+                                                },
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
@@ -85,11 +158,12 @@ class SaleAreaInfo extends StatelessWidget {
                               ]
                           )
                         ),
-                        Expanded(
-                          child: AddApartmentBoxButton(
-                            onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
-                          ),
-                        )
+                        if(state.apartments!.length < 3)
+                          Expanded(
+                            child: AddApartmentBoxButton(
+                              onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
+                            ),
+                          )
                       ],
                     )
                 ),

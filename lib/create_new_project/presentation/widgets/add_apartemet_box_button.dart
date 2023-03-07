@@ -24,13 +24,14 @@ class AddApartmentBoxButton extends StatelessWidget {
           ),
           alignment: Alignment.center,
           padding: padding ?? AppPadding.allS,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FittedBox(child: child ?? const Icon(Icons.add, size: 100)),
-              Text("Daire ekle", style: AppTextStyle.h2,)
-
-            ],
+          child: FittedBox(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                child ?? const Icon(Icons.add, size: 100),
+                Text("Daire ekle", style: AppTextStyle.h2,)
+              ],
+            ),
           ),
         ),
       ),

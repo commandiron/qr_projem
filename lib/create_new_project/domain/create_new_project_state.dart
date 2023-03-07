@@ -15,7 +15,8 @@ class CreateNewProjectState {
   int stepPageIndex;
   GlobalKey<FormState> projectInfoFormKey;
   GlobalKey<FormState> contactInfoFormKey;
-  bool validationResult;
+  List<GlobalKey<FormState>> saleAreaInfoFormKeys;
+  bool pickedImageValidationResult;
 
   String? name;
   DateTime? startTime;
@@ -39,7 +40,8 @@ class CreateNewProjectState {
       required this.stepPageIndex,
       required this.projectInfoFormKey,
       required this.contactInfoFormKey,
-      required this.validationResult,
+      required this.saleAreaInfoFormKeys,
+      required this.pickedImageValidationResult,
 
       this.name,
       this.startTime,
@@ -65,7 +67,8 @@ class CreateNewProjectState {
         int? stepPageIndex,
         GlobalKey<FormState>? projectInfoFormKey,
         GlobalKey<FormState>? contactInfoFormKey,
-        bool? validationResult,
+        List<GlobalKey<FormState>>? saleAreaInfoFormKeys,
+        bool? pickedImageValidationResult,
         String? name,
         DateTime? startTime,
         DateTime? estimatedFinishTime,
@@ -84,7 +87,8 @@ class CreateNewProjectState {
       stepPageIndex: stepPageIndex ?? this.stepPageIndex,
       projectInfoFormKey: projectInfoFormKey ?? this.projectInfoFormKey,
       contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey,
-      validationResult: validationResult ?? this.validationResult,
+      saleAreaInfoFormKeys: saleAreaInfoFormKeys ?? this.saleAreaInfoFormKeys,
+      pickedImageValidationResult: pickedImageValidationResult ?? this.pickedImageValidationResult,
       name: name ?? this.name,
       startTime: startTime ?? this.startTime,
       estimatedFinishTime: estimatedFinishTime ?? this.estimatedFinishTime,

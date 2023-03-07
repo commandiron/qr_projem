@@ -20,7 +20,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       stepPageIndex: 0,
       projectInfoFormKey: GlobalKey<FormState>(),
       contactInfoFormKey: GlobalKey<FormState>(),
-      validationResult: true,
+      saleAreaInfoFormKeys: [],
+      pickedImageValidationResult: true,
     )
   );
 
@@ -73,19 +74,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         return false;
       }
       case SaleAreaInfo.stepPageIndex : {
-        if(state.apartments != null) {
-          if(state.apartments!.any(
-              (element) =>
-                element.title != null
-                  || element.imageUrls!= null
-                  || element.type!= null
-                  || element.netArea!= null
-                  || element.grossArea!= null
-            )
-          ) {
-            return true;
-          }
-          return false;
+        if(validateSaleAreaInfo()) {
+          return true;
         }
         return false;
       }
@@ -120,10 +110,10 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   bool validateCompanyLogo() {
     if(state.companyLogo == null) {
-      emit(state.copyWith(validationResult: false));
+      emit(state.copyWith(pickedImageValidationResult: false));
       return false;
     }
-    emit(state.copyWith(validationResult: true));
+    emit(state.copyWith(pickedImageValidationResult: true));
     return true;
   }
   void saveCompanyLogo(Uint8List image) {
@@ -133,14 +123,14 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   bool validateProjectImages() {
     if(state.projectImages == null) {
-      emit(state.copyWith(validationResult: false));
+      emit(state.copyWith(pickedImageValidationResult: false));
       return false;
     }
     if(state.projectImages!.isEmpty) {
-      emit(state.copyWith(validationResult: false));
+      emit(state.copyWith(pickedImageValidationResult: false));
       return false;
     }
-    emit(state.copyWith(validationResult: true));
+    emit(state.copyWith(pickedImageValidationResult: true));
     return true;
   }
   void saveProjectImages(List<Uint8List> images) {
@@ -160,33 +150,121 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void addApartment() {
     const apartmentLimit = 3;
     List<ApartmentEntry>? newApartments;
+    List<GlobalKey<FormState>>? newFormKeys;
     if(state.apartments == null) {
       newApartments = [];
       newApartments.add(ApartmentEntry());
+      newFormKeys = [];
+      newFormKeys.add(GlobalKey<FormState>());
     } else {
       newApartments = state.apartments;
+      newFormKeys = state.saleAreaInfoFormKeys;
       if(state.apartments!.length < apartmentLimit) {
         newApartments?.add(ApartmentEntry());
+        newFormKeys.add(GlobalKey<FormState>());
       }
     }
-    emit(state.copyWith(apartments: newApartments));
+    emit(state.copyWith(apartments: newApartments, saleAreaInfoFormKeys: newFormKeys));
   }
   void removeApartment(int apartmentIndex) {
     if(state.apartments != null) {
       final newApartments = state.apartments;
       newApartments!.removeAt(apartmentIndex);
+      final newFormKeys = state.saleAreaInfoFormKeys;
+      newFormKeys.removeAt(apartmentIndex);
+      emit(state.copyWith(apartments: newApartments, saleAreaInfoFormKeys: newFormKeys));
+    }
+  }
+  bool validateSaleAreaInfo() {
+    if(state.apartments == null) {
+      emit(state.copyWith(pickedImageValidationResult: false));
+      return false;
+    }
+
+    for(var apartment in state.apartments!) {
+      if(apartment.images == null) {
+        emit(state.copyWith(pickedImageValidationResult: false));
+        return false;
+      }
+    }
+
+    emit(state.copyWith(pickedImageValidationResult: true));
+
+    for (var saleAreaInfoFormKey in state.saleAreaInfoFormKeys) {
+      if(saleAreaInfoFormKey.currentState!.validate()) {
+        saleAreaInfoFormKey.currentState!.save();
+      }
+    }
+
+    if(state.saleAreaInfoFormKeys.any((saleAreaInfoFormKey) => !saleAreaInfoFormKey.currentState!.validate())) {
+      return false;
+    }
+    return true;
+  }
+  void saveApartmentImages(List<Uint8List> images, int index) {
+    const imageLimit = 2;
+    final newImages = images;
+    if(images.length > imageLimit) {
+      newImages.removeRange(images.length - (images.length - imageLimit), images.length);
+    }
+    if(state.apartments != null) {
+      final apartment = state.apartments![index];
+      final newApartment = apartment.copyWith(images: newImages);
+      final newApartments = state.apartments;
+      newApartments![index] = newApartment;
+      emit(
+        state.copyWith(
+          apartments: newApartments
+        )
+      );
+    }
+  }
+  void removeApartmentImage(int index, int imageIndex) {
+    if(state.apartments != null) {
+      final images = state.apartments![index].images;
+      images?.removeAt(imageIndex);
+      final apartment = state.apartments![index];
+      final newApartment = apartment.copyWith(images: images);
+      final newApartments = state.apartments;
+      newApartments![index] = newApartment;
       emit(state.copyWith(apartments: newApartments));
     }
   }
-  void saveApartmentName(String title, int index) {
+  void saveApartmentTitle(String title, int index) {
     if(state.apartments != null) {
+      final apartment = state.apartments![index];
+      final newApartment = apartment.copyWith(title: title);
+      final newApartments = state.apartments;
+      newApartments![index] = newApartment;
       emit(
         state.copyWith(
-          apartments: state.apartments!.map(
-            (apartment) => apartment.copyWith(
-              title: title
-            )
-          ).toList()
+          apartments: newApartments
+        )
+      );
+    }
+  }
+  void saveApartmentType(String type, int index) {
+    if(state.apartments != null) {
+      final apartment = state.apartments![index];
+      final newApartment = apartment.copyWith(type: type);
+      final newApartments = state.apartments;
+      newApartments![index] = newApartment;
+      emit(
+        state.copyWith(
+          apartments: newApartments
+        )
+      );
+    }
+  }
+  void saveApartmentNetArea(String netArea, int index) {
+    if(state.apartments != null) {
+      final apartment = state.apartments![index];
+      final newApartment = apartment.copyWith(netArea: netArea);
+      final newApartments = state.apartments;
+      newApartments![index] = newApartment;
+      emit(
+        state.copyWith(
+          apartments: newApartments
         )
       );
     }

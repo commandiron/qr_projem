@@ -29,15 +29,17 @@ class AddImageBoxButton extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FittedBox(
-                  child: child ?? Icon(
-                    Icons.add_photo_alternate_outlined,
-                    size: 100,
-                    color: showError ? Theme.of(context).colorScheme.error : Colors.black,
-                  )
+              Expanded(
+                child: FittedBox(
+                    child: child ?? Icon(
+                      Icons.add_photo_alternate_outlined,
+                      size: 100,
+                      color: showError ? Theme.of(context).colorScheme.error : Colors.black,
+                    )
+                ),
               ),
               if(showError)
-                Text("Lütfen seçiniz", style: AppTextStyle.b1!.copyWith(color: Theme.of(context).colorScheme.error),)
+                FittedBox(child: Text("Lütfen seçiniz", style: AppTextStyle.b1!.copyWith(color: Theme.of(context).colorScheme.error),))
             ],
           ),
         ),

@@ -39,7 +39,7 @@ class ProjectImages extends StatelessWidget {
               if(state.projectImages == null)
                 Expanded(
                   child: AddImageBoxButton(
-                    showError: !state.validationResult,
+                    showError: !state.pickedImageValidationResult,
                     onTap: () =>  pickImages().then((value) {
                         if(value != null) {
                           return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
@@ -87,7 +87,7 @@ class ProjectImages extends StatelessWidget {
                       ),
                       Expanded(
                         child: AddImageBoxButton(
-                          showError: !state.validationResult,
+                          showError: !state.pickedImageValidationResult,
                           onTap: () => pickImages().then((value) {
                               if(value != null) {
                                 return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)

@@ -36,7 +36,7 @@ class CompanyLogo extends StatelessWidget {
               AppSpace.verticalXL!,
               Expanded(
                 child: AddImageBoxButton(
-                  showError: !state.validationResult,
+                  showError: !state.pickedImageValidationResult,
                   onTap: () => pickImage().then((value) {
                       if(value != null) {
                         return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)

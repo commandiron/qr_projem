@@ -1,33 +1,31 @@
+import 'dart:typed_data';
+
 class ApartmentEntry {
+  List<Uint8List>? images;
   String? title;
-  List<String>? imageUrls;
   String? type;
   String? netArea;
-  String? grossArea;
 
   ApartmentEntry({
+    this.images,
     this.title,
-    this.imageUrls,
     this.type,
     this.netArea,
-    this.grossArea,
   });
 
   ApartmentEntry copyWith(
     {
+      List<Uint8List>? images,
       String? title,
-      List<String>? imageUrls,
       String? type,
       String? netArea,
-      String? grossArea
     }
   ) {
     return ApartmentEntry(
-        title: title ?? this.title,
-        imageUrls: imageUrls ?? this.imageUrls,
-        type: type ?? this.type,
-        netArea: netArea ?? this.netArea,
-        grossArea: grossArea ?? this.grossArea
+      images: images ?? this.images,
+      title: title ?? this.title,
+      type: type ?? this.type,
+      netArea: netArea ?? this.netArea,
     );
   }
 }
