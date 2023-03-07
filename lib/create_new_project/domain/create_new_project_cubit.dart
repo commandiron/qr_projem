@@ -49,36 +49,19 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   bool validateStepsPage() {
     switch(state.stepPageIndex) {
       case ProjectInfo.stepPageIndex : {
-        if(state.projectInfoFormKey.currentState!.validate()) {
-          state.projectInfoFormKey.currentState!.save();
-          return true;
-        }
-        return false;
+        return validateProjectInfo();
       }
       case ContactInfo.stepPageIndex : {
-        if(state.contactInfoFormKey.currentState!.validate()) {
-          state.contactInfoFormKey.currentState!.save();
-          return true;
-        }
-        return false;
+        return validateContactInfo();
       }
       case CompanyLogo.stepPageIndex : {
-        if(validateCompanyLogo()) {
-          return true;
-        }
-        return false;
+        return validateCompanyLogo();
       }
       case ProjectImages.stepPageIndex : {
-        if(validateProjectImages()) {
-          return true;
-        }
-        return false;
+        return validateProjectImages();
       }
       case ApartmentsInfo.stepPageIndex : {
-        if(validateApartmentsInfo()) {
-          return true;
-        }
-        return false;
+        return validateApartmentsInfo();
       }
       default : {
         return false;
@@ -86,6 +69,13 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     }
   }
 
+  bool validateProjectInfo() {
+    if(state.projectInfoFormKey.currentState!.validate()) {
+      state.projectInfoFormKey.currentState!.save();
+      return true;
+    }
+    return false;
+  }
   void saveName(String name) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(name: name)));
   }
@@ -94,6 +84,13 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   }
   void saveEstimatedFinishTime(DateTime estimatedFinishTime) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(estimatedFinishTime: estimatedFinishTime)));
+  }
+  bool validateContactInfo() {
+    if(state.contactInfoFormKey.currentState!.validate()) {
+      state.contactInfoFormKey.currentState!.save();
+      return true;
+    }
+    return false;
   }
   void savePhoneNumber(String phoneNumber) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(companyPhone: phoneNumber)));
