@@ -9,13 +9,11 @@ import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dar
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
 import '../../../../core/presentation/config/app_padding.dart';
 import '../../widgets/add_apartemet_box_button.dart';
-import '../project_images/widgets/delete_alert_dialog.dart';
-import '../project_images/widgets/image_frame.dart';
 
 class SaleAreaInfo extends StatelessWidget {
   const SaleAreaInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 4;
+  static const stepPageIndex = 0;
 
   Future<List<Uint8List>?> pickImages() async {
     return await ImagePickerWeb.getMultiImagesAsBytes();
@@ -31,68 +29,39 @@ class SaleAreaInfo extends StatelessWidget {
             children: [
               AppSpace.verticalXL!,
               Text(
-                "Lütfen satılık alan bilgilerinizi ve görselleri ekleyiniz",
+                "Lütfen satılık alan bilgilerinizi ve görselleri ekleyiniz (En fazla 3 adet)",
                 style: AppTextStyle.h3,
                 textAlign: TextAlign.center,
               ),
               AppSpace.verticalXL!,
-              if(state.projectImages == null)
+              if(state.apartments == null)
                 Expanded(
                     child: AddApartmentBoxButton(
-                      onTap: () =>  pickImages().then((value) {
-                        if(value != null) {
-                          return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                              .saveProjectImages(value);
-                        }
-                      }
-                      ),
+                      onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
                     )
                 ),
-              if(state.projectImages != null)
+              if(state.apartments != null)
                 Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                            flex: state.projectImages!.length,
-                            child: Row(
-                                children: [
-                                  ...?state.projectImages?.asMap().entries.map(
-                                          (projectImageEntry) {
-                                        return Expanded(
-                                            child: ImageFrame(
-                                              child: Image.memory(projectImageEntry.value),
-                                              onDeleteIconPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (dialogContext) {
-                                                    return DeleteAlertDialog(
-                                                      dialogContext: dialogContext,
-                                                      onApproved: () {
-                                                        BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                                            .removeProjectImage(projectImageEntry.key);
-                                                      },
-                                                      onRejected: () {},
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            )
-                                        );
-                                      }
-                                  )
-                                ]
-                            )
+                          flex: state.apartments!.length,
+                          child: Row(
+                              children: [
+                                ...?state.apartments?.asMap().entries.map(
+                                  (apartment) {
+                                    return Expanded(
+                                      child: Container(color: Colors.red, child: Text("dadsadsadasdsadsadsddsaddsadadads"))
+                                    );
+                                  }
+                                )
+                              ]
+                          )
                         ),
                         Expanded(
                           child: AddApartmentBoxButton(
-                            onTap: () => pickImages().then((value) {
-                              if(value != null) {
-                                return BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                    .saveProjectImages(value);
-                              }
-                            }
-                            ),
+                            onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
                           ),
                         )
                       ],

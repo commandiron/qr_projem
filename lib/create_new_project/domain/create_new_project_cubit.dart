@@ -157,9 +157,19 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     emit(state.copyWith(projectImages: images));
   }
 
-  void addApartment(ApartmentEntry apartment) {
-    List.from(state.apartments ?? []).add(apartment);
-    emit(state.copyWith(apartments: state.apartments));
+  void addApartment() {
+    const apartmentLimit = 3;
+    List<ApartmentEntry>? newApartments;
+    if(state.apartments == null) {
+      newApartments = [];
+      newApartments.add(ApartmentEntry());
+    } else {
+      newApartments = state.apartments;
+      if(state.apartments!.length < apartmentLimit) {
+        newApartments?.add(ApartmentEntry());
+      }
+    }
+    emit(state.copyWith(apartments: newApartments));
   }
   void saveApartmentName(String title, int index) {
     if(state.apartments != null) {

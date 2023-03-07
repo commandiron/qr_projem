@@ -15,7 +15,7 @@ import '../../../../core/presentation/config/app_padding.dart';
 class ProjectImages extends StatelessWidget {
   const ProjectImages({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 0;
+  static const stepPageIndex = 2;
 
   Future<List<Uint8List>?> pickImages() async {
     return await ImagePickerWeb.getMultiImagesAsBytes();
