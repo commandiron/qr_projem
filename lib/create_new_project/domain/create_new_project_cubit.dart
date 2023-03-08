@@ -131,6 +131,31 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(projectImages: images)));
     validateProjectImages();
   }
+  bool validateApartmentsInfo() {
+    if(state.projectEntry.apartments == null) {
+      return false;
+    }
+
+    for (var saleAreaInfoFormKey in state.apartmentInfoFormKeys) {
+      if(saleAreaInfoFormKey.currentState!.validate()) {
+        saleAreaInfoFormKey.currentState!.save();
+      }
+    }
+
+    for(var apartment in state.projectEntry.apartments!) {
+      if(apartment.images == null) {
+        return false;
+      }
+      if(apartment.images!.isEmpty) {
+        return false;
+      }
+    }
+
+    if(state.apartmentInfoFormKeys.any((saleAreaInfoFormKey) => !saleAreaInfoFormKey.currentState!.validate())) {
+      return false;
+    }
+    return true;
+  }
   void removeProjectImage(int imageIndex) {
     final newImages = state.projectEntry.projectImages?..removeAt(imageIndex);
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(projectImages: newImages)));
@@ -161,31 +186,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         )
       );
     }
-  }
-  bool validateApartmentsInfo() {
-    if(state.projectEntry.apartments == null) {
-      return false;
-    }
-
-    for (var saleAreaInfoFormKey in state.apartmentInfoFormKeys) {
-      if(saleAreaInfoFormKey.currentState!.validate()) {
-        saleAreaInfoFormKey.currentState!.save();
-      }
-    }
-
-    for(var apartment in state.projectEntry.apartments!) {
-      if(apartment.images == null) {
-        return false;
-      }
-      if(apartment.images!.isEmpty) {
-        return false;
-      }
-    }
-
-    if(state.apartmentInfoFormKeys.any((saleAreaInfoFormKey) => !saleAreaInfoFormKey.currentState!.validate())) {
-      return false;
-    }
-    return true;
   }
   void saveApartmentImages(List<Uint8List> images, int index) {
     const imageLimit = 2;
