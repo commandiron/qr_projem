@@ -8,7 +8,7 @@ class Project {
   String companyAddress;
   String companyLocationUrl;
   String companyLogoUrl;
-  List<String> generalImageUrls;
+  List<String> projectImageUrls;
   List<Apartment> apartments;
   List<String> features;
 
@@ -26,7 +26,7 @@ class Project {
     required this.companyAddress,
     required this.companyLocationUrl,
     required this.companyLogoUrl,
-    required this.generalImageUrls,
+    required this.projectImageUrls,
     required this.apartments,
     required this.features,
 
@@ -52,7 +52,7 @@ class Project {
     "enabledPageRoutes": enabledPageRoutes,
     "name": name,
     "locationUrl": locationUrl,
-    "generalImageUrls": generalImageUrls,
+    "projectImageUrls": projectImageUrls,
     "apartments":
     apartments.map((apartment) => apartment.toJson()).toList(),
     "startDate": startDate.toIso8601String(),
@@ -70,7 +70,7 @@ class Project {
         companyAddress = json["companyAddress"],
         companyLocationUrl = json["companyLocationUrl"],
         companyLogoUrl = json["companyLogoUrl"],
-        generalImageUrls = (json["generalImageUrls"] as List<dynamic>).map((e) => e.toString()).toList(),
+        projectImageUrls = (json["projectImageUrls"] as List<dynamic>).map((e) => e.toString()).toList(),
         apartments = (json["apartments"] as List<dynamic>).map((e) => Apartment.fromJson(e)).toList(),
         features = (json["features"]  as List<dynamic>).map((e) => e.toString()).toList(),
 

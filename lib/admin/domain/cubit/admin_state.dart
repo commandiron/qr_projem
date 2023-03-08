@@ -13,7 +13,7 @@ class AdminState {
     "Yıldızbakkal Taşköprü Cad. Demirli İş Merkezi Kadıköy - İSTANBUL",
     companyLocationUrl: "https://goo.gl/maps/pUvD8P7sWb4NzitK7",
     companyLogoUrl: "https://firebasestorage.googleapis.com/v0/b/qrprojem.appspot.com/o/f6c423a0-adf7-11ed-afa1-0242ac120002.png?alt=media&token=9c3e9c6f-7cb3-41c2-926b-36553b77b268",
-    generalImageUrls: [
+    projectImageUrls: [
       "https://firebasestorage.googleapis.com/v0/b/qrprojem.appspot.com/o/d0f85d89-94c4-4e25-9935-697ac624a0e5.jpg?alt=media&token=b1f18dcc-7e9c-41a1-917c-0cee71fad7ad",
       "https://firebasestorage.googleapis.com/v0/b/qrprojem.appspot.com/o/78b82c9b-dac2-40a1-9dba-66dae2cc8ab0.jpg?alt=media&token=50c7eede-78b3-4d83-b6a2-ae9846fb7d38"
     ],

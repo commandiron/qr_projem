@@ -85,11 +85,11 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void saveName(String name) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(name: name)));
   }
-  void saveStartTime(DateTime startTime) {
-    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(startTime: startTime)));
+  void saveStartDate(DateTime startDate) {
+    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(startDate: startDate)));
   }
-  void saveEstimatedFinishTime(DateTime estimatedFinishTime) {
-    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(estimatedFinishTime: estimatedFinishTime)));
+  void saveEstimatedFinishDate(DateTime estimatedFinishDate) {
+    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(estimatedFinishDate: estimatedFinishDate)));
   }
   void saveLocationUrl(String locationUrl) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(locationUrl: locationUrl)));
@@ -263,6 +263,13 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     }
   }
   bool validateProjectFeature() {
+    if(state.projectEntry.features == null) {
+      return false;
+    }
+    if(state.projectEntry.features!.isEmpty) {
+      return false;
+    }
+
     if(state.projectFeaturesFormKey.currentState!.validate()) {
       state.projectFeaturesFormKey.currentState!.save();
       return true;
@@ -305,6 +312,56 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   final ProjectRepository _projectRepository = ProjectRepository();
 
-  void insertProject() {
+  Future<void> insertProject() async {
+
+    final companyLogoUrl = await uploadCompanyLogo(state.projectEntry.companyLogo!);
+    final projectImageUrls = await uploadProjectImages(state.projectEntry.projectImages!);
+
+    final a = state.projectEntry.apartments!.asMap().map(
+      (key, value) {
+        uploadApartmentImages(key, value.images!).then(
+          (value) {
+            return value;
+          }
+        );
+      }
+    );
+
+
+    _projectRepository.insertProject(
+      Project(
+        name: state.projectEntry.name!,
+        startDate: state.projectEntry.startDate!,
+        estimatedFinishDate: state.projectEntry.estimatedFinishDate!,
+        locationUrl: state.projectEntry.locationUrl!,
+        companyPhone: state.projectEntry.companyPhone!,
+        companyMail: state.projectEntry.companyMail!,
+        companyAddress: state.projectEntry.companyAddress!,
+        companyLocationUrl: state.projectEntry.companyLocationUrl!,
+        companyLogoUrl: companyLogoUrl,
+        projectImageUrls: projectImageUrls,
+        apartments: state.projectEntry.apartments!.map(
+          (apartmentEntry) => Apartment(
+            title: apartmentEntry.title!,
+            imageUrls: uploadApartmentImages(apartmentEntry.imageUrls),
+            type: apartmentEntry.type!,
+            netArea: apartmentEntry.netArea!
+          )
+        ).toList(),
+        features: state.projectEntry.features!
+      )
+    );
+  }
+
+  Future<String> uploadCompanyLogo(Uint8List companyLogo) async {
+
+  }
+
+  Future<List<String>> uploadProjectImages(List<Uint8List> projectImages) async {
+
+  }
+
+  Future<List<Map<int, String>>> uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
+
   }
 }

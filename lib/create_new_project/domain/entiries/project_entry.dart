@@ -4,8 +4,8 @@ import 'apartment_entry.dart';
 
 class ProjectEntry {
   String? name;
-  DateTime? startTime;
-  DateTime? estimatedFinishTime;
+  DateTime? startDate;
+  DateTime? estimatedFinishDate;
   String? locationUrl;
   String? companyPhone;
   String? companyMail;
@@ -18,8 +18,8 @@ class ProjectEntry {
 
   ProjectEntry({
     this.name,
-    this.startTime,
-    this.estimatedFinishTime,
+    this.startDate,
+    this.estimatedFinishDate,
     this.locationUrl,
     this.companyPhone,
     this.companyMail,
@@ -34,8 +34,8 @@ class ProjectEntry {
   ProjectEntry copyWith(
     {
       String? name,
-      DateTime? startTime,
-      DateTime? estimatedFinishTime,
+      DateTime? startDate,
+      DateTime? estimatedFinishDate,
       String? locationUrl,
       String? companyPhone,
       String? companyMail,
@@ -49,8 +49,8 @@ class ProjectEntry {
   ) {
     return ProjectEntry(
       name: name ?? this.name,
-      startTime: startTime ?? this.startTime,
-      estimatedFinishTime: estimatedFinishTime ?? this.estimatedFinishTime,
+      startDate: startDate ?? this.startDate,
+      estimatedFinishDate: estimatedFinishDate ?? this.estimatedFinishDate,
       locationUrl: locationUrl ?? this.locationUrl,
       companyPhone: companyPhone ?? this.companyPhone,
       companyMail: companyMail ?? this.companyMail,

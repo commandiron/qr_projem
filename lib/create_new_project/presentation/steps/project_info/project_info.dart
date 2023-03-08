@@ -51,20 +51,20 @@ class ProjectInfo extends StatelessWidget {
                         AppSpace.verticalL!,
                         ProjectDatePicker(
                           title: "Proje Başlangıç tarihi:",
-                          dateTime: state.projectEntry.startTime,
+                          dateTime: state.projectEntry.startDate,
                           onSaved: (dateTime) {
                             if(dateTime != null) {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveStartTime(dateTime);
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveStartDate(dateTime);
                             }
                           }
                         ),
                         AppSpace.verticalL!,
                         ProjectDatePicker(
                           title: "Proje Tahmini Bitiş tarihi:",
-                          dateTime: state.projectEntry.estimatedFinishTime,
+                          dateTime: state.projectEntry.estimatedFinishDate,
                           onSaved: (dateTime) => {
                             if(dateTime != null) {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveEstimatedFinishTime(dateTime),
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveEstimatedFinishDate(dateTime),
                             }
                           }
                         ),
