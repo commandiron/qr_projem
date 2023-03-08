@@ -16,7 +16,7 @@ import '../../widgets/add_apartemet_box_button.dart';
 class ApartmentsInfo extends StatelessWidget {
   const ApartmentsInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 0;
+  static const stepPageIndex = 5;
 
   Future<List<Uint8List>?> pickImages() async {
     return await ImagePickerWeb.getMultiImagesAsBytes();
@@ -32,7 +32,7 @@ class ApartmentsInfo extends StatelessWidget {
             children: [
               AppSpace.verticalXL!,
               Text(
-                "Lütfen daire bilgilerinizi ve planları ekleyiniz (En fazla 3 adet)",
+                "Lütfen satılık daire bilgilerinizi ve planları ekleyiniz (En fazla 3 adet)",
                 style: AppTextStyle.h3,
                 textAlign: TextAlign.center,
               ),
@@ -122,7 +122,7 @@ class ApartmentsInfo extends StatelessWidget {
                                                 },
                                                 onSaved: (newValue) {
                                                   if(newValue != null) {
-                                                    return BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentTitle(newValue, apartment.key);
+                                                    BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentTitle(newValue, apartment.key);
                                                   }
                                                 },
                                               ),

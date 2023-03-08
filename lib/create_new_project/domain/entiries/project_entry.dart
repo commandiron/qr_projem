@@ -13,6 +13,7 @@ class ProjectEntry {
   Uint8List? companyLogo;
   List<Uint8List>? projectImages;
   List<ApartmentEntry>? apartments;
+  List<String>? features;
 
   ProjectEntry({
     this.name,
@@ -25,6 +26,7 @@ class ProjectEntry {
     this.companyLogo,
     this.projectImages,
     this.apartments,
+    this.features
   });
 
   ProjectEntry copyWith(
@@ -39,6 +41,7 @@ class ProjectEntry {
       Uint8List? companyLogo,
       List<Uint8List>? projectImages,
       List<ApartmentEntry>? apartments,
+      List<String>? features
     }
   ) {
     return ProjectEntry(
@@ -51,7 +54,8 @@ class ProjectEntry {
       companyLocationUrl: companyLocationUrl ?? this.companyLocationUrl,
       companyLogo: companyLogo ?? this.companyLogo,
       projectImages: projectImages ?? this.projectImages,
-      apartments: apartments ?? this.apartments
+      apartments: apartments ?? this.apartments,
+      features: features ?? this.features
     );
   }
 }

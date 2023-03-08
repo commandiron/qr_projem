@@ -5,6 +5,7 @@ import 'package:qr_projem/create_new_project/presentation/steps/project_images/p
 import '../presentation/steps/apartments_info/apartments_info.dart';
 import '../presentation/steps/company_logo/company_logo.dart';
 import '../presentation/steps/contact_info/contact_info.dart';
+import '../presentation/steps/project_features/project_features.dart';
 import '../presentation/steps/project_info/project_info.dart';
 
 class CreateNewProjectState {
@@ -14,6 +15,7 @@ class CreateNewProjectState {
   GlobalKey<FormState> projectInfoFormKey;
   GlobalKey<FormState> contactInfoFormKey;
   List<GlobalKey<FormState>> apartmentInfoFormKeys;
+  GlobalKey<FormState> projectFeaturesFormKey;
   ProjectEntry projectEntry;
 
   CreateNewProjectState(
@@ -24,6 +26,7 @@ class CreateNewProjectState {
       required this.projectInfoFormKey,
       required this.contactInfoFormKey,
       required this.apartmentInfoFormKeys,
+      required this.projectFeaturesFormKey,
       required this.projectEntry,
     }
   );
@@ -36,6 +39,7 @@ class CreateNewProjectState {
         GlobalKey<FormState>? projectInfoFormKey,
         GlobalKey<FormState>? contactInfoFormKey,
         List<GlobalKey<FormState>>? apartmentInfoFormKeys,
+        GlobalKey<FormState>? projectFeaturesFormKey,
         ProjectEntry? projectEntry,
       }
     ) {
@@ -46,6 +50,7 @@ class CreateNewProjectState {
       projectInfoFormKey: projectInfoFormKey ?? this.projectInfoFormKey,
       contactInfoFormKey: contactInfoFormKey ?? this.contactInfoFormKey,
       apartmentInfoFormKeys: apartmentInfoFormKeys ?? this.apartmentInfoFormKeys,
+      projectFeaturesFormKey: projectFeaturesFormKey ?? this.projectFeaturesFormKey,
       projectEntry: projectEntry ?? this.projectEntry,
     );
   }
@@ -103,6 +108,11 @@ class StepPage {
       index: ProjectImages.stepPageIndex,
       title: "Proje Görselleri",
       view: const ProjectImages(),
+    ),
+    StepPage(
+      index: ProjectFeatures.stepPageIndex,
+      title: "Proje Özellikleri",
+      view: const ProjectFeatures(),
     ),
   ];
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/create_new_project/domain/entiries/project_entry.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/project_features/project_features.dart';
 
 import '../../core/data/repositories/project_repository.dart';
 import '../presentation/steps/apartments_info/apartments_info.dart';
@@ -22,6 +23,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       projectInfoFormKey: GlobalKey<FormState>(),
       contactInfoFormKey: GlobalKey<FormState>(),
       apartmentInfoFormKeys: [],
+      projectFeaturesFormKey: GlobalKey<FormState>(),
       projectEntry: ProjectEntry()
     )
   );
@@ -62,6 +64,9 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       }
       case ApartmentsInfo.stepPageIndex : {
         return validateApartmentsInfo();
+      }
+      case ProjectFeatures.stepPageIndex : {
+        return validateProjectFeature();
       }
       default : {
         return false;
@@ -131,6 +136,10 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(projectImages: images)));
     validateProjectImages();
   }
+  void removeProjectImage(int imageIndex) {
+    final newImages = state.projectEntry.projectImages?..removeAt(imageIndex);
+    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(projectImages: newImages)));
+  }
   bool validateApartmentsInfo() {
     if(state.projectEntry.apartments == null) {
       return false;
@@ -156,13 +165,9 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     }
     return true;
   }
-  void removeProjectImage(int imageIndex) {
-    final newImages = state.projectEntry.projectImages?..removeAt(imageIndex);
-    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(projectImages: newImages)));
-  }
   void addApartment() {
     const apartmentLimit = 3;
-    final apartments = (state.projectEntry.apartments ?? []);
+    final apartments = state.projectEntry.apartments ?? [];
     if(apartments.length < apartmentLimit) {
       final newApartments = apartments..add(ApartmentEntry());
       final newFormKeys = (state.apartmentInfoFormKeys)..add(GlobalKey<FormState>());
@@ -250,6 +255,42 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         state.copyWith(
           projectEntry: state.projectEntry.copyWith(apartments: newApartments),
         )
+      );
+    }
+  }
+  bool validateProjectFeature() {
+    if(state.projectFeaturesFormKey.currentState!.validate()) {
+      state.projectFeaturesFormKey.currentState!.save();
+      return true;
+    }
+    return false;
+  }
+  void addProjectFeature() {
+    final projectFeaturesFormKeyState = state.projectFeaturesFormKey.currentState;
+    if(projectFeaturesFormKeyState != null) {
+      state.projectFeaturesFormKey.currentState!.save();
+    }
+    final features = state.projectEntry.features ?? [];
+    final newFeatures = features..add("");
+    emit(
+      state.copyWith(projectEntry: state.projectEntry.copyWith(features: newFeatures))
+    );
+  }
+  void saveProjectFeature(String feature, int index) {
+    if(state.projectEntry.features != null) {
+      final features = state.projectEntry.features;
+      features![index] = feature;
+      emit(
+        state.copyWith(projectEntry: state.projectEntry.copyWith(features: features))
+      );
+    }
+  }
+  void removeProjectFeature(int index) {
+    state.projectFeaturesFormKey.currentState!.save();
+    if(state.projectEntry.features != null) {
+      final features = state.projectEntry.features!..removeAt(index);
+      emit(
+        state.copyWith(projectEntry: state.projectEntry.copyWith(features: features))
       );
     }
   }
