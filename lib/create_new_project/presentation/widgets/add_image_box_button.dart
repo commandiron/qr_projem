@@ -33,7 +33,7 @@ class AddImageBoxButton extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: FittedBox(
-                    child: child ?? Icon(
+                    child: child ?? const Icon(
                       Icons.add_photo_alternate_outlined,
                       size: 100,
                       color: Colors.black,

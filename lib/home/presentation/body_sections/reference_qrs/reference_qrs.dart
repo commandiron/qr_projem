@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qr_projem/core/presentation/config/app_padding.dart';
-import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/home/presentation/body_sections/reference_qrs/widgets/zoom_on_hover_image.dart';
 
 class ReferenceQrs extends StatelessWidget {
@@ -17,7 +16,7 @@ class ReferenceQrs extends StatelessWidget {
           Expanded(
             flex:2,
             child: Column(
-              children: [
+              children: const [
                 Expanded(
                   child: ZoomOnHoverImage(imageAsset: "assets/images/reference_qrs/Screenshot_1.png")
                 ),
@@ -27,7 +26,7 @@ class ReferenceQrs extends StatelessWidget {
               ],
             )
           ),
-          Expanded(
+          const Expanded(
             child: ZoomOnHoverImage(imageAsset: "assets/images/reference_qrs/Screenshot_3.png")
           )
         ],

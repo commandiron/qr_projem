@@ -41,6 +41,7 @@ class ProjectInfo extends StatelessWidget {
                             if(value == "") {
                               return "Lütfen ilgili alanı doldurunuz.";
                             }
+                            return null;
                           },
                           onSaved: (newValue) {
                             if(newValue != null) {
@@ -78,6 +79,7 @@ class ProjectInfo extends StatelessWidget {
                             if(value == "") {
                               return "Lütfen ilgili alanı doldurunuz.";
                             }
+                            return null;
                           },
                           onSaved: (newValue) {
                             if(newValue != null) {

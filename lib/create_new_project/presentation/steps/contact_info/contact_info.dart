@@ -33,98 +33,109 @@ class _ContactInfoState extends State<ContactInfo> {
                   child: Form(
                     key: state.contactInfoFormKey,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("İletişim Bilgileri", style: AppTextStyle.h3),
-                        AppSpace.verticalM!,
-                        TextFormField(
-                          controller: TextEditingController(text: state.projectEntry.companyPhone)
-                            ..value = PhoneInputMask.mask
-                              .formatEditUpdate(
-                                const TextEditingValue(text: ""),
-                                TextEditingValue(text: state.projectEntry.companyPhone ?? "")
-                              ),
-                          decoration: const InputDecoration(
-                            hintText: "Telefon:",
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("İletişim Bilgileri", style: AppTextStyle.h3),
+                          AppSpace.verticalM!,
+                          TextFormField(
+                            controller: TextEditingController(
+                                text: state.projectEntry.companyPhone)
+                              ..value = PhoneInputMask.mask.formatEditUpdate(
+                                  const TextEditingValue(text: ""),
+                                  TextEditingValue(
+                                      text: state.projectEntry.companyPhone ??
+                                          "")),
+                            decoration: const InputDecoration(
+                              hintText: "Telefon:",
+                            ),
+                            inputFormatters: [PhoneInputMask.mask],
+                            validator: (value) {
+                              if (value != null) {
+                                if ((!validator.phone(PhoneInputMask.mask
+                                        .unmaskText(value)) ||
+                                    value.length < 19)) {
+                                  return "Lütfen ilgili alanı doldurunuz.";
+                                }
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              if (newValue != null) {
+                                BlocProvider.of<CreateNewProjectCubit>(context,
+                                        listen: false)
+                                    .savePhoneNumber(
+                                        "+90${PhoneInputMask.mask.unmaskText(newValue)}");
+                              }
+                            },
                           ),
-                          inputFormatters: [
-                            PhoneInputMask.mask
-                          ],
-                          validator: (value) {
-                            if(value != null) {
-                              if((!validator.phone(PhoneInputMask.mask.unmaskText(value)) || value.length < 19)) {
+                          AppSpace.verticalL!,
+                          TextFormField(
+                            controller: TextEditingController(
+                                text: state.projectEntry.companyMail),
+                            decoration: const InputDecoration(
+                              hintText: "E-posta:",
+                            ),
+                            validator: (value) {
+                              if (value != null) {
+                                if (!validator.email(value)) {
+                                  return "Lütfen geçerli bir e-posta giriniz.";
+                                }
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              if (newValue != null) {
+                                BlocProvider.of<CreateNewProjectCubit>(context,
+                                        listen: false)
+                                    .saveEmail(newValue);
+                              }
+                            },
+                          ),
+                          AppSpace.verticalL!,
+                          TextFormField(
+                            controller: TextEditingController(
+                                text: state.projectEntry.companyAddress),
+                            decoration: const InputDecoration(
+                              hintText: "Adres:",
+                            ),
+                            validator: (value) {
+                              if (value == "") {
                                 return "Lütfen ilgili alanı doldurunuz.";
                               }
-                            }
-                          },
-                          onSaved: (newValue) {
-                            if(newValue != null) {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                .savePhoneNumber(
-                                  "+90${PhoneInputMask.mask.unmaskText(newValue)}"
-                                );
-                            }
-                          },
-                        ),
-                        AppSpace.verticalL!,
-                        TextFormField(
-                          controller: TextEditingController(text: state.projectEntry.companyMail),
-                          decoration: const InputDecoration(
-                            hintText: "E-posta:",
-                          ),
-                          validator: (value) {
-                            if(value != null) {
-                              if(!validator.email(value)) {
-                                return "Lütfen geçerli bir e-posta giriniz.";
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              if (newValue != null) {
+                                BlocProvider.of<CreateNewProjectCubit>(context,
+                                        listen: false)
+                                    .saveAddress(newValue);
                               }
-                            }
-                          },
-                          onSaved: (newValue) {
-                            if(newValue != null) {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                .saveEmail(newValue);
-                            }
-                          },
-                        ),
-                        AppSpace.verticalL!,
-                        TextFormField(
-                          controller: TextEditingController(text: state.projectEntry.companyAddress),
-                          decoration: const InputDecoration(
-                            hintText: "Adres:",
+                            },
                           ),
-                          validator: (value) {
-                            if(value == "") {
-                              return "Lütfen ilgili alanı doldurunuz.";
-                            }
-                          },
-                          onSaved: (newValue) {
-                            if(newValue != null) {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                  .saveAddress(newValue);
-                            }
-                          },
-                        ),
-                        AppSpace.verticalL!,
-                        TextFormField(
-                          controller: TextEditingController(text: state.projectEntry.companyLocationUrl),
-                          decoration: const InputDecoration(
-                            hintText: "Konum: (Lütfen google haritalardan şirketinizin adress kordinat linkini yapıştırın)",
+                          AppSpace.verticalL!,
+                          TextFormField(
+                            controller: TextEditingController(
+                                text: state.projectEntry.companyLocationUrl),
+                            decoration: const InputDecoration(
+                              hintText:
+                                  "Konum: (Lütfen google haritalardan şirketinizin adress kordinat linkini yapıştırın)",
+                            ),
+                            validator: (value) {
+                              if (value == "") {
+                                return "Lütfen ilgili alanı doldurunuz.";
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              if (newValue != null) {
+                                BlocProvider.of<CreateNewProjectCubit>(context,
+                                        listen: false)
+                                    .saveCompanyLocationUrl(newValue);
+                              }
+                            },
                           ),
-                          validator: (value) {
-                            if(value == "") {
-                              return "Lütfen ilgili alanı doldurunuz.";
-                            }
-                          },
-                          onSaved: (newValue) {
-                            if(newValue != null) {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                  .saveCompanyLocationUrl(newValue);
-                            }
-                          },
-                        ),
-                        AppSpace.verticalL!,
-                      ]
-                    ),
+                          AppSpace.verticalL!,
+                        ]),
                   ),
                 ),
               )

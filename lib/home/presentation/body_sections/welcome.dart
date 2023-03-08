@@ -17,7 +17,7 @@ class Welcome extends StatelessWidget {
       height: 768,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/qr_projem_cover.jpg"),
+          image: const AssetImage("assets/images/qr_projem_cover.jpg"),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
               Colors.black.withOpacity(0.5), BlendMode.srcATop

@@ -16,7 +16,7 @@ class _FloatingButtonsState extends State<FloatingButtons> {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: const [
         FloatingContactButton(
             imagePath: "assets/images/contact/instagram.png",
             url: "https://instagram.com/demirlitech/"

@@ -17,14 +17,14 @@ class SignInUpButton extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushNamed(AuthScreen.route, arguments: SignIn.pageIndex);
           },
-          child: Text("Giriş Yap")
+          child: const Text("Giriş Yap")
         ),
         AppSpace.horizontalL!,
         ElevatedButton(
             onPressed: () {
               Navigator.of(context).pushNamed(AuthScreen.route, arguments: SignUp.pageIndex);
             },
-            child: Text("Kayıt Ol")
+            child: const Text("Kayıt Ol")
         ),
       ],
     );

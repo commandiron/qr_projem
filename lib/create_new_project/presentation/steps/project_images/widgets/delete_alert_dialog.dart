@@ -10,21 +10,21 @@ class DeleteAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text("Silmek istediğinize emin misiniz?"),
+      content: const Text("Silmek istediğinize emin misiniz?"),
       actions: [
         ElevatedButton(
           onPressed: () {
             Navigator.pop(dialogContext);
             onRejected();
           },
-          child: Text("Hayır"),
+          child: const Text("Hayır"),
         ),
         ElevatedButton(
           onPressed: () {
             onApproved();
             Navigator.pop(dialogContext);
           },
-          child:Text("Sil"),
+          child:const Text("Sil"),
         ),
       ],
     );

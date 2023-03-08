@@ -369,15 +369,18 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     );
   }
 
-  Future<String> uploadCompanyLogo(Uint8List companyLogo) async {
+  // Future<String> 
+  uploadCompanyLogo(Uint8List companyLogo) async {
 
   }
 
-  Future<List<String>> uploadProjectImages(List<Uint8List> projectImages) async {
+  // Future<List<String>> 
+  uploadProjectImages(List<Uint8List> projectImages) async {
 
   }
 
-  Future<Map<int, List<String>>> uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
+  // Future<Map<int, List<String>>> 
+  uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
 
   }
 }

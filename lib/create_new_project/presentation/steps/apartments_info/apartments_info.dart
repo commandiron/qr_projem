@@ -37,146 +37,198 @@ class ApartmentsInfo extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               AppSpace.verticalXL!,
-              if(state.projectEntry.apartments == null)
+              if (state.projectEntry.apartments == null)
                 Expanded(
                     child: AddApartmentBoxButton(
-                      onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
-                    )
-                ),
-              if(state.projectEntry.apartments != null)
+                        onTap: () => BlocProvider.of<CreateNewProjectCubit>(
+                                context,
+                                listen: false)
+                            .addApartment())),
+              if (state.projectEntry.apartments != null)
                 Expanded(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          flex: state.projectEntry.apartments!.length,
-                          child: Row(
-                              children: [
-                                ...?state.projectEntry.apartments?.asMap().entries.map(
-                                  (apartment) {
-                                    return Expanded(
-                                      child: DeleteFrame(
-                                        onDeleteIconPressed: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartment(apartment.key),
-                                        child: Form(
-                                          key: state.apartmentInfoFormKeys[apartment.key],
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                apartment.key == 0 ? "Tip A" : apartment.key == 1 ? "Tip B" : apartment.key == 2 ? "Tip C" : "Tip A",
-                                                style: AppTextStyle.b1,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        flex: state.projectEntry.apartments!.length,
+                        child: Row(children: [
+                          ...?state.projectEntry.apartments
+                              ?.asMap()
+                              .entries
+                              .map((apartment) {
+                            return Expanded(
+                              child: DeleteFrame(
+                                onDeleteIconPressed: () =>
+                                    BlocProvider.of<CreateNewProjectCubit>(
+                                            context,
+                                            listen: false)
+                                        .removeApartment(apartment.key),
+                                child: Form(
+                                  key: state
+                                      .apartmentInfoFormKeys[apartment.key],
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        apartment.key == 0
+                                            ? "Tip A"
+                                            : apartment.key == 1
+                                                ? "Tip B"
+                                                : apartment.key == 2
+                                                    ? "Tip C"
+                                                    : "Tip A",
+                                        style: AppTextStyle.b1,
+                                      ),
+                                      Expanded(
+                                          child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          ...?apartment.value.images
+                                              ?.asMap()
+                                              .entries
+                                              .map((image) {
+                                            return Expanded(
+                                              child: ImageFrame(
+                                                child:
+                                                    Image.memory(image.value),
+                                                onDeleteIconPressed: () {
+                                                  BlocProvider.of<
+                                                              CreateNewProjectCubit>(
+                                                          context,
+                                                          listen: false)
+                                                      .removeApartmentImage(
+                                                          apartment.key,
+                                                          image.key);
+                                                },
                                               ),
-                                              Expanded(
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    ...?apartment.value.images?.asMap().entries.map(
-                                                      (image) {
-                                                        return Expanded(
-                                                          child: ImageFrame(
-                                                              child: Image.memory(image.value),
-                                                              onDeleteIconPressed: () {
-                                                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartmentImage(apartment.key,image.key);
-                                                              },
-                                                          ),
-                                                        );
+                                            );
+                                          }),
+                                          apartment.value.images == null
+                                              ? AddImageBoxButton(
+                                                  onTap: () {
+                                                    pickImages().then((value) {
+                                                      if (value != null) {
+                                                        BlocProvider.of<
+                                                                    CreateNewProjectCubit>(
+                                                                context,
+                                                                listen: false)
+                                                            .saveApartmentImages(
+                                                                value,
+                                                                apartment.key);
                                                       }
-                                                    ),
-                                                    apartment.value.images == null
-                                                      ? AddImageBoxButton(
-                                                    onTap: () {
-                                                      pickImages().then(
-                                                        (value) {
-                                                          if(value != null) {
-                                                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartment.key);
-                                                          }
-                                                        }
-                                                      );
-                                                    },
-                                                  )
-                                                      : apartment.value.images!.isEmpty
-                                                        ? AddImageBoxButton(
+                                                    });
+                                                  },
+                                                )
+                                              : apartment.value.images!.isEmpty
+                                                  ? AddImageBoxButton(
                                                       onTap: () {
-                                                        pickImages().then(
-                                                            (value) {
-                                                              if(value != null) {
-                                                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartment.key);
-                                                              }
-                                                            }
-                                                        );
+                                                        pickImages()
+                                                            .then((value) {
+                                                          if (value != null) {
+                                                            BlocProvider.of<
+                                                                        CreateNewProjectCubit>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .saveApartmentImages(
+                                                                    value,
+                                                                    apartment
+                                                                        .key);
+                                                          }
+                                                        });
                                                       },
                                                     )
-                                                        : const SizedBox.shrink()
-                                                  ],
-                                                )
-                                              ),
-                                              TextFormField(
-                                                controller: TextEditingController(text: apartment.value.title),
-                                                decoration: const InputDecoration(
-                                                  hintText: "Başlık: Ör: 8.Kat Normal Daire",
-                                                ),
-                                                validator: (value) {
-                                                  if(value == "") {
-                                                    return "Lütfen ilgili alanı doldurunuz.";
-                                                  }
-                                                },
-                                                onSaved: (newValue) {
-                                                  if(newValue != null) {
-                                                    BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentTitle(newValue, apartment.key);
-                                                  }
-                                                },
-                                              ),
-                                              TextFormField(
-                                                controller: TextEditingController(text: apartment.value.type),
-                                                decoration: const InputDecoration(
-                                                  hintText: "Tip: Ör: 3+1",
-                                                ),
-                                                validator: (value) {
-                                                  if(value == "") {
-                                                    return "Lütfen ilgili alanı doldurunuz.";
-                                                  }
-                                                },
-                                                onSaved: (newValue) {
-                                                  if(newValue != null) {
-                                                    BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentType(newValue, apartment.key);
-                                                  }
-                                                },
-                                              ),
-                                              TextFormField(
-                                                controller: TextEditingController(text: apartment.value.netArea),
-                                                decoration: const InputDecoration(
-                                                  hintText: "Net Alan: Ör: 90 m2",
-                                                ),
-                                                validator: (value) {
-                                                  if(value == "") {
-                                                    return "Lütfen ilgili alanı doldurunuz.";
-                                                  }
-                                                },
-                                                onSaved: (newValue) {
-                                                  if(newValue != null) {
-                                                    BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentNetArea(newValue, apartment.key);
-                                                  }
-                                                },
-                                              ),
-                                            ],
-                                          ),
+                                                  : const SizedBox.shrink()
+                                        ],
+                                      )),
+                                      TextFormField(
+                                        controller: TextEditingController(
+                                            text: apartment.value.title),
+                                        decoration: const InputDecoration(
+                                          hintText:
+                                              "Başlık: Ör: 8.Kat Normal Daire",
                                         ),
+                                        validator: (value) {
+                                          if (value == "") {
+                                            return "Lütfen ilgili alanı doldurunuz.";
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (newValue) {
+                                          if (newValue != null) {
+                                            BlocProvider.of<
+                                                        CreateNewProjectCubit>(
+                                                    context,
+                                                    listen: false)
+                                                .saveApartmentTitle(
+                                                    newValue, apartment.key);
+                                          }
+                                        },
                                       ),
-                                    );
-                                  }
-                                )
-                              ]
-                          )
-                        ),
-                        if(state.projectEntry.apartments!.length < 3)
-                          Expanded(
-                            child: AddApartmentBoxButton(
-                              onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
-                            ),
-                          )
-                      ],
-                    )
-                ),
+                                      TextFormField(
+                                        controller: TextEditingController(
+                                            text: apartment.value.type),
+                                        decoration: const InputDecoration(
+                                          hintText: "Tip: Ör: 3+1",
+                                        ),
+                                        validator: (value) {
+                                          if (value == "") {
+                                            return "Lütfen ilgili alanı doldurunuz.";
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (newValue) {
+                                          if (newValue != null) {
+                                            BlocProvider.of<
+                                                        CreateNewProjectCubit>(
+                                                    context,
+                                                    listen: false)
+                                                .saveApartmentType(
+                                                    newValue, apartment.key);
+                                          }
+                                        },
+                                      ),
+                                      TextFormField(
+                                        controller: TextEditingController(
+                                            text: apartment.value.netArea),
+                                        decoration: const InputDecoration(
+                                          hintText: "Net Alan: Ör: 90 m2",
+                                        ),
+                                        validator: (value) {
+                                          if (value == "") {
+                                            return "Lütfen ilgili alanı doldurunuz.";
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (newValue) {
+                                          if (newValue != null) {
+                                            BlocProvider.of<
+                                                        CreateNewProjectCubit>(
+                                                    context,
+                                                    listen: false)
+                                                .saveApartmentNetArea(
+                                                    newValue, apartment.key);
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          })
+                        ])),
+                    if (state.projectEntry.apartments!.length < 3)
+                      Expanded(
+                        child: AddApartmentBoxButton(
+                            onTap: () => BlocProvider.of<CreateNewProjectCubit>(
+                                    context,
+                                    listen: false)
+                                .addApartment()),
+                      )
+                  ],
+                )),
               AppSpace.verticalXL!,
             ],
           ),

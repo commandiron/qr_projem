@@ -11,8 +11,7 @@ class DatePickerAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-
-      content: Container(
+      content: SizedBox(
         height: 300,
         width: 300,
         child: Column(

@@ -64,7 +64,7 @@ class CreateNewSteps extends StatelessWidget {
                             onPressed: () {
                               BlocProvider.of<CreateNewProjectCubit>(context, listen: false).next();
                             },
-                            child: Text("Devam")
+                            child: const Text("Devam")
                           ),
                           AppSpace.verticalXXL!,
                           StepPagesNavigator(

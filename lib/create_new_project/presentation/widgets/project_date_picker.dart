@@ -66,6 +66,7 @@ class _ProjectDatePickerState extends State<ProjectDatePicker> {
                   if(value == "") {
                     return "Lütfen ilgili alanı doldurunuz.";
                   }
+                  return null;
                 },
                 onTap: () {
                   showDatePickerDialog();

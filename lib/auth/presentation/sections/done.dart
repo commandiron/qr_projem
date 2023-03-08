@@ -24,7 +24,9 @@ class _DoneState extends State<Done> {
 
   void delayedNavigateToProfileScreen() async {
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.of(context).pushNamed(ProfileScreen.route);
+    if(context.mounted) {
+      Navigator.of(context).pushNamed(ProfileScreen.route);
+    }
   }
 
   @override

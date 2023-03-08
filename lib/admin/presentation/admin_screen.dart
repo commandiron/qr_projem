@@ -31,13 +31,13 @@ class QuickPostPage extends StatelessWidget {
               onPressed: () {
                 BlocProvider.of<AdminCubit>(context, listen: false).adminInsert();
               },
-              child: Text("Quick Post")
+              child: const Text("Quick Post")
           ),
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(AuthScreen.route);
               },
-              child: Text("To Auth Screen")
+              child: const Text("To Auth Screen")
           ),
         ],
       ),
