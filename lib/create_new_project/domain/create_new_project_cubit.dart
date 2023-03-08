@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/core/domain/model/project.dart';
 import 'package:qr_projem/create_new_project/domain/entiries/project_entry.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_features/project_features.dart';
@@ -90,6 +91,9 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void saveEstimatedFinishTime(DateTime estimatedFinishTime) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(estimatedFinishTime: estimatedFinishTime)));
   }
+  void saveLocationUrl(String locationUrl) {
+    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(locationUrl: locationUrl)));
+  }
   bool validateContactInfo() {
     if(state.contactInfoFormKey.currentState!.validate()) {
       state.contactInfoFormKey.currentState!.save();
@@ -106,7 +110,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   void saveAddress(String address) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(companyAddress: address)));
   }
-  void saveLocationUrl(String locationUrl) {
+  void saveCompanyLocationUrl(String locationUrl) {
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(companyLocationUrl: locationUrl)));
   }
   bool validateCompanyLogo() {
@@ -301,5 +305,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   final ProjectRepository _projectRepository = ProjectRepository();
 
-  void insertProject() {}
+  void insertProject() {
+  }
 }

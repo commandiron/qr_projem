@@ -108,7 +108,7 @@ class _ContactInfoState extends State<ContactInfo> {
                         TextFormField(
                           controller: TextEditingController(text: state.projectEntry.companyLocationUrl),
                           decoration: const InputDecoration(
-                            hintText: "Konum: (Lütfen google haritalardan projenizin adress kordinat linkini yapıştırın)",
+                            hintText: "Konum: (Lütfen google haritalardan şirketinizin adress kordinat linkini yapıştırın)",
                           ),
                           validator: (value) {
                             if(value == "") {
@@ -118,7 +118,7 @@ class _ContactInfoState extends State<ContactInfo> {
                           onSaved: (newValue) {
                             if(newValue != null) {
                               BlocProvider.of<CreateNewProjectCubit>(context, listen: false)
-                                  .saveLocationUrl(newValue);
+                                  .saveCompanyLocationUrl(newValue);
                             }
                           },
                         ),

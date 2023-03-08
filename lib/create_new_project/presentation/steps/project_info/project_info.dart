@@ -68,6 +68,23 @@ class ProjectInfo extends StatelessWidget {
                             }
                           }
                         ),
+                        AppSpace.verticalL!,
+                        TextFormField(
+                          controller: TextEditingController(text: state.projectEntry.locationUrl),
+                          decoration: const InputDecoration(
+                            hintText: "Konum: (Lütfen google haritalardan projenizin adress kordinat linkini yapıştırın)",
+                          ),
+                          validator: (value) {
+                            if(value == "") {
+                              return "Lütfen ilgili alanı doldurunuz.";
+                            }
+                          },
+                          onSaved: (newValue) {
+                            if(newValue != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveLocationUrl(newValue);
+                            }
+                          },
+                        ),
                       ]
                     ),
                   ),

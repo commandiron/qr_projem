@@ -6,6 +6,7 @@ class ProjectEntry {
   String? name;
   DateTime? startTime;
   DateTime? estimatedFinishTime;
+  String? locationUrl;
   String? companyPhone;
   String? companyMail;
   String? companyAddress;
@@ -19,6 +20,7 @@ class ProjectEntry {
     this.name,
     this.startTime,
     this.estimatedFinishTime,
+    this.locationUrl,
     this.companyPhone,
     this.companyMail,
     this.companyAddress,
@@ -34,6 +36,7 @@ class ProjectEntry {
       String? name,
       DateTime? startTime,
       DateTime? estimatedFinishTime,
+      String? locationUrl,
       String? companyPhone,
       String? companyMail,
       String? companyAddress,
@@ -48,6 +51,7 @@ class ProjectEntry {
       name: name ?? this.name,
       startTime: startTime ?? this.startTime,
       estimatedFinishTime: estimatedFinishTime ?? this.estimatedFinishTime,
+      locationUrl: locationUrl ?? this.locationUrl,
       companyPhone: companyPhone ?? this.companyPhone,
       companyMail: companyMail ?? this.companyMail,
       companyAddress: companyAddress ?? this.companyAddress,
