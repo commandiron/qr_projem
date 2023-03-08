@@ -317,13 +317,36 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     final companyLogoUrl = await uploadCompanyLogo(state.projectEntry.companyLogo!);
     final projectImageUrls = await uploadProjectImages(state.projectEntry.projectImages!);
 
-    final a = state.projectEntry.apartments!.asMap().map(
+
+    final apartmentEntryMap = state.projectEntry.apartments!.asMap().map(
       (key, value) {
-        uploadApartmentImages(key, value.images!).then(
+        return MapEntry(key, value);
+      }
+    );
+
+    Map<int, List<String>> apartmentImageUrlsMap = {};
+    apartmentEntryMap.forEach(
+      (key, value) async {
+        await uploadApartmentImages(key, value.images!).then(
           (value) {
-            return value;
+            apartmentImageUrlsMap = value;
           }
         );
+      }
+    );
+
+    List<Apartment> apartments = [];
+    state.projectEntry.apartments!.asMap().map(
+      (key, value) {
+        apartments.add(
+          Apartment(
+            imageUrls: apartmentImageUrlsMap[key]!,
+            title: value.title!,
+            type: value.type!,
+            netArea: value.netArea!
+          )
+        );
+        return MapEntry(key, value);
       }
     );
 
@@ -340,14 +363,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         companyLocationUrl: state.projectEntry.companyLocationUrl!,
         companyLogoUrl: companyLogoUrl,
         projectImageUrls: projectImageUrls,
-        apartments: state.projectEntry.apartments!.map(
-          (apartmentEntry) => Apartment(
-            title: apartmentEntry.title!,
-            imageUrls: uploadApartmentImages(apartmentEntry.imageUrls),
-            type: apartmentEntry.type!,
-            netArea: apartmentEntry.netArea!
-          )
-        ).toList(),
+        apartments: apartments,
         features: state.projectEntry.features!
       )
     );
@@ -361,7 +377,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   }
 
-  Future<List<Map<int, String>>> uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
+  Future<Map<int, List<String>>> uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
 
   }
 }

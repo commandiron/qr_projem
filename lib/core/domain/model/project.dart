@@ -86,8 +86,8 @@ class Apartment {
   String netArea;
 
   Apartment({
-    required this.title,
     required this.imageUrls,
+    required this.title,
     required this.type,
     required this.netArea,
   });
@@ -100,8 +100,8 @@ class Apartment {
   };
 
   Apartment.fromJson(Map<String, dynamic> json)
-      : title = json["title"],
-        imageUrls = (json["imageUrls"] as List<dynamic>).map((e) => e.toString()).toList(),
+      : imageUrls = (json["imageUrls"] as List<dynamic>).map((e) => e.toString()).toList(),
+        title = json["title"],
         type = json["type"],
         netArea = json["netArea"];
 }
