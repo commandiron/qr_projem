@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/admin/presentation/admin_screen.dart';
 import 'package:qr_projem/auth/presentation/auth_screen.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/config/app_padding.dart';
@@ -53,7 +54,11 @@ class Welcome extends StatelessWidget {
             ),
             onPressed: () {
               if(BlocProvider.of<CoreCubit>(context).state.isUserAuthenticated) {
-                Navigator.of(context).pushNamed(ProfileScreen.route);
+                if(BlocProvider.of<CoreCubit>(context).state.isUserAdmin) {
+                  Navigator.of(context).pushNamed(AdminScreen.route);
+                } else {
+                  Navigator.of(context).pushNamed(ProfileScreen.route);
+                }
               } else {
                 Navigator.of(context).pushNamed(AuthScreen.route);
               }

@@ -57,7 +57,7 @@ class MaterialChild extends StatelessWidget {
           theme: themeLight,
           darkTheme: themeDark,
           initialRoute: state.isUserAuthenticated
-              ? ProfileScreen.route
+              ? state.isUserAdmin ? AdminScreen.route : ProfileScreen.route
               : HomeScreen.route,
           onGenerateRoute: (settings) {
             switch(settings.name) {

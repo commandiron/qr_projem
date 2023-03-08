@@ -5,6 +5,8 @@ import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/home/presentation/home_screen.dart';
 import 'package:qr_projem/profile/presentation/profile_screen.dart';
 
+import '../../../../admin/presentation/admin_screen.dart';
+
 class ProfileSignOutButton extends StatelessWidget {
   const ProfileSignOutButton({Key? key}) : super(key: key);
 
@@ -15,7 +17,11 @@ class ProfileSignOutButton extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(ProfileScreen.route);
+            if(BlocProvider.of<CoreCubit>(context).state.isUserAdmin){
+              Navigator.of(context).pushNamed(AdminScreen.route);
+            } else {
+              Navigator.of(context).pushNamed(ProfileScreen.route);
+            }
           },
           child: const Icon(
             Icons.person

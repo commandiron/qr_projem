@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/profile/presentation/profile_screen.dart';
 
+import '../../../admin/presentation/admin_screen.dart';
 import '../widget/auth_base.dart';
 
 class Done extends StatefulWidget {
@@ -15,7 +18,6 @@ class Done extends StatefulWidget {
 }
 
 class _DoneState extends State<Done> {
-
   @override
   void initState() {
     delayedNavigateToProfileScreen();
@@ -24,8 +26,12 @@ class _DoneState extends State<Done> {
 
   void delayedNavigateToProfileScreen() async {
     await Future.delayed(const Duration(seconds: 2));
-    if(context.mounted) {
-      Navigator.of(context).pushNamed(ProfileScreen.route);
+    if (context.mounted) {
+      if(BlocProvider.of<CoreCubit>(context).state.isUserAdmin) {
+        Navigator.of(context).pushNamed(AdminScreen.route);
+      } else {
+        Navigator.of(context).pushNamed(ProfileScreen.route);
+      }
     }
   }
 
@@ -35,17 +41,19 @@ class _DoneState extends State<Done> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Giriş Başarılı", style: AppTextStyle.h3!,),
+          Text(
+            "Giriş Başarılı",
+            style: AppTextStyle.h3!,
+          ),
           AppSpace.verticalL!,
           CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            radius: 32,
-            child: Icon(
-              Icons.done,
-              size: 32,
-              color: Theme.of(context).colorScheme.background,
-            )
-          )
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              radius: 32,
+              child: Icon(
+                Icons.done,
+                size: 32,
+                color: Theme.of(context).colorScheme.background,
+              ))
         ],
       ),
     );

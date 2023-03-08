@@ -8,26 +8,32 @@ class CoreCubit extends Cubit<CoreState> {
 
   CoreCubit(this.authRepository,) : super(
     CoreState(
-      isUserAuthenticated: false
+      isUserAuthenticated: false,
+      isUserAdmin: false
     )
   );
 
   final AuthRepository authRepository;
 
   Future<void> getCurrentUser() async {
-
     authRepository.user.listen((user) {
       if(state.isUserAuthenticated == false) {
         if(user != null) {
-          emit(
-            CoreState(isUserAuthenticated: true)
-          );
+          if(user.uid == "We6kFC7cKVgAtPa8zV0SukNPCnH3") {
+            emit(
+              CoreState(isUserAuthenticated: true, isUserAdmin: true)
+            );
+          } else {
+            emit(
+              CoreState(isUserAuthenticated: true, isUserAdmin: false)
+            );
+          }       
         }
       } else {
         if(state.isUserAuthenticated == true) {
           if(user == null) {
             emit(
-              CoreState(isUserAuthenticated: false)
+              CoreState(isUserAuthenticated: false, isUserAdmin: false)
             );
           }
         }
