@@ -71,5 +71,6 @@ class AdminState {
       "project_info",
       "ar",
     ],
+    isPaymentApproved: true
   );
 }
