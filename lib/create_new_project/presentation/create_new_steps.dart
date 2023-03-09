@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/finish_step/finish_step.dart';
 import 'package:qr_projem/create_new_project/presentation/steps_navigator/step_pages_navigator.dart';
 import '../../../core/presentation/config/app_padding.dart';
 import '../../../core/presentation/config/app_space.dart';
@@ -60,12 +61,13 @@ class CreateNewSteps extends StatelessWidget {
                           Expanded(
                             child: state.stepPages.firstWhere((stepPage) => stepPage.index == state.stepPageIndex).view
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).next();
-                            },
-                            child: const Text("Devam")
-                          ),
+                          if(state.stepPageIndex != FinishStep.stepPageIndex)
+                            ElevatedButton(
+                              onPressed: () {
+                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).next();
+                              },
+                              child: const Text("Devam")
+                            ),
                           AppSpace.verticalXXL!,
                           StepPagesNavigator(
                             items: state.stepPages,

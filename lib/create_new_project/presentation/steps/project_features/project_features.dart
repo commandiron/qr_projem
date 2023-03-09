@@ -10,7 +10,7 @@ import '../../../../core/presentation/config/app_padding.dart';
 class ProjectFeatures extends StatelessWidget {
   const ProjectFeatures({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 0;
+  static const stepPageIndex = 4;
 
   @override
   Widget build(BuildContext context) {

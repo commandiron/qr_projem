@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/domain/model/project.dart';
 import 'package:qr_projem/create_new_project/domain/entiries/project_entry.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/finish_step/finish_step.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_features/project_features.dart';
 
 import '../../core/data/repositories/project_repository.dart';
@@ -68,6 +69,9 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       }
       case ProjectFeatures.stepPageIndex : {
         return validateProjectFeature();
+      }
+      case FinishStep.stepPageIndex : {
+        return true;
       }
       default : {
         return false;

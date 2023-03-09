@@ -5,6 +5,7 @@ import 'package:qr_projem/create_new_project/presentation/steps/project_images/p
 import '../presentation/steps/apartments_info/apartments_info.dart';
 import '../presentation/steps/company_logo/company_logo.dart';
 import '../presentation/steps/contact_info/contact_info.dart';
+import '../presentation/steps/finish_step/finish_step.dart';
 import '../presentation/steps/project_features/project_features.dart';
 import '../presentation/steps/project_info/project_info.dart';
 
@@ -113,6 +114,11 @@ class StepPage {
       index: ProjectFeatures.stepPageIndex,
       title: "Proje Özellikleri",
       view: const ProjectFeatures(),
+    ),
+    StepPage(
+      index: FinishStep.stepPageIndex,
+      title: "Bitir",
+      view: const FinishStep(),
     ),
   ];
 }
