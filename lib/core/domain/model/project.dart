@@ -53,8 +53,7 @@ class Project {
     "name": name,
     "locationUrl": locationUrl,
     "projectImageUrls": projectImageUrls,
-    "apartments":
-    apartments.map((apartment) => apartment.toJson()).toList(),
+    "apartments": apartments.map((apartment) => apartment.toJson()).toList(),
     "startDate": startDate.toIso8601String(),
     "estimatedFinishDate": estimatedFinishDate.toIso8601String(),
     "features": features
