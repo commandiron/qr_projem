@@ -178,7 +178,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     const apartmentLimit = 3;
     final apartments = state.projectEntry.apartments ?? [];
     if(apartments.length < apartmentLimit) {
-      final newApartments = apartments..add(ApartmentEntry());
+      final newApartments = apartments..add(ApartmentEntry(id: apartments.length));
       final newFormKeys = (state.apartmentInfoFormKeys)..add(GlobalKey<FormState>());
       emit(
         state.copyWith(
@@ -188,11 +188,11 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       );
     }
   }
-  void removeApartment(int apartmentIndex) {
+  void removeApartment(int apartmentId) {
     final apartments = state.projectEntry.apartments;
     if(apartments != null) {
-      final newApartments = apartments..removeAt(apartmentIndex);
-      final newFormKeys = (state.apartmentInfoFormKeys)..removeAt(apartmentIndex);
+      final newApartments = apartments..removeWhere((apartment) => apartment.id == apartmentId,);
+      final newFormKeys = (state.apartmentInfoFormKeys)..removeAt(apartmentId);
       emit(
         state.copyWith(
           projectEntry: state.projectEntry.copyWith(apartments: newApartments),
@@ -322,38 +322,24 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     final companyLogoUrl = await uploadCompanyLogo(state.projectEntry.companyLogo!);
     final projectImageUrls = await uploadProjectImages(state.projectEntry.projectImages!);
 
-    final apartmentEntryMap = state.projectEntry.apartments!.asMap().map(
-      (key, value) {
-        return MapEntry(key, value);
-      }
-    );
-
-    Map<int, List<String>> apartmentImageUrlsMap = {};
-    apartmentEntryMap.forEach(
-      (key, value) async {
-        await uploadApartmentImages(key, value.images!).then(
+    List<Apartment> apartments = [];
+    await Future.forEach(
+      state.projectEntry.apartments!,
+      (apartmentEntry) async {
+        await uploadApartmentImages(apartmentEntry.id, apartmentEntry.images!).then(
           (value) {
-            apartmentImageUrlsMap = value;
+            apartments.add(
+              Apartment(
+                imageUrls: value[apartmentEntry.id]!,
+                title: apartmentEntry.title!,
+                type: apartmentEntry.type!,
+                netArea: apartmentEntry.netArea!
+              )
+            );
           }
         );
       }
     );
-
-    List<Apartment> apartments = [];
-    state.projectEntry.apartments!.asMap().map(
-      (key, value) {
-        apartments.add(
-          Apartment(
-            imageUrls: apartmentImageUrlsMap[key]!,
-            title: value.title!,
-            type: value.type!,
-            netArea: value.netArea!
-          )
-        );
-        return MapEntry(key, value);
-      }
-    );
-
 
     _projectRepository.insertProject(
       Project(
@@ -382,15 +368,14 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   Future<List<String>> uploadProjectImages(List<Uint8List> projectImages) async {
     List<String> projectImageUrls = [];
     for (var projectImage in projectImages){
-        await storageRepository.uploadImage(projectImage).then(
-          (value) => projectImageUrls.add(value)
-        );
-      }
+      await storageRepository.uploadImage(projectImage).then(
+        (value) => projectImageUrls.add(value)
+      );
+    }
     return projectImageUrls;
   }
 
-  // Future<Map<int, List<String>>> 
-  uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
+  Future<Map<int, List<String>>> uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
     List<String> apartmentImageUrls = [];
     for(var apartmentImage in apartmentImages) {
       await storageRepository.uploadImage(apartmentImage).then(
