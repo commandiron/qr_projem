@@ -13,12 +13,14 @@ class ProjectRepository {
     ref.set(project.toJson());
   }
 
-  Future<void> insertProject(Project project) async {
+  Future<String?> insertProject(Project project) async {
     final user = await auth.authStateChanges().first;
     if(user != null) {
       final projectId = const Uuid().v4();
       DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
       await ref.set(project.toJson());
+      return projectId;
     }
+    return null;
   }
 }

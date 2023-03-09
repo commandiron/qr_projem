@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
-import 'package:qr_projem/create_new_project/presentation/steps/finish_step/finish_step.dart';
+import 'package:qr_projem/create_new_project/presentation/steps/project_features/project_features.dart';
 import 'package:qr_projem/create_new_project/presentation/steps_navigator/step_pages_navigator.dart';
+import 'package:qr_projem/payment_and_qr/presentation/payment_and_qr_screen.dart';
 import '../../../core/presentation/config/app_padding.dart';
 import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
@@ -64,13 +65,20 @@ class CreateNewSteps extends StatelessWidget {
                           Expanded(
                             child: state.stepPages.firstWhere((stepPage) => stepPage.index == state.stepPageIndex).view
                           ),
-                          if(state.stepPageIndex != FinishStep.stepPageIndex)
-                            ElevatedButton(
-                              onPressed: () {
+                          ElevatedButton(
+                            onPressed: () {
+                              if(state.stepPageIndex == ProjectFeatures.stepPageIndex) {
+                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).insertProject().then(
+                                  (projectId) {
+                                    Navigator.of(context).pushNamed(PaymentAndQrScreen.route);
+                                  }
+                                );
+                              } else {
                                 BlocProvider.of<CreateNewProjectCubit>(context, listen: false).next();
-                              },
-                              child: const Text("Devam")
-                            ),
+                              }
+                            },
+                            child: Text(state.stepPageIndex == ProjectFeatures.stepPageIndex ? "Bitir" : "Devam")
+                          ),
                           AppSpace.verticalXXL!,
                           StepPagesNavigator(
                             items: state.stepPages,

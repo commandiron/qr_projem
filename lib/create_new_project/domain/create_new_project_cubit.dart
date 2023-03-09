@@ -6,7 +6,6 @@ import 'package:qr_projem/core/data/repositories/storage_repository.dart';
 import 'package:qr_projem/core/domain/model/project.dart';
 import 'package:qr_projem/create_new_project/domain/entiries/project_entry.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
-import 'package:qr_projem/create_new_project/presentation/steps/finish_step/finish_step.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_features/project_features.dart';
 
 import '../../core/data/repositories/project_repository.dart';
@@ -71,9 +70,6 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       }
       case ProjectFeatures.stepPageIndex : {
         return validateProjectFeature();
-      }
-      case FinishStep.stepPageIndex : {
-        return true;
       }
       default : {
         return false;
@@ -318,7 +314,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   final ProjectRepository _projectRepository = ProjectRepository();
 
-  Future<void> insertProject() async {
+  Future<String?> insertProject() async {
 
     emit(state.copyWith(newProjectPageState: NewProjectPageStateLoading()));
 
@@ -344,7 +340,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       }
     );
 
-    await _projectRepository.insertProject(
+    final projectId = await _projectRepository.insertProject(
       Project(
         name: state.projectEntry.name!,
         startDate: state.projectEntry.startDate!,
@@ -362,6 +358,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     );
 
     emit(state.copyWith(newProjectPageState: NewProjectPageStateDone()));
+
+    return projectId;
   }
 
   final StorageRepository storageRepository = StorageRepository();

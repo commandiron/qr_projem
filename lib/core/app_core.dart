@@ -7,6 +7,7 @@ import 'package:qr_projem/create_new_project/presentation/create_new_project_scr
 
 import '../admin/presentation/admin_screen.dart';
 import '../auth/presentation/auth_screen.dart';
+import '../payment_and_qr/presentation/payment_and_qr_screen.dart';
 import '../profile/presentation/profile_screen.dart';
 import 'presentation/config/app_config.dart';
 import '../home/presentation/home_screen.dart';
@@ -108,6 +109,15 @@ class MaterialChild extends StatelessWidget {
                   ),
                   pageBuilder: (context, animation, secondaryAnimation) {
                     return const CreateNewProjectScreen();
+                  },
+                );
+              case PaymentAndQrScreen.route :
+                return PageRouteBuilder(
+                  settings: const RouteSettings(
+                    name: PaymentAndQrScreen.route
+                  ),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const PaymentAndQrScreen();
                   },
                 );
             }
