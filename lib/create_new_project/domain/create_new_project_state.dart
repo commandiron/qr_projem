@@ -10,6 +10,7 @@ import '../presentation/steps/project_features/project_features.dart';
 import '../presentation/steps/project_info/project_info.dart';
 
 class CreateNewProjectState {
+  NewProjectPageState newProjectPageState;
   ScrollController scrollController;
   List<StepPage> stepPages;
   int stepPageIndex;
@@ -21,6 +22,7 @@ class CreateNewProjectState {
 
   CreateNewProjectState(
     {
+      required this.newProjectPageState,
       required this.scrollController,
       required this.stepPages,
       required this.stepPageIndex,
@@ -34,6 +36,7 @@ class CreateNewProjectState {
 
   CreateNewProjectState copyWith(
       {
+        NewProjectPageState? newProjectPageState,
         ScrollController? scrollController,
         List<StepPage>? stepPages,
         int? stepPageIndex,
@@ -45,6 +48,7 @@ class CreateNewProjectState {
       }
     ) {
     return CreateNewProjectState(
+      newProjectPageState: newProjectPageState ?? this.newProjectPageState,
       scrollController: scrollController ?? this.scrollController,
       stepPages: stepPages ?? this.stepPages,
       stepPageIndex: stepPageIndex ?? this.stepPageIndex,
@@ -122,3 +126,14 @@ class StepPage {
     ),
   ];
 }
+
+@immutable
+abstract class NewProjectPageState {}
+
+class NewProjectPageStateLoading extends NewProjectPageState {}
+
+class NewProjectPageStateError extends NewProjectPageState {
+  final String? message;
+  NewProjectPageStateError([this.message]);
+}
+class NewProjectPageStateDone extends NewProjectPageState {}

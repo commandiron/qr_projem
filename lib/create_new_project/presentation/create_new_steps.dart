@@ -31,6 +31,9 @@ class CreateNewSteps extends StatelessWidget {
                   ),
                   child: BlocBuilder<CreateNewProjectCubit, CreateNewProjectState>(
                     builder: (context, state) {
+                      if(state.newProjectPageState is NewProjectPageStateLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
                       return Column(
                         children: [
                           AppSpace.verticalL!,

@@ -28,15 +28,19 @@ class FinishStep extends StatelessWidget {
               ),
               AppSpace.verticalL!,
               Text(
-                "Bitir butonuna tıklayarak, girdiğiniz bilgileri qr koduna dönüştürebilirsiniz.",
+                "Tasarım ve paket seçiniz;",
                 style: AppTextStyle.h3,
                 textAlign: TextAlign.center,
               ),
-              AppSpace.verticalL!,
-              Text(
-                "Bundan sonra tasarım ve ödeme seçimi yapmalısınız, daha sonra qr kodunuz etkinleşitirilecektir.",
-                style: AppTextStyle.h3,
-                textAlign: TextAlign.center,
+              Row(
+                children: [
+                  Expanded(
+                    child: Card()
+                  ),
+                  Expanded(
+                    child: Card()
+                  ),
+                ],
               ),
               AppSpace.verticalL!,
               ElevatedButton(
@@ -47,7 +51,7 @@ class FinishStep extends StatelessWidget {
                     }
                   );
                 },
-                child: const Text("Bitir")
+                child: const Text("Qr Kod Oluştur!")
               ),
               AppSpace.verticalXL!,
             ],

@@ -20,6 +20,7 @@ import 'entiries/apartment_entry.dart';
 class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   CreateNewProjectCubit() : super(
     CreateNewProjectState(
+      newProjectPageState: NewProjectPageStateDone(),
       scrollController: ScrollController(),
       stepPages: StepPage.items,
       stepPageIndex: 0,
@@ -319,6 +320,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   Future<void> insertProject() async {
 
+    emit(state.copyWith(newProjectPageState: NewProjectPageStateLoading()));
+
     final companyLogoUrl = await uploadCompanyLogo(state.projectEntry.companyLogo!);
     final projectImageUrls = await uploadProjectImages(state.projectEntry.projectImages!);
 
@@ -341,7 +344,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       }
     );
 
-    _projectRepository.insertProject(
+    await _projectRepository.insertProject(
       Project(
         name: state.projectEntry.name!,
         startDate: state.projectEntry.startDate!,
@@ -357,6 +360,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         features: state.projectEntry.features!
       )
     );
+
+    emit(state.copyWith(newProjectPageState: NewProjectPageStateDone()));
   }
 
   final StorageRepository storageRepository = StorageRepository();

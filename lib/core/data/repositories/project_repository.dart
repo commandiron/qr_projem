@@ -18,7 +18,7 @@ class ProjectRepository {
     if(user != null) {
       final projectId = const Uuid().v4();
       DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
-      ref.set(project.toJson());
+      await ref.set(project.toJson());
     }
   }
 }
