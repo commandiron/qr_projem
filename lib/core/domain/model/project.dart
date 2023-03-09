@@ -42,9 +42,6 @@ class Project {
   });
 
   Map<String, dynamic>  toJson() => {
-    "templateVersion": templateVersion,
-    "companyLogoUrl": companyLogoUrl,
-    "primaryColorValue": primaryColorValue,
     "companyPhone": companyPhone,
     "companyMail": companyMail,
     "companyAddress": companyAddress,
@@ -56,7 +53,11 @@ class Project {
     "apartments": apartments.map((apartment) => apartment.toJson()).toList(),
     "startDate": startDate.toIso8601String(),
     "estimatedFinishDate": estimatedFinishDate.toIso8601String(),
-    "features": features
+    "features": features,
+
+    "templateVersion": templateVersion,
+    "companyLogoUrl": companyLogoUrl,
+    "primaryColorValue": primaryColorValue,
   };
 
   Project.fromJson(Map<String, dynamic> json)
