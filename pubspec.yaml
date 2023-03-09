@@ -17,6 +17,7 @@ dependencies:
   firebase_core: ^2.6.1
   firebase_auth: ^4.2.8
   firebase_database: ^10.0.13
+#  firebase_storage: ^11.0.15
   mask_text_input_formatter: ^2.4.0
   flutter_verification_code: ^1.1.6
   uuid: ^3.0.7

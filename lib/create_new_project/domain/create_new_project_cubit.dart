@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/core/data/repositories/storage_repository.dart';
 import 'package:qr_projem/core/domain/model/project.dart';
 import 'package:qr_projem/create_new_project/domain/entiries/project_entry.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
@@ -319,6 +320,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   Future<void> insertProject() async {
 
     final companyLogoUrl = await uploadCompanyLogo(state.projectEntry.companyLogo!);
+    print(companyLogoUrl);
     final projectImageUrls = await uploadProjectImages(state.projectEntry.projectImages!);
 
 
@@ -373,9 +375,11 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     );
   }
 
-  // Future<String> 
-  uploadCompanyLogo(Uint8List companyLogo) async {
+  final StorageRepository storageRepository = StorageRepository();
 
+  // Future<String>
+  uploadCompanyLogo(Uint8List companyLogo) async {
+    // return storageRepository.uploadImage(companyLogo);
   }
 
   // Future<List<String>> 

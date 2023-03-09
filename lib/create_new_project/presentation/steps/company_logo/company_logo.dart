@@ -13,7 +13,7 @@ import '../../../../core/presentation/config/app_padding.dart';
 class CompanyLogo extends StatelessWidget {
   const CompanyLogo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 2;
+  static const stepPageIndex = 0;
 
   Future<Uint8List?> pickImage() async {
     return await ImagePickerWeb.getImageAsBytes();

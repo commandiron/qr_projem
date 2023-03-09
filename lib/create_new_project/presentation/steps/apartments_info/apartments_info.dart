@@ -16,7 +16,7 @@ import '../../widgets/add_apartemet_box_button.dart';
 class ApartmentsInfo extends StatelessWidget {
   const ApartmentsInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 3;
+  static const stepPageIndex = 2;
 
   Future<List<Uint8List>?> pickImages() async {
     return await ImagePickerWeb.getMultiImagesAsBytes();
