@@ -87,7 +87,7 @@ class StepPage {
   static final items = [
     StepPage(
         index: ApartmentsInfo.stepPageIndex,
-        title: "Satılık Alan Bilgileri",
+        title: "Satılık Alan",
         view: const ApartmentsInfo()
     ),
     StepPage(

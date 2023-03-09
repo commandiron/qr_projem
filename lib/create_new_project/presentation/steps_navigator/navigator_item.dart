@@ -30,15 +30,17 @@ class NavigatorItem extends StatelessWidget {
       child: Padding(
         padding: AppPadding.verticalS!.add(AppPadding.horizontalM!),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppSpace.horizontalL!,
             Text(
               itemTitle,
-              style: AppTextStyle.h3!.copyWith(
+              style: AppTextStyle.b1!.copyWith(
                 color: selectedIndex == itemIndex
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.onPrimary,
-              )
+              ),
+              textAlign: TextAlign.center,
             ),
             if (selectedIndex > itemIndex)
               Row(

@@ -33,7 +33,7 @@ class StepPagesNavigator extends StatelessWidget {
                     selectedIndex: selectedIndex,
                     itemIndex: item.index,
                     itemTitle: item.title
-                  )
+                  ),
                 ),
               ),
             );
