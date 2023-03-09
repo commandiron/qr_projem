@@ -21,7 +21,7 @@ class Welcome extends StatelessWidget {
           image: const AssetImage("assets/images/qr_projem_cover.jpg"),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.5), BlendMode.srcATop
+            Colors.black.withOpacity(0.5), BlendMode.srcATop
           )
         )
       ),

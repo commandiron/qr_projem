@@ -320,9 +320,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   Future<void> insertProject() async {
 
     final companyLogoUrl = await uploadCompanyLogo(state.projectEntry.companyLogo!);
-    print(companyLogoUrl);
     final projectImageUrls = await uploadProjectImages(state.projectEntry.projectImages!);
-
 
     final apartmentEntryMap = state.projectEntry.apartments!.asMap().map(
       (key, value) {
@@ -377,18 +375,28 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   final StorageRepository storageRepository = StorageRepository();
 
-  // Future<String>
-  uploadCompanyLogo(Uint8List companyLogo) async {
-    // return storageRepository.uploadImage(companyLogo);
+  Future<String> uploadCompanyLogo(Uint8List companyLogo) async {
+    return storageRepository.uploadImage(companyLogo);
   }
 
-  // Future<List<String>> 
-  uploadProjectImages(List<Uint8List> projectImages) async {
-
+  Future<List<String>> uploadProjectImages(List<Uint8List> projectImages) async {
+    List<String> projectImageUrls = [];
+    for (var projectImage in projectImages){
+        await storageRepository.uploadImage(projectImage).then(
+          (value) => projectImageUrls.add(value)
+        );
+      }
+    return projectImageUrls;
   }
 
   // Future<Map<int, List<String>>> 
   uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
-
+    List<String> apartmentImageUrls = [];
+    for(var apartmentImage in apartmentImages) {
+      await storageRepository.uploadImage(apartmentImage).then(
+        (value) => apartmentImageUrls.add(value)
+      );
+    }
+    return {index : apartmentImageUrls};
   }
 }

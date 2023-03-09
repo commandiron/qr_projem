@@ -11,7 +11,7 @@ import '../../../../core/presentation/helper/phone_input_mask.dart';
 class ContactInfo extends StatefulWidget {
   const ContactInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 3;
+  static const stepPageIndex = 1;
 
   @override
   State<ContactInfo> createState() => _ContactInfoState();

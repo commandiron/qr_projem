@@ -10,7 +10,7 @@ import '../../../../core/presentation/config/app_padding.dart';
 class FinishStep extends StatelessWidget {
   const FinishStep({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 1;
+  static const stepPageIndex = 6;
 
   @override
   Widget build(BuildContext context) {
