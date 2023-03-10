@@ -47,10 +47,7 @@ class ApartmentItem extends StatelessWidget {
                   mainAxisAlignment:
                   MainAxisAlignment.center,
                   children: [
-                    ...?apartmentEntry.images
-                        ?.asMap()
-                        .entries
-                        .map((image) {
+                    ...?apartmentEntry.images?.asMap().entries.map((image) {
                       return Expanded(
                         child: ImageFrame(
                           child:
@@ -61,27 +58,16 @@ class ApartmentItem extends StatelessWidget {
                         ),
                       );
                     }),
-                    apartmentEntry.images == null
-                        ? AddImageBoxButton(
-                      onTap: () {
-                        pickImages().then((value) {
-                          if (value != null) {
-                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartmentIndex);
-                          }
-                        });
-                      },
-                    )
-                        : apartmentEntry.images!.isEmpty
-                        ? AddImageBoxButton(
-                      onTap: () {
-                        pickImages().then((value) {
-                          if (value != null) {
-                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartmentIndex);
-                          }
-                        });
-                      },
-                    )
-                        : const SizedBox.shrink()
+                    if((apartmentEntry.images?.length ?? 0) < 2)
+                      AddImageBoxButton(
+                        onTap: () {
+                          pickImages().then((value) {
+                            if (value != null) {
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartmentIndex);
+                            }
+                          });
+                        },
+                      )
                   ],
                 )),
             ApartmentForm(
