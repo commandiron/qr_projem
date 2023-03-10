@@ -4,6 +4,7 @@ import 'package:qr_projem/core/data/repositories/auth_repository.dart';
 import 'package:qr_projem/core/domain/cubit/core/core_cubit.dart';
 import 'package:qr_projem/core/presentation/config/app_theme.dart';
 import 'package:qr_projem/create_new_project/presentation/create_new_project_screen.dart';
+import 'package:qr_projem/generate_qr/presentation/generate_qr_screen.dart';
 
 import '../admin/presentation/admin_screen.dart';
 import '../auth/presentation/auth_screen.dart';
@@ -122,6 +123,19 @@ class MaterialChild extends StatelessWidget {
                   ),
                   pageBuilder: (context, animation, secondaryAnimation) {
                     return const SelectPlanScreen();
+                  },
+                );
+              case GenerateQrScreen.route :
+
+                final projectId = settings.arguments as String?;
+
+                return PageRouteBuilder(
+                  settings: RouteSettings(
+                    name: GenerateQrScreen.route,
+                    arguments: projectId
+                  ),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const GenerateQrScreen();
                   },
                 );
             }

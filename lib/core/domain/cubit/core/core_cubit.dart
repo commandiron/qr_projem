@@ -21,11 +21,11 @@ class CoreCubit extends Cubit<CoreState> {
         if(user != null) {
           if(user.uid == "We6kFC7cKVgAtPa8zV0SukNPCnH3") {
             emit(
-              CoreState(isUserAuthenticated: true, isUserAdmin: true)
+              CoreState(isUserAuthenticated: true, isUserAdmin: true, userUid: user.uid)
             );
           } else {
             emit(
-              CoreState(isUserAuthenticated: true, isUserAdmin: false)
+              CoreState(isUserAuthenticated: true, isUserAdmin: false, userUid: user.uid)
             );
           }       
         }
@@ -33,7 +33,7 @@ class CoreCubit extends Cubit<CoreState> {
         if(state.isUserAuthenticated == true) {
           if(user == null) {
             emit(
-              CoreState(isUserAuthenticated: false, isUserAdmin: false)
+              CoreState(isUserAuthenticated: false, isUserAdmin: false, userUid: null)
             );
           }
         }
