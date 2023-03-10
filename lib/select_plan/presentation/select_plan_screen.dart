@@ -22,9 +22,9 @@ class SelectPlanScreen extends StatelessWidget {
     return BlocProvider<SelectPlanCubit>(
       create: (context) => SelectPlanCubit(projectId),
       child: const Scaffold(
-          appBar: CustomAppBar(),
-          floatingActionButton: FloatingButtons(),
-          body: SelectPlanBody()
+        appBar: CustomAppBar(),
+        floatingActionButton: FloatingButtons(),
+        body: SelectPlanBody()
       ),
     );
   }

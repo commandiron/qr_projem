@@ -1,7 +1,7 @@
-class SelectPlanState {
+class GenerateQrState {
   String? projectId;
 
-  SelectPlanState(
+  GenerateQrState(
     {
       this.projectId
     }

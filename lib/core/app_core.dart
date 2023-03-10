@@ -112,9 +112,13 @@ class MaterialChild extends StatelessWidget {
                   },
                 );
               case SelectPlanScreen.route :
+
+                final projectId = settings.arguments as String?;
+
                 return PageRouteBuilder(
-                  settings: const RouteSettings(
-                    name: SelectPlanScreen.route
+                  settings: RouteSettings(
+                    name: SelectPlanScreen.route,
+                    arguments: projectId
                   ),
                   pageBuilder: (context, animation, secondaryAnimation) {
                     return const SelectPlanScreen();

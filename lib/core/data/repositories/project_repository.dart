@@ -23,4 +23,20 @@ class ProjectRepository {
     }
     return null;
   }
+
+  Future<void> updateProjectPaymentStatus(String projectId, PaymentStatus paymentStatus) async {
+    final user = await auth.authStateChanges().first;
+    if(user != null) {
+      DatabaseReference ref = database.ref("projects/${user.uid}/$projectId/paymentStatus");
+      await ref.set(paymentStatus.name);
+    }
+  }
+
+  Future<void> updateProjectTemplateVersion(String projectId, String templateVersion) async {
+    final user = await auth.authStateChanges().first;
+    if(user != null) {
+      DatabaseReference ref = database.ref("projects/${user.uid}/$projectId/templateVersion");
+      await ref.set(templateVersion);
+    }
+  }
 }
