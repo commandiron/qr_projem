@@ -185,11 +185,11 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       );
     }
   }
-  void removeApartment(int apartmentId) {
+  void removeApartment(int index) {
     final apartments = state.projectEntry.apartments;
     if(apartments != null) {
-      final newApartments = apartments..removeWhere((apartment) => apartment.id == apartmentId,);
-      final newFormKeys = (state.apartmentInfoFormKeys)..removeAt(apartmentId);
+      final newApartments = apartments..removeAt(index);
+      final newFormKeys = (state.apartmentInfoFormKeys)..removeAt(index);
       emit(
         state.copyWith(
           projectEntry: state.projectEntry.copyWith(apartments: newApartments),
