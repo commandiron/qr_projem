@@ -68,11 +68,11 @@ class SignInUpBase extends StatelessWidget {
                       decoration: const InputDecoration(
                         hintText: "+90 (XXX) XXX XX XX",
                       ),
-                      inputFormatters: [PhoneInputMask.mask],
+                      inputFormatters: [InputMask.phone],
                       validator: (value) {
                         if (value != null) {
                           if ((!validator.phone(
-                                  PhoneInputMask.mask.unmaskText(value)) ||
+                                  InputMask.phone.unmaskText(value)) ||
                               value.length < 19)) {
                             return "Lütfen ilgili alanı doldurunuz.";
                           }
@@ -83,7 +83,7 @@ class SignInUpBase extends StatelessWidget {
                         if (newValue != null) {
                           BlocProvider.of<AuthCubit>(context, listen: false)
                               .singInWithPhoneNumber(
-                                  "+90${PhoneInputMask.mask.unmaskText(newValue)}");
+                                  "+90${InputMask.phone.unmaskText(newValue)}");
                         }
                       },
                     ),

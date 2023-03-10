@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
+import 'package:qr_projem/core/presentation/helper/phone_input_mask.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dart';
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/apartments_info/widget/delete_frame.dart';
@@ -16,7 +18,7 @@ import '../../widgets/add_apartemet_box_button.dart';
 class ApartmentsInfo extends StatelessWidget {
   const ApartmentsInfo({Key? key}) : super(key: key);
 
-  static const stepPageIndex = 4;
+  static const stepPageIndex = 0;
 
   Future<List<Uint8List>?> pickImages() async {
     return await ImagePickerWeb.getMultiImagesAsBytes();
@@ -190,10 +192,9 @@ class ApartmentsInfo extends StatelessWidget {
                                         },
                                       ),
                                       TextFormField(
-                                        controller: TextEditingController(
-                                            text: apartment.value.netArea),
+                                        controller: TextEditingController(text: apartment.value.netArea),
                                         decoration: const InputDecoration(
-                                          hintText: "Net Alan: Ör: 90 m2",
+                                          hintText: "Net Alan(m2): Ör: 90",
                                         ),
                                         validator: (value) {
                                           if (value == "") {
@@ -203,12 +204,7 @@ class ApartmentsInfo extends StatelessWidget {
                                         },
                                         onSaved: (newValue) {
                                           if (newValue != null) {
-                                            BlocProvider.of<
-                                                        CreateNewProjectCubit>(
-                                                    context,
-                                                    listen: false)
-                                                .saveApartmentNetArea(
-                                                    newValue, apartment.key);
+                                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentNetArea(newValue, apartment.key);
                                           }
                                         },
                                       ),

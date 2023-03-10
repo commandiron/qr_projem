@@ -40,7 +40,7 @@ class _ContactInfoState extends State<ContactInfo> {
                           TextFormField(
                             controller: TextEditingController(
                                 text: state.projectEntry.companyPhone)
-                              ..value = PhoneInputMask.mask.formatEditUpdate(
+                              ..value = InputMask.phone.formatEditUpdate(
                                   const TextEditingValue(text: ""),
                                   TextEditingValue(
                                       text: state.projectEntry.companyPhone ??
@@ -48,10 +48,10 @@ class _ContactInfoState extends State<ContactInfo> {
                             decoration: const InputDecoration(
                               hintText: "Telefon:",
                             ),
-                            inputFormatters: [PhoneInputMask.mask],
+                            inputFormatters: [InputMask.phone],
                             validator: (value) {
                               if (value != null) {
-                                if ((!validator.phone(PhoneInputMask.mask
+                                if ((!validator.phone(InputMask.phone
                                         .unmaskText(value)) ||
                                     value.length < 19)) {
                                   return "Lütfen ilgili alanı doldurunuz.";
@@ -64,7 +64,7 @@ class _ContactInfoState extends State<ContactInfo> {
                                 BlocProvider.of<CreateNewProjectCubit>(context,
                                         listen: false)
                                     .savePhoneNumber(
-                                        "+90${PhoneInputMask.mask.unmaskText(newValue)}");
+                                        "+90${InputMask.phone.unmaskText(newValue)}");
                               }
                             },
                           ),
