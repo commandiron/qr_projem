@@ -43,33 +43,34 @@ class ApartmentItem extends StatelessWidget {
               style: AppTextStyle.b1,
             ),
             Expanded(
-                child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.center,
-                  children: [
-                    ...?apartmentEntry.images?.asMap().entries.map((image) {
-                      return Expanded(
-                        child: ImageFrame(
-                          child:
-                          Image.memory(image.value),
-                          onDeleteIconPressed: () {
-                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartmentImage(apartmentIndex, image.key);
-                          },
-                        ),
-                      );
-                    }),
-                    if((apartmentEntry.images?.length ?? 0) < 2)
-                      AddImageBoxButton(
-                        onTap: () {
-                          pickImages().then((value) {
-                            if (value != null) {
-                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartmentIndex);
-                            }
-                          });
+              child: Row(
+                mainAxisAlignment:
+                MainAxisAlignment.center,
+                children: [
+                  ...?apartmentEntry.images?.asMap().entries.map((image) {
+                    return Expanded(
+                      child: ImageFrame(
+                        child:
+                        Image.memory(image.value),
+                        onDeleteIconPressed: () {
+                          BlocProvider.of<CreateNewProjectCubit>(context, listen: false).removeApartmentImage(apartmentIndex, image.key);
                         },
-                      )
-                  ],
-                )),
+                      ),
+                    );
+                  }),
+                  if((apartmentEntry.images?.length ?? 0) < 2)
+                    AddImageBoxButton(
+                      onTap: () {
+                        pickImages().then((value) {
+                          if (value != null) {
+                            BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentImages(value, apartmentIndex);
+                          }
+                        });
+                      },
+                    )
+                ],
+              )
+            ),
             ApartmentForm(
               apartmentIndex: apartmentIndex,
               title: apartmentEntry.title,

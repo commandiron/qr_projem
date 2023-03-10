@@ -52,8 +52,10 @@ class ApartmentsInfo extends StatelessWidget {
                         )
                       ),
                     if ((state.projectEntry.apartments?.length ?? 0) < 3)
-                       AddApartmentBoxButton(
-                          onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
+                       Expanded(
+                         child: AddApartmentBoxButton(
+                            onTap: () => BlocProvider.of<CreateNewProjectCubit>(context, listen: false).addApartment()
+                         ),
                        ),
                   ],
                 )
