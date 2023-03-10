@@ -21,16 +21,21 @@ class ApartmentsInfo extends StatelessWidget {
           padding: AppPadding.horizontalXL!,
           child: Column(
             children: [
-              AppSpace.verticalXL!,
-              Text(
-                "Lütfen satılık daire bilgilerinizi ve planları ekleyiniz (En fazla 3 adet)",
-                style: AppTextStyle.h3,
-                textAlign: TextAlign.center,
-              ),
-              AppSpace.verticalXL!,
+              AppSpace.verticalExpanded!,
               Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "Lütfen satılık daire bilgilerinizi ve planları ekleyiniz (En fazla 3 adet)",
+                    style: AppTextStyle.h3,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              AppSpace.verticalExpanded!,
+              Expanded(
+                flex: 10,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (state.projectEntry.apartments != null)
                       Expanded(
@@ -60,7 +65,7 @@ class ApartmentsInfo extends StatelessWidget {
                   ],
                 )
               ),
-              AppSpace.verticalXL!,
+              AppSpace.verticalExpanded!,
             ],
           ),
         );

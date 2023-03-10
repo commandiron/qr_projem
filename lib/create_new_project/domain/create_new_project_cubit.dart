@@ -172,6 +172,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     return true;
   }
   void addApartment() {
+    for (var element in state.apartmentInfoFormKeys) {element.currentState!.save();}
     const apartmentLimit = 3;
     final apartments = state.projectEntry.apartments ?? [];
     if(apartments.length < apartmentLimit) {
@@ -186,6 +187,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
     }
   }
   void removeApartment(int index) {
+    for (var element in state.apartmentInfoFormKeys) {element.currentState!.save();}
     final apartments = state.projectEntry.apartments;
     if(apartments != null) {
       final newApartments = apartments..removeAt(index);

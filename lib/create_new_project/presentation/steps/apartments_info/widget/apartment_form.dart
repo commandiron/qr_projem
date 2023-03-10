@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../domain/create_new_project_cubit.dart';
@@ -15,11 +16,11 @@ class ApartmentForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextFormField(
+        Expanded(child: TextFormField(
           controller: TextEditingController(text: title),
           decoration: const InputDecoration(
-            hintText:
-            "Başlık: Ör: 8.Kat Normal Daire",
+              hintText: "Ör: 8.Kat Normal Daire",
+              labelText: "Başlık"
           ),
           validator: (value) {
             if (value == "") {
@@ -32,11 +33,12 @@ class ApartmentForm extends StatelessWidget {
               BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentTitle(newValue, apartmentIndex);
             }
           },
-        ),
-        TextFormField(
+        ),),
+        Expanded(child: TextFormField(
           controller: TextEditingController(text: type),
           decoration: const InputDecoration(
-            hintText: "Tip: Ör: 3+1",
+              hintText: "Ör: 3+1",
+              labelText: "Tip"
           ),
           validator: (value) {
             if (value == "") {
@@ -49,12 +51,16 @@ class ApartmentForm extends StatelessWidget {
               BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentType(newValue, apartmentIndex);
             }
           },
-        ),
-        TextFormField(
+        ),),
+        Expanded(child: TextFormField(
           controller: TextEditingController(text: netArea),
-          decoration: const InputDecoration(
-            hintText: "Net Alan(m2): Ör: 90",
+          decoration: InputDecoration(
+            hintText: "Ör: 90 m²",
+            labelText: "Net Alan (m²)",
           ),
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly
+          ],
           validator: (value) {
             if (value == "") {
               return "Lütfen ilgili alanı doldurunuz.";
@@ -66,7 +72,7 @@ class ApartmentForm extends StatelessWidget {
               BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentNetArea(newValue, apartmentIndex);
             }
           },
-        ),
+        ),),
       ],
     );
   }

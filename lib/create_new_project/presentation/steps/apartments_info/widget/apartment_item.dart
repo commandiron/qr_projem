@@ -32,17 +32,21 @@ class ApartmentItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              apartmentIndex == 0
-                ? "Tip A"
-                : apartmentIndex == 1
-                  ? "Tip B"
-                  : apartmentIndex == 2
+            Expanded(child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                apartmentIndex == 0
+                    ? "Tip A"
+                    : apartmentIndex == 1
+                    ? "Tip B"
+                    : apartmentIndex == 2
                     ? "Tip C"
                     : "Tip A",
-              style: AppTextStyle.b1,
-            ),
+                style: AppTextStyle.b1,
+              ),
+            ),),
             Expanded(
+              flex: 6,
               child: Row(
                 mainAxisAlignment:
                 MainAxisAlignment.center,
@@ -71,11 +75,14 @@ class ApartmentItem extends StatelessWidget {
                 ],
               )
             ),
-            ApartmentForm(
-              apartmentIndex: apartmentIndex,
-              title: apartmentEntry.title,
-              type: apartmentEntry.type,
-              netArea: apartmentEntry.netArea
+            Expanded(
+              flex: 8,
+              child: ApartmentForm(
+                apartmentIndex: apartmentIndex,
+                title: apartmentEntry.title,
+                type: apartmentEntry.type,
+                netArea: apartmentEntry.netArea
+              ),
             )
           ],
         ),
