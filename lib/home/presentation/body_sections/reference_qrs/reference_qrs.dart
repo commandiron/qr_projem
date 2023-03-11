@@ -18,7 +18,7 @@ class ReferenceQrs extends StatelessWidget {
             child: Column(
               children: const [
                 Expanded(
-                  child: ZoomOnHoverImage(imageAsset: "assets/images/reference_qrs/custom_design.png")
+                  child: ZoomOnHoverImage(imageAsset: "assets/images/reference_qrs/Screenshot_1.png")
                 ),
                 Expanded(
                   child: ZoomOnHoverImage(imageAsset: "assets/images/reference_qrs/Screenshot_2.png")

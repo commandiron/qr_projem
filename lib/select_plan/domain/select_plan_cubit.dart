@@ -15,14 +15,13 @@ class SelectPlanCubit extends Cubit<SelectPlanState> {
 
   Future<void> selectStandardPlan() async {
     if(state.projectId != null) {
-      await _projectRepository.updateProjectPaymentStatus(state.projectId!, PaymentStatus.pending);
+      await _projectRepository.updateProjectPaymentStatus(state.projectId!, PaymentStatus.pendingStandardPlan);
     }
   }
 
-  Future<void> selectCustomDesign() async {
+  Future<void> selectPersonalizedPlan() async {
     if(state.projectId != null) {
-      await _projectRepository.updateProjectPaymentStatus(state.projectId!, PaymentStatus.pending);
-      _projectRepository.updateProjectTemplateVersion(state.projectId!, "custom");
+      await _projectRepository.updateProjectPaymentStatus(state.projectId!, PaymentStatus.pendingPersonalizedPlan);
     }
   }
 
