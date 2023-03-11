@@ -51,7 +51,7 @@ class PlanOptions extends StatelessWidget {
                 Expanded(
                     flex: 6,
                     child: PlanItem(
-                      title: "Gelişmiş Paket",
+                      title: "Kişiselleştirilmiş Paket",
                       price: "Özel Tasarım",
                       footerText: "İletişime Geç",
                       isImageBlurred: true,
