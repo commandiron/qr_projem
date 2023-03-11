@@ -23,12 +23,10 @@ class GenerateQrScreen extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(),
       floatingActionButton: const FloatingButtons(),
-      body: userUid != null && projectId != null
-        ? GenerateQrBody(
-            userUid: userUid,
-            projectId: projectId,
-          )
-        : const SizedBox.shrink()
+      body: GenerateQrBody(
+        userUid: userUid,
+        projectId: projectId,
+      )
     );
   }
 }

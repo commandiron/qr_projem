@@ -27,6 +27,7 @@ dependencies:
   regexed_validator: ^2.0.0+1
   image_picker_web: ^3.0.0+1
   qr_flutter: ^4.0.0
+  image_downloader_web: ^2.0.2
 
 dev_dependencies:
   flutter_test:
