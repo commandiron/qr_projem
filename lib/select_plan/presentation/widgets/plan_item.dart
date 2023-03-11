@@ -164,14 +164,16 @@ class PlanItem extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
+                padding: AppPadding.horizontalL!,
                 child: ElevatedButton(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.white),
+                  style: ButtonStyle(
+                    backgroundColor: const MaterialStatePropertyAll(Colors.white),
+                    padding: MaterialStatePropertyAll(AppPadding.allS!)
                   ),
                   onPressed: onPressed,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(footerText, style: AppTextStyle.h3!.copyWith(color: Theme.of(context).colorScheme.primary)),
+                    padding: AppPadding.allS!,
+                    child: FittedBox(fit: BoxFit.scaleDown, child: Text(footerText, style: AppTextStyle.h3!.copyWith(color: Theme.of(context).colorScheme.primary))),
                   )
                 ),
               ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/presentation/config/app_space.dart';
-import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 import 'package:qr_projem/select_plan/presentation/widgets/plan_item.dart';
+import 'package:qr_projem/select_plan/presentation/widgets/plan_options_header.dart';
 
-import '../../core/presentation/config/app_padding.dart';
 import '../../generate_qr/presentation/generate_qr_screen.dart';
 import '../domain/select_plan_cubit.dart';
 
@@ -16,32 +15,21 @@ class PlanOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 768,
+      height: 864,
       child: Column(
         children: [
-          Padding(
-            padding: AppPadding.verticalL!,
-            child: Column(
-              children: [
-                Text("Plan Seçiniz", style: AppTextStyle.h2!,),
-                AppSpace.verticalM!,
-                Text(
-                  "QR kodunuzu oluşturmadan önce plan seçmeniz gerekmektedir. Ödemeyi daha sonra yapabilirsiniz.",
-                  style: AppTextStyle.b1!.copyWith(color: Colors.grey),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
+          Expanded(flex: 3, child: const PlanOptionsHeader()),
           Expanded(
+            flex: 12,
             child: Row(
               children: [
-                const Expanded(flex: 2, child: SizedBox(width: double.infinity)),
+                AppSpace.verticalExpanded!,
+                AppSpace.verticalExpanded!,
                 Expanded(
                     flex: 6,
                     child: PlanItem(
                       title: "Standart Paket",
-                      price: "₺1000",
+                      price: "₺2500",
                       isPriceUnitVisible: true,
                       footerText: "Planı Seç ve Qr Kodu Oluştur",
                       features: const [
@@ -59,7 +47,7 @@ class PlanOptions extends StatelessWidget {
                       },
                     )
                 ),
-                const Expanded(child: SizedBox(width: double.infinity)),
+                AppSpace.verticalExpanded!,
                 Expanded(
                     flex: 6,
                     child: PlanItem(
@@ -81,10 +69,12 @@ class PlanOptions extends StatelessWidget {
                       },
                     )
                 ),
-                const Expanded(flex: 2, child: SizedBox(width: double.infinity)),
+                AppSpace.verticalExpanded!,
+                AppSpace.verticalExpanded!,
               ],
             ),
           ),
+          AppSpace.verticalExpanded!
         ],
       ),
     );
