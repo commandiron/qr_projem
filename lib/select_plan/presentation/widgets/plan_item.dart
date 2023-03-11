@@ -6,7 +6,7 @@ import 'package:qr_projem/select_plan/presentation/widgets/plan_item_body.dart';
 import 'package:qr_projem/select_plan/presentation/widgets/plan_item_footer.dart';
 import 'package:qr_projem/select_plan/presentation/widgets/plan_item_header.dart';
 
-class PlanItem extends StatelessWidget {
+class PlanItem extends StatefulWidget {
   const PlanItem(
     {
       required this.title,
@@ -29,41 +29,74 @@ class PlanItem extends StatelessWidget {
   final void Function()? onPressed;
 
   @override
+  State<PlanItem> createState() => _PlanItemState();
+}
+
+class _PlanItemState extends State<PlanItem> {
+
+  double _opacity = 0.2;
+
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
+    return InkWell(
+      onHover: (value) {
+        setState(() {
+          if(value) {
+            _opacity = 0.0;
+          } else {
+            _opacity = 0.2;
+          }
+        });
+      },
+      onTap: widget.onPressed,
+      overlayColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+      customBorder: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(32),
           bottomRight: Radius.circular(32)
         )
       ),
-      child: Column(
-        children: [
-          Expanded(
-            flex: 4,
-            child: PlanItemHeader(
-              title: title,
-              price: price,
-              isPriceUnitVisible: isPriceUnitVisible
+      child: ImageFiltered(
+        imageFilter: ColorFilter.mode(
+          Theme.of(context).colorScheme.primaryContainer.withOpacity(_opacity),
+          BlendMode.srcATop
+        ),
+        child: Card(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(32),
+              bottomRight: Radius.circular(32)
             )
           ),
-          AppSpace.verticalExpanded!,
-          Expanded(
-            flex: 24,
-            child: PlanItemBody(
-              isImageBlurred: isImageBlurred,
-              features: features
-            )
+          child: Column(
+            children: [
+              Expanded(
+                flex: 4,
+                child: PlanItemHeader(
+                  title: widget.title,
+                  price: widget.price,
+                  isPriceUnitVisible: widget.isPriceUnitVisible
+                )
+              ),
+              AppSpace.verticalExpanded!,
+              Expanded(
+                flex: 24,
+                child: PlanItemBody(
+                  isImageBlurred: widget.isImageBlurred,
+                  features: widget.features
+                )
+              ),
+              AppSpace.verticalExpanded!,
+              Expanded(
+                flex: 4,
+                child: PlanItemFooter(
+                  footerText: widget.footerText,
+                  onPressed: widget.onPressed,
+                )
+              )
+            ],
           ),
-          AppSpace.verticalExpanded!,
-          Expanded(
-            flex: 4,
-            child: PlanItemFooter(
-              footerText: footerText,
-              onPressed: onPressed,
-            )
-          )
-        ],
+        ),
       ),
     );
   }
