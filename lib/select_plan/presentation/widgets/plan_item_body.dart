@@ -21,7 +21,7 @@ class PlanItemBody extends StatelessWidget {
           flex: 12,
           child: ImageFiltered(
               imageFilter: ImageFilter.blur(sigmaX: isImageBlurred ? 10 : 0, sigmaY: isImageBlurred ? 10 : 0),
-              child: Image.asset("assets/images/virtual_showroom/virtual_showroom_ss.png")
+              child: Image.asset("assets/images/virtual_showroom/virtual_showroom_ss_360.png")
           ),
         ),
         AppSpace.horizontalExpanded!,

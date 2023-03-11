@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-class StandardPlanAlertDialog extends StatelessWidget {
-  const StandardPlanAlertDialog({Key? key, this.onDecline, required this.onApproved}) : super(key: key);
+class ChoosePlanAlertDialog extends StatelessWidget {
+  const ChoosePlanAlertDialog({Key? key, required this.title, required this.content, required this.onDecline, required this.onApproved, }) : super(key: key);
 
+  final String title;
+  final String content;
   final void Function()? onDecline;
   final void Function()? onApproved;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Standart Paket Seçtiniz"),
-      content: const Text("Bir sonraki sayfada Ödeme bilgileriniz ve QR kodunuz oluşturulacaktır. QR kodunuz ödeme yaptıktan sonra aktif hale getirilecektir."),
+      title: Text(title),
+      content: Text(content),
       actions: [
         ElevatedButton(
           onPressed: onDecline,

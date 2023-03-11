@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/presentation/config/app_space.dart';
-import 'package:qr_projem/select_plan/presentation/widgets/personalized_plan_alert_dialog.dart';
+import 'package:qr_projem/select_plan/presentation/widgets/choose_plan_alert_dialog.dart';
 import 'package:qr_projem/select_plan/presentation/widgets/plan_item.dart';
 import 'package:qr_projem/select_plan/presentation/widgets/plan_options_header.dart';
-import 'package:qr_projem/select_plan/presentation/widgets/standard_plan_alert_dialog.dart';
 
 import '../../generate_qr/presentation/generate_qr_screen.dart';
 import '../domain/select_plan_cubit.dart';
@@ -44,18 +43,20 @@ class PlanOptions extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (dialogContext) {
-                            return StandardPlanAlertDialog(
-                              onDecline: () {
-                                Navigator.pop(dialogContext);
-                              },
-                              onApproved: () {
-                                Navigator.pop(dialogContext);
-                                if(projectId != null) {
-                                  BlocProvider.of<SelectPlanCubit>(context, listen: false).selectStandardPlan().then(
-                                      (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
-                                  );
+                            return ChoosePlanAlertDialog(
+                                title: "Standart Paket Seçtiniz",
+                                content: "Bir sonraki sayfada Ödeme bilgileriniz ve QR kodunuz oluşturulacaktır. QR kodunuz ödeme yaptıktan sonra aktif hale getirilecektir.",
+                                onDecline: () {
+                                  Navigator.pop(dialogContext);
+                                },
+                                onApproved: () {
+                                  Navigator.pop(dialogContext);
+                                  if(projectId != null) {
+                                    BlocProvider.of<SelectPlanCubit>(context, listen: false).selectStandardPlan().then(
+                                            (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
+                                    );
+                                  }
                                 }
-                              },
                             );
                           },
                         );
@@ -81,18 +82,20 @@ class PlanOptions extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (dialogContext) {
-                            return PersonalizedPlanAlertDialog(
-                              onDecline: () {
-                                Navigator.pop(dialogContext);
-                              },
-                              onApproved: () {
-                                Navigator.pop(dialogContext);
-                                if(projectId != null) {
-                                  BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
-                                          (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
-                                  );
+                            return ChoosePlanAlertDialog(
+                                title: "Kişiselleştirilmiş Paket Seçtiniz",
+                                content: "Bir sonraki sayfada QR kodunuz oluşturulacak ve iletişim bilgileri verilecektir.",
+                                onDecline: () {
+                                  Navigator.pop(dialogContext);
+                                },
+                                onApproved: () {
+                                  Navigator.pop(dialogContext);
+                                  if(projectId != null) {
+                                    BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
+                                            (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
+                                    );
+                                  }
                                 }
-                              },
                             );
                           },
                         );
