@@ -5,10 +5,11 @@ import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
 
 class PlanItemHeader extends StatelessWidget {
-  const PlanItemHeader({Key? key, required this.title, required this.price, required this.isPriceUnitVisible}) : super(key: key);
+  const PlanItemHeader({Key? key, required this.title, required this.price, this.discountedPrice, required this.isPriceUnitVisible}) : super(key: key);
 
   final String title;
   final String price;
+  final String? discountedPrice;
   final bool isPriceUnitVisible;
 
   @override
@@ -36,10 +37,26 @@ class PlanItemHeader extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  price,
-                  style: AppTextStyle.h2b!.copyWith(color: Theme.of(context).colorScheme.primary),
-                  textAlign: TextAlign.center,
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: price,
+                        style: AppTextStyle.h3!.copyWith(
+                          color: discountedPrice != null ? Colors.grey : Theme.of(context).colorScheme.primary,
+                          decoration: discountedPrice != null ? TextDecoration.lineThrough : TextDecoration.none,
+                        )
+                      ),
+                      const WidgetSpan(child: SizedBox(width: 8,)),
+                      if(discountedPrice != null)
+                        TextSpan(
+                          text: discountedPrice,
+                          style: AppTextStyle.h3!.copyWith(
+                              color: Theme.of(context).colorScheme.primary
+                          )
+                        ),
+                    ]
+                  )
                 ),
                 if(isPriceUnitVisible)
                   Text(

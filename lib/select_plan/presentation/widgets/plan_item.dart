@@ -11,6 +11,7 @@ class PlanItem extends StatelessWidget {
     {
       required this.title,
       required this.price,
+      this.discountedPrice,
       this.isPriceUnitVisible = false,
       required this.footerText,
       this.isImageBlurred = false,
@@ -22,6 +23,7 @@ class PlanItem extends StatelessWidget {
 
   final String title;
   final String price;
+  final String? discountedPrice;
   final bool isPriceUnitVisible;
   final String footerText;
   final bool isImageBlurred;
@@ -54,6 +56,7 @@ class PlanItem extends StatelessWidget {
               child: PlanItemHeader(
                 title: title,
                 price: price,
+                discountedPrice: discountedPrice,
                 isPriceUnitVisible: isPriceUnitVisible
               )
             ),

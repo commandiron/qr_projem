@@ -31,6 +31,7 @@ class PlanOptions extends StatelessWidget {
                     child: PlanItem(
                       title: "Standart Paket",
                       price: "₺2500",
+                      discountedPrice: "₺1500",
                       isPriceUnitVisible: true,
                       footerText: "Planı Seç ve Qr Kodu Oluştur",
                       features: const [
