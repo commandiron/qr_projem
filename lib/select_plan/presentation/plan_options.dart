@@ -14,11 +14,11 @@ class PlanOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 864,
       child: Column(
         children: [
-          Expanded(flex: 3, child: const PlanOptionsHeader()),
+          const Expanded(flex: 3, child: PlanOptionsHeader()),
           Expanded(
             flex: 12,
             child: Row(
@@ -55,7 +55,7 @@ class PlanOptions extends StatelessWidget {
                       price: "Özel Tasarım",
                       footerText: "İletişime Geç",
                       isImageBlurred: true,
-                      features: [
+                      features: const [
                         "İstenilen adet Proje için QR proje kodu",
                         "İstenilen adet sanal proje tanıtım kataloğu.",
                         "Sınırsız süre.",
@@ -63,9 +63,11 @@ class PlanOptions extends StatelessWidget {
                         "Özel tasarım kullanıcı arayüzü.",
                       ],
                       onPressed: () {
-                        BlocProvider.of<SelectPlanCubit>(context, listen: false).selectCustomDesign().then(
-                          (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
-                        );
+                        if(projectId != null) {
+                          BlocProvider.of<SelectPlanCubit>(context, listen: false).selectCustomDesign().then(
+                                  (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
+                          );
+                        }
                       },
                     )
                 ),
