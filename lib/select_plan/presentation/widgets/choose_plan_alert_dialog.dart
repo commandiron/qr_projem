@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ChoosePlanAlertDialog extends StatelessWidget {
-  const ChoosePlanAlertDialog({Key? key, required this.title, required this.content, required this.onDecline, required this.onApproved, }) : super(key: key);
+  const ChoosePlanAlertDialog({Key? key, required this.title, required this.content, required this.isLoading, required this.onDecline, required this.onApproved, }) : super(key: key);
 
   final String title;
   final String content;
+  final bool isLoading;
   final void Function()? onDecline;
   final void Function()? onApproved;
 
@@ -19,8 +20,8 @@ class ChoosePlanAlertDialog extends StatelessWidget {
           child: const Text("Geri")
         ),
         ElevatedButton(
-            onPressed: onApproved,
-            child: const Text("Devam")
+          onPressed: onApproved,
+          child: isLoading ? Icon(Icons.downloading) : const Text("Devam")
         ),
       ],
     );

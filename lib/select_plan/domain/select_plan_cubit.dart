@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/domain/model/project.dart';
+import 'package:qr_projem/core/presentation/helper/ui_state.dart';
 import 'package:qr_projem/select_plan/domain/select_plan_state.dart';
 
 import '../../core/data/repositories/project_repository.dart';
@@ -7,7 +8,9 @@ import '../../core/data/repositories/project_repository.dart';
 class SelectPlanCubit extends Cubit<SelectPlanState> {
   SelectPlanCubit(String? projectId) : super(
     SelectPlanState(
-      projectId: projectId
+      uiState: UiSuccess(),
+      projectId: projectId,
+      isPlanSelected: false
     )
   );
 
@@ -15,14 +18,21 @@ class SelectPlanCubit extends Cubit<SelectPlanState> {
 
   Future<void> selectStandardPlan() async {
     if(state.projectId != null) {
+      emit(state.copyWith(uiState: UiLoading()));
       await _projectRepository.updateProjectPaymentStatus(state.projectId!, PaymentStatus.pendingStandardPlan);
+      emit(state.copyWith(uiState: UiSuccess(), isPlanSelected: true));
+    } else {
+      emit(state.copyWith(uiState: UiError()));
     }
   }
 
   Future<void> selectPersonalizedPlan() async {
     if(state.projectId != null) {
+      emit(state.copyWith(uiState: UiLoading()));
       await _projectRepository.updateProjectPaymentStatus(state.projectId!, PaymentStatus.pendingPersonalizedPlan);
+      emit(state.copyWith(uiState: UiSuccess(), isPlanSelected: true));
+    } else {
+      emit(state.copyWith(uiState: UiError()));
     }
   }
-
 }

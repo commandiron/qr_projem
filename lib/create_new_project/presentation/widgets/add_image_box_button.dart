@@ -32,13 +32,13 @@ class AddImageBoxButton extends StatelessWidget {
               AppSpace.verticalExpanded!,
               Expanded(
                 flex: 3,
-                child: FittedBox(
-                    child: child ?? const Icon(
-                      Icons.add_photo_alternate_outlined,
-                      size: 100,
-                      color: Colors.black,
-                    )
-                ),
+                child: child ?? const FittedBox(
+                  child: Icon(
+                    Icons.add_photo_alternate_outlined,
+                    size: 100,
+                    color: Colors.black,
+                  ),
+                )
               ),
               AppSpace.verticalExpanded!,
               FittedBox(child: Text("Lütfen seçiniz", style: AppTextStyle.b1!))
