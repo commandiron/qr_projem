@@ -43,7 +43,7 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
 
   Future<ui.Image> getQrImage(double imageSize) async {
     return await QrPainter(
-      data: "https://virtual.demirli.tech/",
+      data: "https://virtual.demirli.tech/?uid=${state.userId}&projectId=${state.projectId}",
       version: QrVersions.auto,
       gapless: true,
       color: Colors.black,
