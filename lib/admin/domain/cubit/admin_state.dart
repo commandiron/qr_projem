@@ -63,6 +63,8 @@ class AdminState {
       "Yangın Güvenliği",
     ],
 
+    qrExpirationDate: DateTime(2099),
+
     templateVersion: "v1",
     primaryColorValue: 0xff137CC0,
     enabledPageRoutes: [
