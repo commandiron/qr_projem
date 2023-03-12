@@ -13,7 +13,6 @@ import '../profile/presentation/profile_screen.dart';
 import 'presentation/config/app_config.dart';
 import '../home/presentation/home_screen.dart';
 import 'domain/cubit/core/core_state.dart';
-import 'domain/cubit/project/project_cubit.dart';
 
 class AppCore extends StatefulWidget {
   const AppCore({Key? key}) : super(key: key);
@@ -30,16 +29,9 @@ class _AppCoreState extends State<AppCore> {
   Widget build(BuildContext context) {
     AppConfig.init(context);
 
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider<CoreCubit>(
-            create: (context) => CoreCubit(_authRepository),
-          ),
-          BlocProvider<ProjectCubit>(
-            create: (context) => ProjectCubit(),
-          ),
-        ],
-        child: MaterialChild(authRepository: _authRepository,)
+    return BlocProvider<CoreCubit>(
+      create: (context) => CoreCubit(_authRepository),
+      child: MaterialChild(authRepository: _authRepository,)
     );
   }
 }
