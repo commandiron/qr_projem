@@ -22,8 +22,10 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
   final ProjectRepository _projectRepository = ProjectRepository();
 
   void init() {
+    print(state.userId);
+    print(state.projectId);
     generateQrImage();
-    getPaymentStatus(state.projectId);
+    getPaymentStatus();
   }
 
   Future<void> generateQrImage() async {
@@ -91,9 +93,9 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
     return byteData!.buffer.asUint8List();
   }
 
-  void getPaymentStatus(String? projectId) async {
-    if(projectId != null) {
-      final project = await _projectRepository.getProjectById(projectId);
+  void getPaymentStatus() async {
+    if(state.projectId != null) {
+      final project = await _projectRepository.getProjectById(state.projectId!);
       emit(state.copyWith(paymentStatus: project?.paymentStatus));
     }
   }

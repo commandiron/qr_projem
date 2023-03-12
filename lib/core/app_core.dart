@@ -60,7 +60,7 @@ class MaterialChild extends StatelessWidget {
           darkTheme: themeDark,
           initialRoute: state.isUserAuthenticated
               ? state.isUserAdmin ? AdminScreen.route : ProfileScreen.route
-              : GenerateQrScreen.route,
+              : HomeScreen.route,
           onGenerateRoute: (settings) {
             switch(settings.name) {
               case AdminScreen.route :
