@@ -90,6 +90,8 @@ class _GenerateQrViewState extends State<GenerateQrView> {
     return byteData!.buffer.asUint8List();
   }
 
+
+
   Future<void> saveQrImage() async {
     if(_qrImage != null) {
       WebImageDownloader.downloadImageFromUInt8List(uInt8List: _qrImage!);
