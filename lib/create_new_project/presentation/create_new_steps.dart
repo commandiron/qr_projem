@@ -68,6 +68,7 @@ class CreateNewSteps extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               if(state.stepPageIndex == ProjectFeatures.stepPageIndex) {
+                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).next();
                                 BlocProvider.of<CreateNewProjectCubit>(context, listen: false).insertProject().then(
                                   (projectId) {
                                     Navigator.of(context).pushNamed(SelectPlanScreen.route, arguments: projectId);

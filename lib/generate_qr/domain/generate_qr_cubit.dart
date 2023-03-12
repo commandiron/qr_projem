@@ -22,8 +22,6 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
   final ProjectRepository _projectRepository = ProjectRepository();
 
   void init() {
-    print(state.userId);
-    print(state.projectId);
     generateQrImage();
     getPaymentStatus();
   }

@@ -28,10 +28,9 @@ class ProjectRepository {
     final user = await auth.authStateChanges().first;
     if(user != null) {
       DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
-      final data = await ref.get() as Map<String, dynamic>;
-
+      final response = await ref.get();
+      final data =  response.value as Map<String, dynamic>;
       final project = Project.fromJson(data);
-
       return project;
     }
     return null;
