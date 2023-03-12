@@ -8,6 +8,7 @@ import 'package:qr_projem/select_plan/presentation/select_plan_screen.dart';
 import '../../../core/presentation/config/app_padding.dart';
 import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
+import '../../core/presentation/helper/ui_state.dart';
 
 class CreateNewSteps extends StatelessWidget {
   const  CreateNewSteps({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class CreateNewSteps extends StatelessWidget {
                   ),
                   child: BlocBuilder<CreateNewProjectCubit, CreateNewProjectState>(
                     builder: (context, state) {
-                      if(state.newProjectPageState is NewProjectPageStateLoading) {
+                      if(state.uiState is UiLoading) {
                         return const Center(child: CircularProgressIndicator());
                       }
                       return Column(

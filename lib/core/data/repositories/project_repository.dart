@@ -14,14 +14,18 @@ class ProjectRepository {
   }
 
   Future<String?> insertProject(Project project) async {
-    final user = await auth.authStateChanges().first;
-    if(user != null) {
-      final projectId = const Uuid().v4();
-      DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
-      await ref.set(project.toJson());
-      return projectId;
+    try {
+      final user = await auth.authStateChanges().first;
+      if(user != null) {
+        final projectId = const Uuid().v4();
+        DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
+        await ref.set(project.toJson());
+        return projectId;
+      }
+      return null;
+    } on FirebaseException catch(_) {
+      return null;
     }
-    return null;
   }
 
   Future<Project?> getProjectById(String projectId) async {

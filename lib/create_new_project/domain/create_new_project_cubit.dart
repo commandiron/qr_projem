@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/data/repositories/storage_repository.dart';
 import 'package:qr_projem/core/domain/model/project.dart';
+import 'package:qr_projem/core/presentation/helper/ui_state.dart';
 import 'package:qr_projem/create_new_project/domain/entiries/project_entry.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_features/project_features.dart';
@@ -19,7 +20,7 @@ import 'entiries/apartment_entry.dart';
 class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   CreateNewProjectCubit() : super(
     CreateNewProjectState(
-      newProjectPageState: NewProjectPageStateDone(),
+      uiState: UiSuccess(),
       scrollController: ScrollController(),
       stepPages: StepPage.items,
       stepPageIndex: 0,
@@ -318,10 +319,19 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   Future<String?> insertProject() async {
 
-    emit(state.copyWith(newProjectPageState: NewProjectPageStateLoading()));
+    emit(state.copyWith(uiState: UiLoading()));
 
     final companyLogoUrl = await uploadCompanyLogo(state.projectEntry.companyLogo!);
+    if(companyLogoUrl == null) {
+      emit(state.copyWith(uiState: UiError()));
+      return null;
+    }
+
     final projectImageUrls = await uploadProjectImages(state.projectEntry.projectImages!);
+    if(projectImageUrls == null) {
+      emit(state.copyWith(uiState: UiError()));
+      return null;
+    }
 
     List<Apartment> apartments = [];
     await Future.forEach(
@@ -329,14 +339,19 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       (apartmentEntry) async {
         await uploadApartmentImages(apartmentEntry.id, apartmentEntry.images!).then(
           (value) {
-            apartments.add(
-              Apartment(
-                imageUrls: value[apartmentEntry.id]!,
-                title: apartmentEntry.title!,
-                type: apartmentEntry.type!,
-                netArea: apartmentEntry.netArea!
-              )
-            );
+            if(value != null) {
+              apartments.add(
+                Apartment(
+                  imageUrls: value[apartmentEntry.id]!,
+                  title: apartmentEntry.title!,
+                  type: apartmentEntry.type!,
+                  netArea: apartmentEntry.netArea!
+                )
+              );
+            } else {
+              emit(state.copyWith(uiState: UiError()));
+              return null;
+            }
           }
         );
       }
@@ -360,32 +375,47 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       )
     );
 
-    emit(state.copyWith(newProjectPageState: NewProjectPageStateDone()));
+    if(projectId != null) {
+      emit(state.copyWith(uiState: UiError()));
+    }
 
+    emit(state.copyWith(uiState: UiSuccess()));
     return projectId;
   }
 
   final StorageRepository storageRepository = StorageRepository();
 
-  Future<String> uploadCompanyLogo(Uint8List companyLogo) async {
+  Future<String?> uploadCompanyLogo(Uint8List companyLogo) async {
     return storageRepository.uploadImage(companyLogo);
   }
 
-  Future<List<String>> uploadProjectImages(List<Uint8List> projectImages) async {
+  Future<List<String>?> uploadProjectImages(List<Uint8List> projectImages) async {
     List<String> projectImageUrls = [];
     for (var projectImage in projectImages){
       await storageRepository.uploadImage(projectImage).then(
-        (value) => projectImageUrls.add(value)
+        (value) {
+          if(value != null) {
+            projectImageUrls.add(value);
+          } else {
+            return null;
+          }
+        }
       );
     }
     return projectImageUrls;
   }
 
-  Future<Map<int, List<String>>> uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
+  Future<Map<int, List<String>>?> uploadApartmentImages(int index, List<Uint8List> apartmentImages) async {
     List<String> apartmentImageUrls = [];
     for(var apartmentImage in apartmentImages) {
       await storageRepository.uploadImage(apartmentImage).then(
-        (value) => apartmentImageUrls.add(value)
+        (value) {
+          if(value != null) {
+            apartmentImageUrls.add(value);
+          } else {
+            return null;
+          }
+        }
       );
     }
     return {index : apartmentImageUrls};

@@ -5,6 +5,7 @@ import 'package:qr_projem/auth/presentation/sections/sign_in.dart';
 import 'package:qr_projem/auth/presentation/sections/sign_up.dart';
 import 'package:qr_projem/auth/presentation/sections/verification.dart';
 import 'package:qr_projem/auth/presentation/widget/auth_base.dart';
+import 'package:qr_projem/core/presentation/helper/ui_state.dart';
 
 import '../domain/cubit/auth_cubit.dart';
 import '../domain/cubit/auth_state.dart';
@@ -16,11 +17,11 @@ class AuthBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (blocContext, state) {
-        if(state.authPageState is AuthPageStateError) {
+        if(state.uiState is UiError) {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              content: Text((state.authPageState as AuthPageStateError).message ?? ""),
+              content: Text((state.uiState as UiError).message ?? ""),
             ),
           );
         }
@@ -31,7 +32,7 @@ class AuthBody extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: sections.length,
           itemBuilder: (context, index) {
-            if(state.authPageState is AuthPageStateLoading) {
+            if(state.uiState is UiLoading) {
               return const AuthBase(child: Center(child: CircularProgressIndicator()));
             }
             return sections[index];

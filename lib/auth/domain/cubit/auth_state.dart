@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/presentation/helper/ui_state.dart';
+
 class AuthState {
-  AuthPageState authPageState;
+  UiState uiState;
   PageController pageController;
   GlobalKey<FormState> phoneNumberFormKey;
 
   AuthState(
     {
-      required this.authPageState,
+      required this.uiState,
       required this.pageController,
       required this.phoneNumberFormKey,
     }
@@ -15,26 +17,15 @@ class AuthState {
 
   AuthState copyWith(
     {
-      AuthPageState? authPageState,
+      UiState? uiState,
       PageController? pageController,
       GlobalKey<FormState>? phoneNumberFormKey,
     }
   ) {
     return AuthState(
-      authPageState: authPageState ?? this.authPageState,
+      uiState: uiState ?? this.uiState,
       pageController: pageController ?? this.pageController,
       phoneNumberFormKey: phoneNumberFormKey ?? this.phoneNumberFormKey,
     );
   }
 }
-
-@immutable
-abstract class AuthPageState {}
-
-class AuthPageStateLoading extends AuthPageState {}
-
-class AuthPageStateError extends AuthPageState {
-  final String? message;
-  AuthPageStateError([this.message]);
-}
-class AuthPageStateDone extends AuthPageState {}

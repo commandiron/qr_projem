@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_projem/core/presentation/helper/ui_state.dart';
 import 'package:qr_projem/create_new_project/domain/entiries/project_entry.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_images/project_images.dart';
 
@@ -9,7 +10,7 @@ import '../presentation/steps/project_features/project_features.dart';
 import '../presentation/steps/project_info/project_info.dart';
 
 class CreateNewProjectState {
-  NewProjectPageState newProjectPageState;
+  UiState uiState;
   ScrollController scrollController;
   List<StepPage> stepPages;
   int stepPageIndex;
@@ -21,7 +22,7 @@ class CreateNewProjectState {
 
   CreateNewProjectState(
     {
-      required this.newProjectPageState,
+      required this.uiState,
       required this.scrollController,
       required this.stepPages,
       required this.stepPageIndex,
@@ -35,7 +36,7 @@ class CreateNewProjectState {
 
   CreateNewProjectState copyWith(
       {
-        NewProjectPageState? newProjectPageState,
+        UiState? uiState,
         ScrollController? scrollController,
         List<StepPage>? stepPages,
         int? stepPageIndex,
@@ -47,7 +48,7 @@ class CreateNewProjectState {
       }
     ) {
     return CreateNewProjectState(
-      newProjectPageState: newProjectPageState ?? this.newProjectPageState,
+      uiState: uiState ?? this.uiState,
       scrollController: scrollController ?? this.scrollController,
       stepPages: stepPages ?? this.stepPages,
       stepPageIndex: stepPageIndex ?? this.stepPageIndex,
@@ -120,14 +121,3 @@ class StepPage {
     ),
   ];
 }
-
-@immutable
-abstract class NewProjectPageState {}
-
-class NewProjectPageStateLoading extends NewProjectPageState {}
-
-class NewProjectPageStateError extends NewProjectPageState {
-  final String? message;
-  NewProjectPageStateError([this.message]);
-}
-class NewProjectPageStateDone extends NewProjectPageState {}
