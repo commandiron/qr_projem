@@ -32,12 +32,12 @@ class _GenerateQrBodyState extends State<GenerateQrBody> {
 
   Future<void> generateQrImage() async {
     final qrImage = await getQrImage();
-    final framedUInt8List = await addFrameToImage(
+    final framedImage = await addFrameToImage(
       image: qrImage,
-      frameThickness: 30,
+      frameThickness: qrImage.width / 30,
     );
     setState(() {
-      _qrImage = framedUInt8List;
+      _qrImage = framedImage;
     });
   }
 
