@@ -2,18 +2,17 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_downloader_web/image_downloader_web.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:qr_projem/core/domain/model/project.dart';
 import 'package:qr_projem/core/presentation/config/app_padding.dart';
-import 'dart:ui' as ui;
 
 import '../../core/presentation/config/app_space.dart';
 import '../../core/presentation/config/app_text_style.dart';
 
 class GenerateQrView extends StatefulWidget {
-  const GenerateQrView({required this.userUid, required this.projectId, Key? key}) : super(key: key);
+  const GenerateQrView({required this.qrImage, required this.paymentStatus, Key? key}) : super(key: key);
 
-  final String? userUid;
-  final String? projectId;
+  final Uint8List qrImage;
+  final PaymentStatus paymentStatus;
 
   @override
   State<GenerateQrView> createState() => _GenerateQrViewState();
@@ -21,88 +20,8 @@ class GenerateQrView extends StatefulWidget {
 
 class _GenerateQrViewState extends State<GenerateQrView> {
 
-  Uint8List? _qrImage;
-
-  @override
-  void initState() {
-    generateQrImage();
-    super.initState();
-  }
-
-  Future<void> generateQrImage() async {
-
-    const exportSize = 2160;
-    const frameThickness = exportSize / 30;
-    const imageSize = exportSize - (frameThickness * 2);
-
-
-    final qrImage = await getQrImage(imageSize);
-    final framedImage = await addFrameToImage(
-      image: qrImage,
-      frameThickness: frameThickness,
-    );
-    // await Future.delayed(const Duration(seconds: 2));
-    setState(() {
-      _qrImage = framedImage;
-    });
-  }
-
-  Future<ui.Image> getQrImage(double imageSize) async {
-    return await QrPainter(
-      data: "https://virtual.demirli.tech/",
-      version: QrVersions.auto,
-      gapless: true,
-      color: Colors.black,
-      emptyColor: Colors.white,
-    ).toImage(imageSize);
-  }
-
-  Future<Uint8List> addFrameToImage({required ui.Image image, required double frameThickness}) async {
-
-    final frameSize = Size(
-        image.width + (frameThickness * 2),
-        image.height + (frameThickness * 2)
-    );
-
-    ui.PictureRecorder recorder = ui.PictureRecorder();
-
-    final canvas = ui.Canvas(recorder);
-
-    final paint = Paint()
-      ..isAntiAlias = true
-      ..style = PaintingStyle.fill
-      ..color = Colors.white;
-
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-          Rect.fromLTWH(0, 0, frameSize.width, frameSize.height),
-          const Radius.circular(0)
-      ),
-      paint,
-    );
-
-    final imagePaint = Paint()
-      ..isAntiAlias = true
-      ..filterQuality = FilterQuality.high;
-    final position = Offset(
-      (frameSize.width - image.width) / 2.0,
-      (frameSize.height - image.height) / 2.0,
-    );
-
-    canvas.drawImage(image, position, imagePaint);
-
-    final framedImage = await recorder.endRecording().toImage(frameSize.width.floor(), frameSize.height.floor());
-
-    final byteData = await framedImage.toByteData(format: ui.ImageByteFormat.png);
-    return byteData!.buffer.asUint8List();
-  }
-
-
-
   Future<void> saveQrImage() async {
-    if(_qrImage != null) {
-      WebImageDownloader.downloadImageFromUInt8List(uInt8List: _qrImage!);
-    }
+    WebImageDownloader.downloadImageFromUInt8List(uInt8List: widget.qrImage);
   }
 
   @override
@@ -130,7 +49,7 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                     padding: AppPadding.allL!,
                     child: Container(
                       width: 300,
-                      child: _qrImage == null
+                      child: widget.qrImage == null
                           ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -147,7 +66,7 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                         children: [
                           Expanded(
                             flex: 12,
-                            child: Image.memory(_qrImage!,),
+                            child: Image.memory(widget.qrImage,),
                           ),
                           AppSpace.verticalExpanded!,
                           Expanded(
@@ -195,17 +114,18 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                   ),
                 ),
                 ),
+
                 AppSpace.horizontalExpanded!,
-                Column(
-                  children: [
-                    AppSpace.verticalExpanded!,
-                    Card(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: AppPadding.allL!,
-                        child: Container(
-                          width: 300,
-                          child: Expanded(
+                if(widget.paymentStatus != PaymentStatus.approved)
+                  Column(
+                    children: [
+                      AppSpace.verticalExpanded!,
+                      Card(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: AppPadding.allL!,
+                          child: Container(
+                            width: 300,
                             child: SelectionArea(
                               child: Column(
                                 children: [
@@ -222,12 +142,11 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                               ),
                             )
                           )
-                        )
+                        ),
                       ),
-                    ),
-                    AppSpace.verticalExpanded!,
-                  ],
-                ),
+                      AppSpace.verticalExpanded!,
+                    ],
+                  ),
                 AppSpace.horizontalExpanded!,
                 AppSpace.horizontalExpanded!,
               ],

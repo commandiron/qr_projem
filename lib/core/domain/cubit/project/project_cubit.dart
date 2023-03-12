@@ -10,7 +10,7 @@ class ProjectCubit extends Cubit<ProjectState> {
 
   final ProjectRepository _projectRepository = ProjectRepository();
 
-   insertProject(Project project) {
+   void insertProject(Project project) {
     _projectRepository.insertProject(project);
   }
 }

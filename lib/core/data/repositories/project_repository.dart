@@ -24,6 +24,19 @@ class ProjectRepository {
     return null;
   }
 
+  Future<Project?> getProjectById(String projectId) async {
+    final user = await auth.authStateChanges().first;
+    if(user != null) {
+      DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
+      final data = await ref.get() as Map<String, dynamic>;
+
+      final project = Project.fromJson(data);
+
+      return project;
+    }
+    return null;
+  }
+
   Future<void> updateProjectPaymentStatus(String projectId, PaymentStatus paymentStatus) async {
     final user = await auth.authStateChanges().first;
     if(user != null) {
