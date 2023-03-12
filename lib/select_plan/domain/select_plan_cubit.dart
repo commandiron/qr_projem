@@ -10,7 +10,6 @@ class SelectPlanCubit extends Cubit<SelectPlanState> {
     SelectPlanState(
       uiState: UiSuccess(),
       projectId: projectId,
-      isPlanSelected: false
     )
   );
 
@@ -20,7 +19,7 @@ class SelectPlanCubit extends Cubit<SelectPlanState> {
     if(state.projectId != null) {
       emit(state.copyWith(uiState: UiLoading()));
       await _projectRepository.updateProjectPaymentStatus(state.projectId!, PaymentStatus.pendingStandardPlan);
-      emit(state.copyWith(uiState: UiSuccess(), isPlanSelected: true));
+      emit(state.copyWith(uiState: UiSuccess()));
     } else {
       emit(state.copyWith(uiState: UiError()));
     }
@@ -30,7 +29,7 @@ class SelectPlanCubit extends Cubit<SelectPlanState> {
     if(state.projectId != null) {
       emit(state.copyWith(uiState: UiLoading()));
       await _projectRepository.updateProjectPaymentStatus(state.projectId!, PaymentStatus.pendingPersonalizedPlan);
-      emit(state.copyWith(uiState: UiSuccess(), isPlanSelected: true));
+      emit(state.copyWith(uiState: UiSuccess()));
     } else {
       emit(state.copyWith(uiState: UiError()));
     }

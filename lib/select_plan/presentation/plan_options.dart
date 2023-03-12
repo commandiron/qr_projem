@@ -24,12 +24,7 @@ class _PlanOptionsState extends State<PlanOptions> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 864,
-      child: BlocConsumer<SelectPlanCubit, SelectPlanState>(
-        listener: (context, state) {
-          if(state.isPlanSelected) {
-            Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId);
-          }
-        },
+      child: BlocBuilder<SelectPlanCubit, SelectPlanState>(
         builder: (context, state) {
           return Column(
             children: [
@@ -54,7 +49,7 @@ class _PlanOptionsState extends State<PlanOptions> {
                           "Proje başı 2 sene garanti süre.",
                           "7/24 destek."
                         ],
-                        onPressed: () async {
+                        onPressed: () {
                           showDialog(
                             context: context,
                             builder: (dialogContext) {
@@ -66,8 +61,11 @@ class _PlanOptionsState extends State<PlanOptions> {
                                   Navigator.pop(dialogContext);
                                 },
                                 onApproved: () {
-                                  Navigator.pop(dialogContext);
-                                  BlocProvider.of<SelectPlanCubit>(context, listen: false).selectStandardPlan();
+                                  if(state.projectId != null) {
+                                    BlocProvider.of<SelectPlanCubit>(context, listen: false).selectStandardPlan().then(
+                                      (_) =>  Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId)
+                                    );
+                                  }
                                 }
                               );
                             },
@@ -102,7 +100,6 @@ class _PlanOptionsState extends State<PlanOptions> {
                                       Navigator.pop(dialogContext);
                                     },
                                     onApproved: () {
-                                      Navigator.pop(dialogContext);
                                       if(widget.projectId != null) {
                                         BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
                                                 (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId)
