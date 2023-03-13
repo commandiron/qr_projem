@@ -10,16 +10,11 @@ import '../../generate_qr/presentation/generate_qr_screen.dart';
 import '../domain/select_plan_cubit.dart';
 import '../domain/select_plan_state.dart';
 
-class PlanOptions extends StatefulWidget {
+class PlanOptions extends StatelessWidget {
   const PlanOptions({required this.projectId, Key? key}) : super(key: key);
 
   final String? projectId;
 
-  @override
-  State<PlanOptions> createState() => _PlanOptionsState();
-}
-
-class _PlanOptionsState extends State<PlanOptions> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -63,7 +58,7 @@ class _PlanOptionsState extends State<PlanOptions> {
                                 onApproved: () {
                                   if(state.projectId != null) {
                                     BlocProvider.of<SelectPlanCubit>(context, listen: false).selectStandardPlan().then(
-                                      (_) =>  Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId)
+                                      (_) =>  Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
                                     );
                                   }
                                 }
@@ -100,9 +95,9 @@ class _PlanOptionsState extends State<PlanOptions> {
                                   Navigator.pop(dialogContext);
                                 },
                                 onApproved: () {
-                                  if(widget.projectId != null) {
+                                  if(projectId != null) {
                                     BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
-                                            (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId)
+                                            (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
                                     );
                                   }
                                 }
