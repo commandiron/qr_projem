@@ -3,6 +3,7 @@ import '../../../core/domain/model/project.dart';
 class AdminState {
 
   static Project projectDemirliIns = Project(
+    id: "0",
     name: "Suadiye | Oran Apartmanı",
     startDate: DateTime(2022, 10, 7),
     estimatedFinishDate: DateTime(2023, 12, 7),

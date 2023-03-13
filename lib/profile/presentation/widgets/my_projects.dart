@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_projem/create_new_project/presentation/create_new_project_screen.dart';
+import 'package:qr_projem/generate_qr/presentation/generate_qr_screen.dart';
 import 'package:qr_projem/profile/presentation/widgets/add_project_button.dart';
 
 import '../../../core/domain/model/project.dart';
@@ -65,7 +66,7 @@ class MyProjects extends StatelessWidget {
                                               children: [
                                                 InkWell(
                                                     onTap: () {
-                                                      //Buradan qr code durumuna geç.
+                                                      Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projects[index].id);
                                                     },
                                                     child: Icon(Icons.qr_code_sharp, color: Colors.white,)
                                                 ),

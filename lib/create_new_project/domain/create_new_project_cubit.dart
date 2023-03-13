@@ -8,6 +8,7 @@ import 'package:qr_projem/core/presentation/helper/ui_state.dart';
 import 'package:qr_projem/create_new_project/domain/entiries/project_entry.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/company_logo/company_logo.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_features/project_features.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../core/data/repositories/project_repository.dart';
 import '../presentation/steps/apartments_info/apartments_info.dart';
@@ -359,6 +360,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
     final projectId = await _projectRepository.insertProject(
       Project(
+        id: const Uuid().v4(),
         name: state.projectEntry.name!,
         startDate: state.projectEntry.startDate!,
         estimatedFinishDate: state.projectEntry.estimatedFinishDate!,

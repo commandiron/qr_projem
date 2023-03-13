@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:uuid/uuid.dart';
 import '../../domain/model/project.dart';
 
 class ProjectRepository {
@@ -17,7 +16,7 @@ class ProjectRepository {
     try {
       final user = await auth.authStateChanges().first;
       if(user != null) {
-        final projectId = const Uuid().v4();
+        final projectId = project.id;
         DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
         await ref.set(project.toJson());
         return projectId;
@@ -34,7 +33,10 @@ class ProjectRepository {
     if(user != null) {
       DatabaseReference ref = database.ref("projects/${user.uid}");
       final response = await ref.get();
-      final data =  response.value as Map<String, dynamic>;
+      final data =  response.value as Map<String, dynamic>?;
+      if(data == null) {
+        return projects;
+      }
       data.forEach(
         (key, value) {
           projects.add(Project.fromJson(value));
