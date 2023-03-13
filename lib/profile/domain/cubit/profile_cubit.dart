@@ -6,7 +6,7 @@ import 'package:qr_projem/profile/domain/cubit/profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(
     ProfileState(
-      uiState: UiSuccess(),
+      uiState: UiInitial(),
       projects: []
     )
   );

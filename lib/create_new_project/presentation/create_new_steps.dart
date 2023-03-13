@@ -39,14 +39,13 @@ class CreateNewSteps extends StatelessWidget {
                     },
                     builder: (context, state) {
                       if(state.uiState is UiLoading) {
-                        return Center(
-                          child: Column(
-                            children: [
-                              const CircularProgressIndicator(),
-                              AppSpace.verticalM!,
-                              const Text("İşlem 1 dakika kadar sürebilir. Lütfen bekleyiniz.")
-                            ],
-                          )
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircularProgressIndicator(),
+                            AppSpace.verticalM!,
+                            const Text("İşlem 1 dakika kadar sürebilir. Lütfen bekleyiniz.")
+                          ],
                         );
                       }
                       return Column(
