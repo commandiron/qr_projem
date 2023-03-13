@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/generate_qr/domain/generate_qr_cubit.dart';
 import 'package:qr_projem/generate_qr/domain/generate_qr_state.dart';
+import 'package:qr_projem/home/presentation/home_screen.dart';
 
 import '../../core/presentation/widgets/copyright_footer.dart';
 import '../../core/presentation/widgets/footer/footer.dart';
@@ -12,7 +13,12 @@ class GenerateQrBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenerateQrCubit, GenerateQrState>(
+    return BlocConsumer<GenerateQrCubit, GenerateQrState>(
+      listener: (context, state) {
+        if(state.userId == null || state.projectId == null) {
+          Navigator.of(context).pushNamed(HomeScreen.route);
+        }
+      },
       builder: (context, state) {
         return CustomScrollView(
           slivers: [
