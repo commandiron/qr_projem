@@ -5,8 +5,11 @@ class UnderDevelopmentAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AlertDialog(
-      content: Text("Qr Projem bir startup projesidir ve geliştirme aşamasındadır. Bu yüzden çalışmayan özellikler olabilir. Anlayışınız için teşekkür ederiz."),
+    return AlertDialog(
+      content: Container(
+        width: 400,
+        child: Text("Qr Projem bir startup projesidir ve geliştirme aşamasındadır. Bu yüzden çalışmayan özellikler olabilir. Bir sorun olduğunu düşünüyorsanız lütfen iletişime geçin. Anlayışınız için teşekkür ederiz.")
+      ),
     );
   }
 }

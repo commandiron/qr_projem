@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 
 class AddProjectButton extends StatefulWidget {
   const AddProjectButton({this.onTap, Key? key}) : super(key: key);
@@ -36,10 +37,19 @@ class _AddProjectButtonState extends State<AddProjectButton> {
               width: 2
             )
           ),
-          child: Icon(
-            Icons.add,
-            size: 64,
-            color: _buttonColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.add,
+                size: 64,
+                color: _buttonColor,
+              ),
+              Text(
+                "Yeni Proje ekle",
+                style: AppTextStyle.b1!.copyWith(color: _buttonColor),
+              )
+            ],
           ),
         ),
       ),

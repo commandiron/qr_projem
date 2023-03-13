@@ -14,16 +14,15 @@ class ProfileBody extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         return CustomScrollView(
-          controller: state.scrollController,
           slivers: [
             SliverToBoxAdapter(
               child: ListView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                children: const [
-                  MyProjects(),
-                  Footer(),
-                  CopyrightFooter()
+                children: [
+                  MyProjects(projects: state.projects),
+                  const Footer(),
+                  const CopyrightFooter()
                 ]
               ),
             )

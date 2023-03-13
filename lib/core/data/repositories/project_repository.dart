@@ -28,6 +28,22 @@ class ProjectRepository {
     }
   }
 
+  Future<List<Project>> getProjects() async {
+    List<Project> projects = [];
+    final user = await auth.authStateChanges().first;
+    if(user != null) {
+      DatabaseReference ref = database.ref("projects/${user.uid}");
+      final response = await ref.get();
+      final data =  response.value as Map<String, dynamic>;
+      data.forEach(
+        (key, value) {
+          projects.add(Project.fromJson(value));
+        }
+      );
+    }
+    return projects;
+  }
+
   Future<Project?> getProjectById(String projectId) async {
     final user = await auth.authStateChanges().first;
     if(user != null) {
@@ -39,6 +55,7 @@ class ProjectRepository {
     }
     return null;
   }
+
 
   Future<void> updateProjectPaymentStatus(String projectId, PaymentStatus paymentStatus) async {
     final user = await auth.authStateChanges().first;

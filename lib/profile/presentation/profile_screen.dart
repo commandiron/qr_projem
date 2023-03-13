@@ -14,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProfileCubit>(
-      create: (context) => ProfileCubit(),
+      create: (context) => ProfileCubit()..init(),
       child: const Scaffold(
         appBar: CustomAppBar(),
         floatingActionButton: FloatingButtons(),
