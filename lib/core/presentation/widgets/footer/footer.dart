@@ -21,11 +21,13 @@ class Footer extends StatelessWidget {
       color: Theme.of(context).colorScheme.secondaryContainer,
       alignment: Alignment.centerLeft,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppSpace.horizontalExpanded!,
           Expanded(
             flex: 6,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Align(
@@ -35,75 +37,90 @@ class Footer extends StatelessWidget {
                 ),
                 AppSpace.horizontalXL!,
                 Expanded(
-                  child: Row(
-                    children: [
-                      AppSpace.horizontalExpanded!,
-                      BlocBuilder<CoreCubit, CoreState>(
-                        builder: (context, state) {
-                          return Column(
-                            children: [
-                              AppSpace.verticalXXL!,
-                              const FooterTitle(title: "Hesabım"),
-                              AppSpace.verticalL!,
-                              state.isUserAuthenticated
-                                  ? FooterTextButton(
-                                label: "Profilim",
-                                onPressed: () {},
-                              )
-                                  : Column(
-                                children: [
-                                  FooterTextButton(
-                                    label: "Giriş Yap",
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed(AuthScreen.route, arguments: SignIn.pageIndex);
-                                    },
-                                  ),
-                                  FooterTextButton(
-                                    label: "Kayıt Ol",
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed(AuthScreen.route, arguments: SignUp.pageIndex);
-                                    },
-                                  )
-                                ],
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                      AppSpace.horizontalS!,
-                      AppSpace.horizontalExpanded!,
-                      AppSpace.horizontalS!,
-                      Column(
-                        children: [
-                          AppSpace.verticalXXL!,
-                          const FooterTitle(title: "Bağlantılar"),
-                          AppSpace.verticalL!,
-                          FooterTextButton(
-                            label: "Biz Kimiz",
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const UnderDevelopmentAlertDialog();
-                                },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: BlocBuilder<CoreCubit, CoreState>(
+                            builder: (context, state) {
+                              return FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Column(
+                                  children: [
+                                    const FooterTitle(title: "Hesabım"),
+                                    AppSpace.verticalL!,
+                                    state.isUserAuthenticated
+                                        ? FooterTextButton(
+                                      label: "Profilim",
+                                      onPressed: () {},
+                                    )
+                                        : Column(
+                                      children: [
+                                        FooterTextButton(
+                                          label: "Giriş Yap",
+                                          onPressed: () {
+                                            Navigator.of(context).pushNamed(AuthScreen.route, arguments: SignIn.pageIndex);
+                                          },
+                                        ),
+                                        FooterTextButton(
+                                          label: "Kayıt Ol",
+                                          onPressed: () {
+                                            Navigator.of(context).pushNamed(AuthScreen.route, arguments: SignUp.pageIndex);
+                                          },
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               );
                             },
                           ),
-                          FooterTextButton(
-                            label: "İletişim",
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const UnderDevelopmentAlertDialog();
-                                },
-                              );
-                            },
+                        ),
+                        AppSpace.horizontalExpanded!,
+                        Expanded(
+                          flex: 3,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Column(
+                              children: [
+                                const FooterTitle(title: "Bağlantılar"),
+                                AppSpace.verticalL!,
+                                FooterTextButton(
+                                  label: "Biz Kimiz",
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return const UnderDevelopmentAlertDialog();
+                                      },
+                                    );
+                                  },
+                                ),
+                                FooterTextButton(
+                                  label: "İletişim",
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return const UnderDevelopmentAlertDialog();
+                                      },
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                      AppSpace.horizontalExpanded!,
-                    ],
+                        ),
+                        AppSpace.horizontalExpanded!,
+                        Expanded(
+                          flex: 3,
+                          child: SizedBox()
+                        ),
+                      ],
+                    ),
                   )
                 )
               ],
