@@ -31,7 +31,12 @@ class CreateNewSteps extends StatelessWidget {
                         Radius.circular(32)
                     )
                   ),
-                  child: BlocBuilder<CreateNewProjectCubit, CreateNewProjectState>(
+                  child: BlocConsumer<CreateNewProjectCubit, CreateNewProjectState>(
+                    listener: (context, state) {
+                      if(state.uiState is UiSuccess) {
+                        Navigator.of(context).pushNamed(SelectPlanScreen.route, arguments: state.projectEntry.id);
+                      }
+                    },
                     builder: (context, state) {
                       if(state.uiState is UiLoading) {
                         return const Center(child: CircularProgressIndicator());
@@ -68,16 +73,7 @@ class CreateNewSteps extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              if(state.stepPageIndex == ProjectFeatures.stepPageIndex) {
-                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).next();
-                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).insertProject().then(
-                                  (projectId) {
-                                    Navigator.of(context).pushNamed(SelectPlanScreen.route, arguments: projectId);
-                                  }
-                                );
-                              } else {
-                                BlocProvider.of<CreateNewProjectCubit>(context, listen: false).next();
-                              }
+                              BlocProvider.of<CreateNewProjectCubit>(context, listen: false).next();
                             },
                             child: Text(state.stepPageIndex == ProjectFeatures.stepPageIndex ? "Bitir" : "Devam")
                           ),

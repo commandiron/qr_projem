@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 @immutable
 abstract class UiState {}
 
+class UiInitial extends UiState {}
+
 class UiLoading extends UiState {}
 
 class UiError extends UiState {

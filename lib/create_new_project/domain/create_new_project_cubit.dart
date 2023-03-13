@@ -21,7 +21,7 @@ import 'entiries/apartment_entry.dart';
 class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
   CreateNewProjectCubit() : super(
     CreateNewProjectState(
-      uiState: UiSuccess(),
+      uiState: UiInitial(),
       scrollController: ScrollController(),
       stepPages: StepPage.items,
       stepPageIndex: 0,
@@ -49,6 +49,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
        final nextPageIndex = state.stepPageIndex + 1;
        if(nextPageIndex < state.stepPages.length) {
          jumpToStepPage(nextPageIndex);
+       } else {
+         insertProject();
        }
      }
   }
@@ -381,7 +383,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       emit(state.copyWith(uiState: UiError()));
     }
 
-    emit(state.copyWith(uiState: UiSuccess()));
+    emit(state.copyWith(projectEntry: state.projectEntry.copyWith(id: projectId), uiState: UiSuccess()));
     return projectId;
   }
 

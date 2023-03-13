@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'apartment_entry.dart';
 
 class ProjectEntry {
+  String? id;
   String? name;
   DateTime? startDate;
   DateTime? estimatedFinishDate;
@@ -17,6 +18,7 @@ class ProjectEntry {
   List<String>? features;
 
   ProjectEntry({
+    this.id,
     this.name,
     this.startDate,
     this.estimatedFinishDate,
@@ -33,6 +35,7 @@ class ProjectEntry {
 
   ProjectEntry copyWith(
     {
+      String? id,
       String? name,
       DateTime? startDate,
       DateTime? estimatedFinishDate,
@@ -48,6 +51,7 @@ class ProjectEntry {
     }
   ) {
     return ProjectEntry(
+      id: id ?? this.id,
       name: name ?? this.name,
       startDate: startDate ?? this.startDate,
       estimatedFinishDate: estimatedFinishDate ?? this.estimatedFinishDate,
