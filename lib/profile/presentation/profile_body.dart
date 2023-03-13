@@ -19,7 +19,7 @@ class ProfileBody extends StatelessWidget {
           showDialog(
             context: context,
             builder: (dialogContext) {
-              return const AlertDialog(content: Text("Bir Hata Oluştu."),);
+              return const AlertDialog(content: Text("Bir hata oluştu."),);
             },
           );
         }
