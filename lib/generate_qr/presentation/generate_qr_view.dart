@@ -32,7 +32,7 @@ class _GenerateQrViewState extends State<GenerateQrView> {
       child: Column(
         children: [
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Center(child: Text("Qr Kodun Hazır!", style: AppTextStyle.h2!,)),
           ),
           Expanded(
@@ -42,111 +42,116 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                 AppSpace.horizontalExpanded!,
                 AppSpace.horizontalExpanded!,
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Card(
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Padding(
-                    padding: AppPadding.allL!,
-                    child: Container(
-                      width: 300,
-                      child: widget.qrImage == null
-                          ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                          AppSpace.verticalL!,
-                          Text(
-                            "Qr kodunuz oluşturuluyor. Lütfen Bekleyiniz.",
-                            style: AppTextStyle.h3!,
-                            textAlign: TextAlign.center,
-                          )
-                        ],
-                      )
-                          : Column(
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Padding(
+                      padding: AppPadding.allL!,
+                      child: Column(
                         children: [
                           Expanded(
-                            flex: 12,
-                            child: Image.memory(widget.qrImage,),
-                          ),
-                          AppSpace.verticalExpanded!,
-                          Expanded(
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(
-                                        Theme.of(context).colorScheme.onPrimary
-                                    ),
-                                    foregroundColor: MaterialStatePropertyAll(
-                                        Theme.of(context).colorScheme.primary
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Image.memory(widget.qrImage,),
+                                ),
+                                Expanded(
+                                    child: Card(
+                                      color: Colors.white,
+                                      margin: EdgeInsets.zero,
+                                      child: Padding(
+                                        padding: AppPadding.allM!,
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Row  (
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Text(
+                                                          "Durum:",
+                                                          style: AppTextStyle.b1,
+                                                        ),
+                                                        AppSpace.horizontalS!,
+                                                        widget.paymentStatus == PaymentStatus.approved
+                                                            ? Row(children: [Icon(Icons.check_circle, color: Color(0xff3AB54A),), Text("Aktif", style: AppTextStyle.h3b!)],)
+                                                            : Text("Ödeme Bekleniyor.", style: AppTextStyle.h3b!.copyWith(color: Theme.of(context).colorScheme.error),)
+                                                      ],
+                                                    ),
+                                                    if(widget.paymentStatus != PaymentStatus.approved)
+                                                      Text("Qr kodunuz ödeme sonrası aktif hale gelecektir.", style: AppTextStyle.b1!,),
+                                                  ],
+                                                )
+                                            ),
+                                            if(widget.paymentStatus != PaymentStatus.approved)
+                                              Expanded(
+                                                flex: 2,
+                                                child: SelectionArea(
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text("Havale/Eft Bilgileri;", style: AppTextStyle.h3b, textAlign: TextAlign.center,),
+                                                      AppSpace.verticalM!,
+                                                      Text("İsim Soyad: Emir Demirli", style: AppTextStyle.h4,),
+                                                      AppSpace.verticalS!,
+                                                      Text("Banka: Enpara - Finansbank", style: AppTextStyle.h4,),
+                                                      AppSpace.verticalS!,
+                                                      Text("TR12 0011 1000 0000 0066 4574 17", style: AppTextStyle.h4,),
+                                                      AppSpace.verticalS!,
+                                                      Text("Tutar: 1500 TL", style: AppTextStyle.h3b,),
+                                                    ],
+                                                  ),
+                                                )
+                                              )
+                                          ],
+                                        ),
+                                      ),
                                     )
                                 ),
-                                onPressed: () {
-                                  saveQrImage();
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("Bilgisayarına İndir"),
-                                    Icon(Icons.download)
-                                  ],
-                                )
-                            ),
-                          ),
-                          Expanded(
-                            flex: 4 ,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row  (
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("Durum:", style: AppTextStyle.b1!.copyWith(color: Theme.of(context).colorScheme.onPrimary),),
-                                    AppSpace.horizontalS!,
-                                    Text("Ödeme Bekleniyor.", style: AppTextStyle.b1!.copyWith(color: Theme.of(context).colorScheme.onPrimary),),
-                                  ],
-                                ),
-                                Text("Qr kodunuz ödeme sonrası aktif hale gelecektir.", style: AppTextStyle.b1!.copyWith(color: Theme.of(context).colorScheme.onPrimary),)
                               ],
                             )
+                          ),
+                          Expanded(
+                            child: FractionallySizedBox(
+                              widthFactor: 0.5,
+                              heightFactor: 0.5,
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      shape: const MaterialStatePropertyAll(
+                                          RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(32))
+                                          )
+                                      ),
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          Theme.of(context).colorScheme.onPrimary
+                                      ),
+                                      foregroundColor: MaterialStatePropertyAll(
+                                          Theme.of(context).colorScheme.primary
+                                      )
+                                  ),
+                                  onPressed: () {
+                                    saveQrImage();
+                                  },
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Qr Kodu Bilgisayarına İndir", style: AppTextStyle.b1b,),
+                                        Icon(Icons.download)
+                                      ],
+                                    ),
+                                  )
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                ),
-
-                AppSpace.horizontalExpanded!,
-                if(widget.paymentStatus != PaymentStatus.approved)
-                  Column(
-                    children: [
-                      AppSpace.verticalExpanded!,
-                      Card(
-                        color: Colors.white,
-                        child: Padding(
-                          padding: AppPadding.allL!,
-                          child: Container(
-                            width: 300,
-                            child: SelectionArea(
-                              child: Column(
-                                children: [
-                                  Text("Havale/Eft Bilgileri;", style: AppTextStyle.h3b, textAlign: TextAlign.center,),
-                                  AppSpace.verticalM!,
-                                  Text("İsim Soyad: Emir Demirli", style: AppTextStyle.h4,),
-                                  AppSpace.verticalS!,
-                                  Text("Banka: Enpara - Finansbank", style: AppTextStyle.h4,),
-                                  AppSpace.verticalS!,
-                                  Text("TR12 0011 1000 0000 0066 4574 17", style: AppTextStyle.h4,),
-                                  AppSpace.verticalS!,
-                                  Text("Tutar: 1500 TL", style: AppTextStyle.h4,),
-                                ],
-                              ),
-                            )
-                          )
-                        ),
-                      ),
-                      AppSpace.verticalExpanded!,
-                    ],
-                  ),
                 AppSpace.horizontalExpanded!,
                 AppSpace.horizontalExpanded!,
               ],

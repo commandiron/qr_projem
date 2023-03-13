@@ -37,63 +37,64 @@ class MyProjects extends StatelessWidget {
                     child: Column(
                       children: [
                         Text("Projelerim", style: AppTextStyle.h2,),
-                        AppSpace.verticalL!,
-                        Expanded(
-                          flex: 6,
-                          child: GridView.builder(
-                            itemCount: projects.length,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 5,
-                            ),
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                child: Card(
-                                  child: Stack(
-                                    alignment: Alignment.bottomCenter,
-                                    children: [
-                                      Image.network(
-                                          projects[index].projectImageUrls.first
-                                      ),
-                                      Container(
-                                        width: double.infinity,
-                                        color: Colors.black.withOpacity(0.75),
-                                        padding: AppPadding.horizontalM!.add(AppPadding.verticalS!),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(projects[index].name, style: AppTextStyle.b2!.copyWith(color: Colors.white),),
-                                            Row(
-                                              children: [
-                                                InkWell(
-                                                    onTap: () {
-                                                      Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projects[index].id);
-                                                    },
-                                                    child: Icon(Icons.qr_code_sharp, color: Colors.white,)
-                                                ),
-                                                AppSpace.horizontalM!,
-                                                InkWell(
-                                                    onTap: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return const UnderDevelopmentAlertDialog();
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Icon(Icons.edit, color: Colors.white,)
-                                                )
-                                              ],
-                                            )
-                                          ],
+                        AppSpace.verticalExpanded!,
+                        if(projects.isNotEmpty)
+                          Expanded(
+                            flex: 6,
+                            child: GridView.builder(
+                              itemCount: projects.length,
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 5,
+                              ),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  child: Card(
+                                    child: Stack(
+                                      alignment: Alignment.bottomCenter,
+                                      children: [
+                                        Image.network(
+                                            projects[index].projectImageUrls.first
                                         ),
-                                      )
-                                    ],
-                                  )
-                                ),
-                              );
-                            },
+                                        Container(
+                                          width: double.infinity,
+                                          color: Colors.black.withOpacity(0.75),
+                                          padding: AppPadding.horizontalM!.add(AppPadding.verticalS!),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(projects[index].name, style: AppTextStyle.b2!.copyWith(color: Colors.white),),
+                                              Row(
+                                                children: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projects[index].id);
+                                                      },
+                                                      child: Icon(Icons.qr_code_sharp, color: Colors.white,)
+                                                  ),
+                                                  AppSpace.horizontalM!,
+                                                  InkWell(
+                                                      onTap: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return const UnderDevelopmentAlertDialog();
+                                                          },
+                                                        );
+                                                      },
+                                                      child: Icon(Icons.edit, color: Colors.white,)
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        ),
                         Expanded(
                           flex: 3,
                           child: AddProjectButton(
@@ -102,7 +103,7 @@ class MyProjects extends StatelessWidget {
                             },
                           )
                         ),
-                        AppSpace.verticalExpanded!
+                        AppSpace.verticalExpanded!,
                       ],
                     ),
                   )

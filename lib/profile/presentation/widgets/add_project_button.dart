@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_projem/core/presentation/config/app_padding.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 
 class AddProjectButton extends StatefulWidget {
@@ -37,19 +38,25 @@ class _AddProjectButtonState extends State<AddProjectButton> {
               width: 2
             )
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.add,
-                size: 64,
-                color: _buttonColor,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Padding(
+              padding: AppPadding.allL!,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.add,
+                    size: 128,
+                    color: _buttonColor,
+                  ),
+                  Text(
+                    "Yeni Proje ekle",
+                    style: AppTextStyle.h2!.copyWith(color: _buttonColor),
+                  )
+                ],
               ),
-              Text(
-                "Yeni Proje ekle",
-                style: AppTextStyle.b1!.copyWith(color: _buttonColor),
-              )
-            ],
+            ),
           ),
         ),
       ),
