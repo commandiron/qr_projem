@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/presentation/config/app_space.dart';
-import 'package:qr_projem/core/presentation/helper/ui_state.dart';
 import 'package:qr_projem/select_plan/presentation/widgets/choose_plan_alert_dialog.dart';
 import 'package:qr_projem/select_plan/presentation/widgets/plan_item.dart';
 import 'package:qr_projem/select_plan/presentation/widgets/plan_options_header.dart';
@@ -51,7 +50,6 @@ class PlanOptions extends StatelessWidget {
                               return ChoosePlanAlertDialog(
                                 title: "Standart Paket Seçtiniz",
                                 content: "Bir sonraki sayfada Ödeme bilgileriniz ve QR kodunuz oluşturulacaktır. QR kodunuz ödeme yaptıktan sonra aktif hale getirilecektir.",
-                                isLoading: state.uiState is UiLoading,
                                 onDecline: () {
                                   Navigator.pop(dialogContext);
                                 },
@@ -90,7 +88,6 @@ class PlanOptions extends StatelessWidget {
                               return ChoosePlanAlertDialog(
                                 title: "Kişiselleştirilmiş Paket Seçtiniz",
                                 content: "Bir sonraki sayfada QR kodunuz oluşturulacak ve iletişim bilgileri verilecektir.",
-                                isLoading: state.uiState is UiLoading,
                                 onDecline: () {
                                   Navigator.pop(dialogContext);
                                 },

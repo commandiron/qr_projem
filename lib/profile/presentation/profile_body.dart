@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/core/presentation/helper/ui_state.dart';
+import 'package:qr_projem/core/presentation/widgets/loading_container.dart';
 import 'package:qr_projem/profile/presentation/widgets/my_projects.dart';
 
 import '../../core/presentation/widgets/copyright_footer.dart';
@@ -32,11 +33,7 @@ class ProfileBody extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   if(state.uiState is UiLoading)
-                    Container(
-                      height: 768,
-                      alignment: Alignment.center,
-                      child: const CircularProgressIndicator(),
-                    ),
+                    const LoadingContainer(),
                   if(state.uiState is UiSuccess)
                     MyProjects(projects: state.projects),
                   const Footer(),

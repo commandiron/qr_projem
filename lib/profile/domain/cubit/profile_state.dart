@@ -13,11 +13,11 @@ class ProfileState {
   );
 
   ProfileState copyWith(
-      {
-        UiState? uiState,
-        List<Project>? projects,
-      }
-      ) {
+    {
+      UiState? uiState,
+      List<Project>? projects,
+    }
+  ) {
     return ProfileState(
       uiState: uiState ?? this.uiState,
       projects: projects ?? this.projects

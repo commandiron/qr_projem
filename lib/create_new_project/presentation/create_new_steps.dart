@@ -4,11 +4,9 @@ import 'package:qr_projem/create_new_project/domain/create_new_project_cubit.dar
 import 'package:qr_projem/create_new_project/domain/create_new_project_state.dart';
 import 'package:qr_projem/create_new_project/presentation/steps/project_features/project_features.dart';
 import 'package:qr_projem/create_new_project/presentation/steps_navigator/step_pages_navigator.dart';
-import 'package:qr_projem/select_plan/presentation/select_plan_screen.dart';
 import '../../../core/presentation/config/app_padding.dart';
 import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
-import '../../core/presentation/helper/ui_state.dart';
 
 class CreateNewSteps extends StatelessWidget {
   const  CreateNewSteps({Key? key}) : super(key: key);
@@ -31,23 +29,8 @@ class CreateNewSteps extends StatelessWidget {
                         Radius.circular(32)
                     )
                   ),
-                  child: BlocConsumer<CreateNewProjectCubit, CreateNewProjectState>(
-                    listener: (context, state) {
-                      if(state.uiState is UiSuccess) {
-                        Navigator.of(context).pushNamed(SelectPlanScreen.route, arguments: state.projectEntry.id);
-                      }
-                    },
+                  child: BlocBuilder<CreateNewProjectCubit, CreateNewProjectState>(
                     builder: (context, state) {
-                      if(state.uiState is UiLoading) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const CircularProgressIndicator(),
-                            AppSpace.verticalM!,
-                            const Text("İşlem 1 dakika kadar sürebilir. Lütfen bekleyiniz.")
-                          ],
-                        );
-                      }
                       return Column(
                         children: [
                           AppSpace.verticalL!,
