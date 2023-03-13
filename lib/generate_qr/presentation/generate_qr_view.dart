@@ -50,6 +50,7 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                       child: Column(
                         children: [
                           Expanded(
+                            flex: 2,
                             child: Row(
                               children: [
                                 Expanded(
@@ -82,6 +83,8 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                                                     ),
                                                     if(widget.paymentStatus != PaymentStatus.approved)
                                                       Text("Qr kodunuz ödeme sonrası aktif hale gelecektir.", style: AppTextStyle.b1!,),
+                                                    if(widget.paymentStatus != PaymentStatus.approved)
+                                                      Text("Açıklama bölümüne kayıt olduğunuz telefon numaranızı giriniz.", style: AppTextStyle.b1!.copyWith(color: Theme.of(context).colorScheme.error),),
                                                   ],
                                                 )
                                             ),
@@ -98,7 +101,9 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                                                       AppSpace.verticalS!,
                                                       Text("Banka: Enpara - Finansbank", style: AppTextStyle.h4,),
                                                       AppSpace.verticalS!,
-                                                      Text("TR12 0011 1000 0000 0066 4574 17", style: AppTextStyle.h4,),
+                                                      Text("iban: TR12 0011 1000 0000 0066 4574 17", style: AppTextStyle.h4,),
+                                                      AppSpace.verticalS!,
+                                                      Text("Açıklama: Telefon No", style: AppTextStyle.h4!.copyWith(color: Theme.of(context).colorScheme.error),),
                                                       AppSpace.verticalS!,
                                                       Text("Tutar: 1500 TL", style: AppTextStyle.h3b,),
                                                     ],
