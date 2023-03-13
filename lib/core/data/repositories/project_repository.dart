@@ -27,6 +27,20 @@ class ProjectRepository {
     }
   }
 
+  Future<bool?> deleteUserProjectById(String projectId) async {
+    try {
+      final user = await auth.authStateChanges().first;
+      if(user != null) {
+        DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
+        await ref.set(null);
+        return true;
+      }
+      return null;
+    } on FirebaseException catch(_) {
+      return null;
+    }
+  }
+
   Future<List<Project>?> getUserProjects() async {
     try {
       List<Project> projects = [];

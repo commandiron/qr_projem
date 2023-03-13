@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_projem/create_new_project/presentation/create_new_project_screen.dart';
 import 'package:qr_projem/generate_qr/presentation/generate_qr_screen.dart';
+import 'package:qr_projem/profile/domain/cubit/profile_cubit.dart';
 import 'package:qr_projem/profile/presentation/widgets/add_project_button.dart';
 import 'package:qr_projem/select_plan/presentation/select_plan_screen.dart';
 
@@ -44,7 +46,7 @@ class MyProjects extends StatelessWidget {
                             flex: 6,
                             child: GridView.builder(
                               itemCount: projects.length,
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 5,
                               ),
                               itemBuilder: (context, index) {
@@ -95,6 +97,37 @@ class MyProjects extends StatelessWidget {
                                               ],
                                             ),
                                           ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: InkWell(
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return AlertDialog(
+                                                    content: Text("Silmek istediğinize emin misiniz? Bu işlem geri alınamaz!"),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(dialogContext).pop();
+                                                        },
+                                                        child: Text("Hayır")
+                                                      ),
+                                                      ElevatedButton(
+                                                          onPressed:() {
+                                                            Navigator.of(dialogContext).pop();
+                                                            BlocProvider.of<ProfileCubit>(context,listen: false).deleteUserProject(index);
+                                                          },
+                                                          child: Text("Evet")
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Icon(Icons.delete, color: Theme.of(context).colorScheme.error,),
+                                          ),
                                         )
                                       ],
                                     )
@@ -103,14 +136,15 @@ class MyProjects extends StatelessWidget {
                               },
                             ),
                           ),
-                        Expanded(
-                          flex: 3,
-                          child: AddProjectButton(
-                            onTap: () {
-                              Navigator.of(context).pushNamed(CreateNewProjectScreen.route);
-                            },
-                          )
-                        ),
+                        if(projects.length < 5)
+                          Expanded(
+                            flex: 3,
+                            child: AddProjectButton(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(CreateNewProjectScreen.route);
+                              },
+                            )
+                          ),
                         AppSpace.verticalExpanded!,
                       ],
                     ),

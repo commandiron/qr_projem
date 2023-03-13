@@ -15,11 +15,11 @@ class ProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
-        if(state is UiError) {
+        if(state.uiState is UiError) {
           showDialog(
             context: context,
             builder: (dialogContext) {
-              return const AlertDialog(content: Text("Bir hata oluştu."),);
+              return AlertDialog(content: Text((state.uiState as UiError).message ?? "Bir Hata Oluştu."),);
             },
           );
         }
@@ -34,7 +34,7 @@ class ProfileBody extends StatelessWidget {
                 children: [
                   if(state.uiState is UiLoading)
                     const LoadingContainer(),
-                  if(state.uiState is UiSuccess)
+                  if(state.uiState is UiInitial || state.uiState is UiSuccess || state.uiState is UiError)
                     MyProjects(projects: state.projects),
                   const Footer(),
                   const CopyrightFooter()
