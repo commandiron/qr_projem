@@ -1,8 +1,11 @@
 import 'dart:typed_data';
 
+import 'package:qr_projem/core/presentation/helper/ui_state.dart';
+
 import '../../core/domain/model/project.dart';
 
 class GenerateQrState {
+  UiState uiState;
   String? userId;
   String? projectId;
   Uint8List? qrImage;
@@ -10,6 +13,7 @@ class GenerateQrState {
 
   GenerateQrState(
     {
+      required this.uiState,
       required this.userId,
       required this.projectId,
       this.qrImage,
@@ -19,6 +23,7 @@ class GenerateQrState {
 
   GenerateQrState copyWith(
       {
+        UiState? uiState,
         String? userId,
         String? projectId,
         Uint8List? qrImage,
@@ -26,6 +31,7 @@ class GenerateQrState {
       }
       ) {
     return GenerateQrState(
+      uiState: uiState ?? this.uiState,
       userId: userId ?? this.userId,
       projectId: projectId ?? this.projectId,
       qrImage: qrImage ?? this.qrImage,

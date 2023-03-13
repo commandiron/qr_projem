@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:ui' as ui;
 
 import '../../core/data/repositories/project_repository.dart';
+import '../../core/presentation/helper/ui_state.dart';
 import 'generate_qr_state.dart';
 
 class GenerateQrCubit extends Cubit<GenerateQrState> {
@@ -14,16 +15,18 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
     String? projectId
   ) : super(
     GenerateQrState(
+      uiState: UiInitial(),
       userId: userId,
-      projectId: projectId
+      projectId: projectId,
     )
   );
 
   final ProjectRepository _projectRepository = ProjectRepository();
 
-  void init() {
-    generateQrImage();
-    getPaymentStatus();
+  Future<void> init() async {
+    emit(state.copyWith(uiState: UiLoading()));
+    await generateQrImage();
+    await getPaymentStatus();
   }
 
   Future<void> generateQrImage() async {
@@ -91,10 +94,15 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
     return byteData!.buffer.asUint8List();
   }
 
-  void getPaymentStatus() async {
-    if(state.projectId != null) {
-      final project = await _projectRepository.getProjectById(state.projectId!);
-      emit(state.copyWith(paymentStatus: project?.paymentStatus));
+  Future<void> getPaymentStatus() async {
+    if(state.projectId != null && state.userId != null) {
+      final project = await _projectRepository.getUserProjectById(state.projectId!);
+      if(project == null) {
+        emit(state.copyWith(uiState: UiError()));
+      }
+      emit(state.copyWith(uiState: UiSuccess(), paymentStatus: project?.paymentStatus));
+    } else {
+      emit(state.copyWith(uiState: UiError()));
     }
   }
 }

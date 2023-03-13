@@ -27,37 +27,44 @@ class ProjectRepository {
     }
   }
 
-  Future<List<Project>> getProjects() async {
-    List<Project> projects = [];
-    final user = await auth.authStateChanges().first;
-    if(user != null) {
-      DatabaseReference ref = database.ref("projects/${user.uid}");
-      final response = await ref.get();
-      final data =  response.value as Map<String, dynamic>?;
-      if(data == null) {
-        return projects;
-      }
-      data.forEach(
-        (key, value) {
-          projects.add(Project.fromJson(value));
+  Future<List<Project>?> getUserProjects() async {
+    try {
+      List<Project> projects = [];
+      final user = await auth.authStateChanges().first;
+      if(user != null) {
+        DatabaseReference ref = database.ref("projects/${user.uid}");
+        final response = await ref.get();
+        final data =  response.value as Map<String, dynamic>?;
+        if(data == null) {
+          return projects;
         }
-      );
+        data.forEach(
+                (key, value) {
+              projects.add(Project.fromJson(value));
+            }
+        );
+      }
+      return projects;
+    } on FirebaseException catch(_) {
+      return null;
     }
-    return projects;
   }
 
-  Future<Project?> getProjectById(String projectId) async {
-    final user = await auth.authStateChanges().first;
-    if(user != null) {
-      DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
-      final response = await ref.get();
-      final data =  response.value as Map<String, dynamic>;
-      final project = Project.fromJson(data);
-      return project;
+  Future<Project?> getUserProjectById(String projectId) async {
+    try {
+      final user = await auth.authStateChanges().first;
+      if(user != null) {
+        DatabaseReference ref = database.ref("projects/${user.uid}/$projectId");
+        final response = await ref.get();
+        final data =  response.value as Map<String, dynamic>;
+        final project = Project.fromJson(data);
+        return project;
+      }
+      return null;
+    } on FirebaseException catch(_) {
+      return null;
     }
-    return null;
   }
-
 
   Future<void> updateProjectPaymentStatus(String projectId, PaymentStatus paymentStatus) async {
     final user = await auth.authStateChanges().first;

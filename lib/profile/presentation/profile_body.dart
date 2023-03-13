@@ -12,7 +12,17 @@ class ProfileBody extends StatelessWidget {
   const ProfileBody({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileState>(
+    return BlocConsumer<ProfileCubit, ProfileState>(
+      listener: (context, state) {
+        if(state is UiError) {
+          showDialog(
+            context: context,
+            builder: (dialogContext) {
+              return const AlertDialog(content: Text("Bir Hata Oluştu."),);
+            },
+          );
+        }
+      },
       builder: (context, state) {
         return CustomScrollView(
           slivers: [

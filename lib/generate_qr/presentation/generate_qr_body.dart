@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/core/presentation/helper/ui_state.dart';
 import 'package:qr_projem/generate_qr/domain/generate_qr_cubit.dart';
 import 'package:qr_projem/generate_qr/domain/generate_qr_state.dart';
 import 'package:qr_projem/home/presentation/home_screen.dart';
@@ -15,7 +16,8 @@ class GenerateQrBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<GenerateQrCubit, GenerateQrState>(
       listener: (context, state) {
-        if(state.userId == null || state.projectId == null) {
+        print(state.uiState);
+        if(state.uiState is UiError) {
           Navigator.of(context).pushNamed(HomeScreen.route);
         }
       },
@@ -27,7 +29,13 @@ class GenerateQrBody extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    if(state.qrImage != null && state.paymentStatus != null)
+                    if(state.uiState is UiLoading)
+                      Container(
+                        height: 768,
+                        alignment: Alignment.center,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    if(state.uiState is UiSuccess)
                       GenerateQrView(
                         qrImage: state.qrImage!,
                         paymentStatus: state.paymentStatus!,
