@@ -75,42 +75,42 @@ class _PlanOptionsState extends State<PlanOptions> {
                     ),
                     AppSpace.verticalExpanded!,
                     Expanded(
-                        flex: 6,
-                        child: PlanItem(
-                          title: "Kişiselleştirilmiş Paket",
-                          price: "Özel Tasarım",
-                          footerText: "İletişime Geç",
-                          isImageBlurred: true,
-                          features: const [
-                            "İstenilen adet Proje için QR proje kodu",
-                            "İstenilen adet sanal proje tanıtım kataloğu.",
-                            "Sınırsız süre.",
-                            "7/24 destek.",
-                            "Özel tasarım kullanıcı arayüzü.",
-                          ],
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return ChoosePlanAlertDialog(
-                                    title: "Kişiselleştirilmiş Paket Seçtiniz",
-                                    content: "Bir sonraki sayfada QR kodunuz oluşturulacak ve iletişim bilgileri verilecektir.",
-                                    isLoading: state.uiState is UiLoading,
-                                    onDecline: () {
-                                      Navigator.pop(dialogContext);
-                                    },
-                                    onApproved: () {
-                                      if(widget.projectId != null) {
-                                        BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
-                                                (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId)
-                                        );
-                                      }
+                      flex: 6,
+                      child: PlanItem(
+                        title: "Kişiselleştirilmiş Paket",
+                        price: "Özel Tasarım",
+                        footerText: "İletişime Geç",
+                        isImageBlurred: true,
+                        features: const [
+                          "İstenilen adet Proje için QR proje kodu",
+                          "İstenilen adet sanal proje tanıtım kataloğu.",
+                          "Sınırsız süre.",
+                          "7/24 destek.",
+                          "Özel tasarım kullanıcı arayüzü.",
+                        ],
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (dialogContext) {
+                              return ChoosePlanAlertDialog(
+                                  title: "Kişiselleştirilmiş Paket Seçtiniz",
+                                  content: "Bir sonraki sayfada QR kodunuz oluşturulacak ve iletişim bilgileri verilecektir.",
+                                  isLoading: state.uiState is UiLoading,
+                                  onDecline: () {
+                                    Navigator.pop(dialogContext);
+                                  },
+                                  onApproved: () {
+                                    if(widget.projectId != null) {
+                                      BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
+                                              (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId)
+                                      );
                                     }
-                                );
-                              },
-                            );
-                          },
-                        )
+                                  }
+                              );
+                            },
+                          );
+                        },
+                      )
                     ),
                     AppSpace.verticalExpanded!,
                     AppSpace.verticalExpanded!,
