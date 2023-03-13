@@ -19,6 +19,19 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   final ProjectRepository _projectRepository = ProjectRepository();
 
+  Future<void> getUserProjects() async {
+    emit(state.copyWith(uiState: UiLoading()));
+
+    final projects = await _projectRepository.getUserProjects();
+
+    if(projects == null) {
+      emit(state.copyWith(uiState: UiError()));
+      return;
+    }
+
+    emit(state.copyWith(uiState: UiSuccess(), projects: projects));
+  }
+
   Future<void> deleteUserProject(int index) async {
 
     emit(state.copyWith(uiState: UiLoading()));
@@ -38,13 +51,5 @@ class ProfileCubit extends Cubit<ProfileState> {
     await getUserProjects();
   }
 
-  Future<void> getUserProjects() async {
-    emit(state.copyWith(uiState: UiLoading()));
-    final projects = await _projectRepository.getUserProjects();
-    if(projects == null) {
-      emit(state.copyWith(uiState: UiError()));
-    } else {
-      emit(state.copyWith(uiState: UiSuccess(), projects: projects));
-    }
-  }
+
 }

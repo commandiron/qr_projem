@@ -320,20 +320,20 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
 
   final ProjectRepository _projectRepository = ProjectRepository();
 
-  Future<String?> insertProject() async {
+  Future<void> insertProject() async {
 
     emit(state.copyWith(uiState: UiLoading()));
 
     final companyLogoUrl = await uploadCompanyLogo(state.projectEntry.companyLogo!);
     if(companyLogoUrl == null) {
       emit(state.copyWith(uiState: UiError()));
-      return null;
+      return;
     }
 
     final projectImageUrls = await uploadProjectImages(state.projectEntry.projectImages!);
     if(projectImageUrls == null) {
       emit(state.copyWith(uiState: UiError()));
-      return null;
+      return;
     }
 
     List<Apartment> apartments = [];
@@ -379,12 +379,12 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       )
     );
 
-    if(projectId != null) {
+    if(projectId == null) {
       emit(state.copyWith(uiState: UiError()));
+      return;
     }
 
     emit(state.copyWith(projectEntry: state.projectEntry.copyWith(id: projectId), uiState: UiSuccess()));
-    return projectId;
   }
 
   final StorageRepository storageRepository = StorageRepository();
