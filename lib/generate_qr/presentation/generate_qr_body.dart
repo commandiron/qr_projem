@@ -16,7 +16,6 @@ class GenerateQrBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<GenerateQrCubit, GenerateQrState>(
       listener: (context, state) {
-        print(state.uiState);
         if(state.uiState is UiError) {
           Navigator.of(context).pushNamed(HomeScreen.route);
         }
