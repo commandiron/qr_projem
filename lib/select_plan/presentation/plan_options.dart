@@ -54,11 +54,7 @@ class PlanOptions extends StatelessWidget {
                                   Navigator.pop(dialogContext);
                                 },
                                 onApproved: () {
-                                  if(state.projectId != null) {
-                                    BlocProvider.of<SelectPlanCubit>(context, listen: false).selectStandardPlan().then(
-                                      (_) =>  Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
-                                    );
-                                  }
+                                  BlocProvider.of<SelectPlanCubit>(context, listen: false).selectStandardPlan();
                                 }
                               );
                             },
@@ -92,11 +88,7 @@ class PlanOptions extends StatelessWidget {
                                   Navigator.pop(dialogContext);
                                 },
                                 onApproved: () {
-                                  if(projectId != null) {
-                                    BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
-                                            (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projectId)
-                                    );
-                                  }
+                                  BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan();
                                 }
                               );
                             },

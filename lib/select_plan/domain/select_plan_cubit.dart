@@ -8,10 +8,16 @@ import '../../core/data/repositories/project_repository.dart';
 class SelectPlanCubit extends Cubit<SelectPlanState> {
   SelectPlanCubit(String? projectId) : super(
     SelectPlanState(
-      uiState: UiSuccess(),
+      uiState: UiInitial(),
       projectId: projectId,
     )
   );
+
+  void init() {
+    if(state.projectId == null) {
+      emit(state.copyWith(uiState: UiError()));
+    }
+  }
 
   final ProjectRepository _projectRepository = ProjectRepository();
 

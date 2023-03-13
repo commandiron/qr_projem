@@ -20,7 +20,7 @@ class SelectPlanScreen extends StatelessWidget {
         .arguments as String?;
 
     return BlocProvider<SelectPlanCubit>(
-      create: (context) => SelectPlanCubit(projectId),
+      create: (context) => SelectPlanCubit(projectId)..init(),
       child: const Scaffold(
         appBar: CustomAppBar(),
         floatingActionButton: FloatingButtons(),
