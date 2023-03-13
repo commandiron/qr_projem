@@ -93,19 +93,19 @@ class _PlanOptionsState extends State<PlanOptions> {
                             context: context,
                             builder: (dialogContext) {
                               return ChoosePlanAlertDialog(
-                                  title: "Kişiselleştirilmiş Paket Seçtiniz",
-                                  content: "Bir sonraki sayfada QR kodunuz oluşturulacak ve iletişim bilgileri verilecektir.",
-                                  isLoading: state.uiState is UiLoading,
-                                  onDecline: () {
-                                    Navigator.pop(dialogContext);
-                                  },
-                                  onApproved: () {
-                                    if(widget.projectId != null) {
-                                      BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
-                                              (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId)
-                                      );
-                                    }
+                                title: "Kişiselleştirilmiş Paket Seçtiniz",
+                                content: "Bir sonraki sayfada QR kodunuz oluşturulacak ve iletişim bilgileri verilecektir.",
+                                isLoading: state.uiState is UiLoading,
+                                onDecline: () {
+                                  Navigator.pop(dialogContext);
+                                },
+                                onApproved: () {
+                                  if(widget.projectId != null) {
+                                    BlocProvider.of<SelectPlanCubit>(context, listen: false).selectPersonalizedPlan().then(
+                                            (_) => Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: widget.projectId)
+                                    );
                                   }
+                                }
                               );
                             },
                           );
