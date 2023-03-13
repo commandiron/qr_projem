@@ -16,7 +16,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     fetchProjects();
   }
 
-  ProjectRepository _projectRepository = ProjectRepository();
+  final ProjectRepository _projectRepository = ProjectRepository();
 
   Future<void> fetchProjects() async {
     emit(state.copyWith(uiState: UiLoading()));
