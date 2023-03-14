@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_projem/core/presentation/config/app_space.dart';
 
 import '../../../../domain/create_new_project_cubit.dart';
 
@@ -17,7 +18,9 @@ class ApartmentForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        AppSpace.horizontalExpanded!,
         Expanded(
+          flex: 6,
           child: Column(
             children: [
               Expanded(
@@ -63,53 +66,56 @@ class ApartmentForm extends StatelessWidget {
             ],
           )
         ),
+        AppSpace.horizontalExpanded!,
         Expanded(
-            child: Column(
-              children: [
-                Expanded(
-                    child: TextFormField(
-                      controller: TextEditingController(text: netArea),
-                      decoration: InputDecoration(
-                        hintText: "Ör: 90 m²",
-                        labelText: "Net Alan (m²)",
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      validator: (value) {
-                        if (value == "") {
-                          return "Lütfen ilgili alanı doldurunuz.";
-                        }
-                        return null;
-                      },
-                      onSaved: (newValue) {
-                        if (newValue != null) {
-                          BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentNetArea(newValue, apartmentIndex);
-                        }
-                      },
+          flex: 6,
+          child: Column(
+            children: [
+              Expanded(
+                  child: TextFormField(
+                    controller: TextEditingController(text: netArea),
+                    decoration: InputDecoration(
+                      hintText: "Ör: 90 m²",
+                      labelText: "Net Alan (m²)",
                     ),
-                ),
-                Expanded(
-                    child: TextFormField(
-                      controller: TextEditingController(text: price),
-                      decoration: InputDecoration(
-                        hintText: "Ör: 5.000.000 TL",
-                        labelText: "Fiyat (TL)",
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      validator: (value) {
-                        return null;
-                      },
-                      onSaved: (newValue) {
-                        BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentPrice(newValue ?? "", apartmentIndex);
-                      },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    validator: (value) {
+                      if (value == "") {
+                        return "Lütfen ilgili alanı doldurunuz.";
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      if (newValue != null) {
+                        BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentNetArea(newValue, apartmentIndex);
+                      }
+                    },
+                  ),
+              ),
+              Expanded(
+                  child: TextFormField(
+                    controller: TextEditingController(text: price),
+                    decoration: InputDecoration(
+                      hintText: "Ör: 5.000.000 TL (Boş bırakabilirsiniz.)",
+                      labelText: "Fiyat (TL)",
                     ),
-                ),
-              ],
-            )
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    validator: (value) {
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      BlocProvider.of<CreateNewProjectCubit>(context, listen: false).saveApartmentPrice(newValue ?? "", apartmentIndex);
+                    },
+                  ),
+              ),
+            ],
+          )
         ),
+        AppSpace.horizontalExpanded!,
       ],
     );
   }
