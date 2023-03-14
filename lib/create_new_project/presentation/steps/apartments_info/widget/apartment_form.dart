@@ -98,7 +98,7 @@ class ApartmentForm extends StatelessWidget {
                   child: TextFormField(
                     controller: TextEditingController(text: price),
                     decoration: InputDecoration(
-                      hintText: "Ör: 5.000.000 TL (Boş bırakabilirsiniz.)",
+                      hintText: "Ör: 5.000.000 TL",
                       labelText: "Fiyat (TL)",
                     ),
                     inputFormatters: [
