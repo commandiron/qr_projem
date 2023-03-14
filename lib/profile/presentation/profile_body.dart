@@ -34,7 +34,7 @@ class ProfileBody extends StatelessWidget {
                 children: [
                   if(state.uiState is UiLoading)
                     const LoadingContainer(),
-                  if(state.uiState is UiInitial || state.uiState is UiSuccess || state.uiState is UiError)
+                  if(state.uiState is! UiLoading)
                     MyProjects(projects: state.projects),
                   const Footer(),
                   const CopyrightFooter()
