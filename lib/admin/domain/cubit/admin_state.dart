@@ -64,7 +64,8 @@ class AdminState {
       "Yangın Güvenliği",
     ],
 
-    qrExpirationDate: DateTime(2099),
+    trialExpirationDate: DateTime(2099),
+    expirationDate: DateTime(2099),
 
     templateVersion: "v1",
     primaryColorValue: 0xff137CC0,
