@@ -56,7 +56,14 @@ class MyProjects extends StatelessWidget {
                                       alignment: Alignment.center,
                                       children: [
                                         Image.network(
-                                          projects[index].projectImageUrls.first
+                                          projects[index].projectImageUrls.first,
+                                          loadingBuilder: (context, child, loadingProgress) {
+                                            if(loadingProgress?.expectedTotalBytes == loadingProgress?.cumulativeBytesLoaded) {
+                                              return child;
+                                            } else {
+                                              return const CircularProgressIndicator();
+                                            }
+                                          },
                                         ),
                                         Align(
                                           alignment: Alignment.bottomCenter,
@@ -78,7 +85,7 @@ class MyProjects extends StatelessWidget {
                                                           Navigator.of(context).pushNamed(GenerateQrScreen.route, arguments: projects[index].id);
                                                         }
                                                       },
-                                                      child: Icon(Icons.qr_code_sharp, color: Colors.white,)
+                                                      child: const Icon(Icons.qr_code_sharp, color: Colors.white,)
                                                     ),
                                                     AppSpace.horizontalM!,
                                                     InkWell(
