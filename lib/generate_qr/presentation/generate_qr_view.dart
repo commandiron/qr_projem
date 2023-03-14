@@ -10,10 +10,11 @@ import '../../core/presentation/config/app_space.dart';
 import '../../core/presentation/config/app_text_style.dart';
 
 class GenerateQrView extends StatefulWidget {
-  const GenerateQrView({required this.qrImage, required this.paymentStatus, Key? key}) : super(key: key);
+  const GenerateQrView({required this.qrImage, required this.paymentStatus, required this.trialExpirationDate, Key? key}) : super(key: key);
 
   final Uint8List qrImage;
   final PaymentStatus paymentStatus;
+  final DateTime trialExpirationDate;
 
   @override
   State<GenerateQrView> createState() => _GenerateQrViewState();
@@ -51,19 +52,40 @@ class _GenerateQrViewState extends State<GenerateQrView> {
                       child: Column(
                         children: [
                           Expanded(
-                            flex: 2,
+                            flex: 4,
                             child: Row(
                               children: [
                                 Expanded(
                                   child: Image.memory(widget.qrImage,),
                                 ),
                                 Expanded(
-                                  child: QrStateCard(paymentStatus: widget.paymentStatus)
+                                  child: QrStateCard(paymentStatus: widget.paymentStatus, trialExpirationDate: widget.trialExpirationDate,)
                                 ),
                               ],
                             )
                           ),
+                          if(widget.paymentStatus == PaymentStatus.pendingStandardPlan || widget.paymentStatus == PaymentStatus.pendingPersonalizedPlan)
+                            if(!widget.trialExpirationDate.difference(DateTime.now()).isNegative)
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      "Deneme süresi aktif edildi. Qr kodu okutup nasıl göründüğü inceleyebilirsiniz. Kalan Süre: ${widget.trialExpirationDate.difference(DateTime.now()).inMinutes} dakika",
+                                      style: AppTextStyle.b1!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                                    ),
+                                  )
+                                ),
+                          if(widget.paymentStatus == PaymentStatus.pendingStandardPlan || widget.paymentStatus == PaymentStatus.pendingPersonalizedPlan)
+                            if(widget.trialExpirationDate.difference(DateTime.now()).isNegative)
+                              Expanded(
+                                child: Center(
+                                  child: Text(
+                                    "Deneme süresi bitti",
+                                    style: AppTextStyle.b1!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                                  )
+                                )
+                              ),
                           Expanded(
+                            flex: 2,
                             child: FractionallySizedBox(
                               widthFactor: 0.5,
                               heightFactor: 0.5,

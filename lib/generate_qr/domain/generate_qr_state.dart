@@ -10,6 +10,7 @@ class GenerateQrState {
   String? projectId;
   Uint8List? qrImage;
   PaymentStatus? paymentStatus;
+  DateTime? trialExpirationDate;
 
   GenerateQrState(
     {
@@ -17,7 +18,8 @@ class GenerateQrState {
       required this.userId,
       required this.projectId,
       this.qrImage,
-      this.paymentStatus
+      this.paymentStatus,
+      this.trialExpirationDate,
     }
   );
 
@@ -28,6 +30,7 @@ class GenerateQrState {
         String? projectId,
         Uint8List? qrImage,
         PaymentStatus? paymentStatus,
+        DateTime? trialExpirationDate,
       }
       ) {
     return GenerateQrState(
@@ -35,7 +38,8 @@ class GenerateQrState {
       userId: userId ?? this.userId,
       projectId: projectId ?? this.projectId,
       qrImage: qrImage ?? this.qrImage,
-      paymentStatus: paymentStatus ?? this.paymentStatus
+      paymentStatus: paymentStatus ?? this.paymentStatus,
+      trialExpirationDate: trialExpirationDate ?? this.trialExpirationDate
     );
   }
 }

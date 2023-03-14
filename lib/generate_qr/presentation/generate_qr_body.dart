@@ -35,6 +35,7 @@ class GenerateQrBody extends StatelessWidget {
                       GenerateQrView(
                         qrImage: state.qrImage!,
                         paymentStatus: state.paymentStatus!,
+                        trialExpirationDate: state.trialExpirationDate!,
                       ),
                     const Footer(),
                     const CopyrightFooter()

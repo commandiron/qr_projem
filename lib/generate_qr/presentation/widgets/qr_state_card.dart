@@ -6,9 +6,10 @@ import '../../../core/presentation/config/app_space.dart';
 import '../../../core/presentation/config/app_text_style.dart';
 
 class QrStateCard extends StatelessWidget {
-  const QrStateCard({required this.paymentStatus, Key? key}) : super(key: key);
+  const QrStateCard({required this.paymentStatus, required this.trialExpirationDate, Key? key}) : super(key: key);
 
   final PaymentStatus paymentStatus;
+  final DateTime trialExpirationDate;
 
   @override
   Widget build(BuildContext context) {

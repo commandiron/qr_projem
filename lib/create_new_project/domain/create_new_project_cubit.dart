@@ -375,7 +375,7 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
         projectImageUrls: projectImageUrls,
         apartments: apartments,
         features: state.projectEntry.features!,
-        trialExpirationDate: DateTime.now().add(const Duration(minutes: 1)),
+        trialExpirationDate: DateTime.now().add(const Duration(days: 1)),
         expirationDate: DateTime.now().add(const Duration(days: 548))
       )
     );
