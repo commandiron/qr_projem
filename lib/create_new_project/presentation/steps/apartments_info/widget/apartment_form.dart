@@ -74,7 +74,7 @@ class ApartmentForm extends StatelessWidget {
               Expanded(
                   child: TextFormField(
                     controller: TextEditingController(text: netArea),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Ör: 90 m²",
                       labelText: "Net Alan (m²)",
                     ),
@@ -97,7 +97,7 @@ class ApartmentForm extends StatelessWidget {
               Expanded(
                   child: TextFormField(
                     controller: TextEditingController(text: price),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Ör: 5.000.000 TL",
                       labelText: "Fiyat (TL)",
                     ),
