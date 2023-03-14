@@ -7,7 +7,7 @@ import 'package:qr_projem/core/presentation/config/app_padding.dart';
 import 'package:qr_projem/core/presentation/config/app_space.dart';
 import 'package:qr_projem/core/presentation/config/app_text_style.dart';
 
-import '../../../profile/presentation/profile_screen.dart';
+import '../../../../profile/presentation/profile_screen.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
