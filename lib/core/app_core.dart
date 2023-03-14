@@ -130,6 +130,14 @@ class MaterialChild extends StatelessWidget {
                     return const GenerateQrScreen();
                   },
                 );
+              default : return PageRouteBuilder(
+                settings: const RouteSettings(
+                    name: HomeScreen.route
+                ),
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const HomeScreen();
+                },
+              );
             }
           },
         );
