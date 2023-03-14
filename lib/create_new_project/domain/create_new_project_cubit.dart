@@ -270,6 +270,19 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
       );
     }
   }
+  void saveApartmentPrice(String price, int index) {
+    if(state.projectEntry.apartments != null) {
+      final apartment = state.projectEntry.apartments![index];
+      final newApartment = apartment.copyWith(price: price);
+      final newApartments = state.projectEntry.apartments;
+      newApartments![index] = newApartment;
+      emit(
+        state.copyWith(
+          projectEntry: state.projectEntry.copyWith(apartments: newApartments),
+        )
+      );
+    }
+  }
   bool validateProjectFeature() {
     if(state.projectEntry.features == null) {
       return false;
@@ -348,7 +361,8 @@ class CreateNewProjectCubit extends Cubit<CreateNewProjectState> {
                   imageUrls: value[apartmentEntry.id]!,
                   title: apartmentEntry.title!,
                   type: apartmentEntry.type!,
-                  netArea: apartmentEntry.netArea!
+                  netArea: apartmentEntry.netArea!,
+                  price: apartmentEntry.price ?? ""
                 )
               );
             } else {

@@ -20,10 +20,11 @@ class AdminState {
     ],
     apartments: [
       Apartment(
-          title: "8. Kat Normal Daire",
-          imageUrls: ["https://firebasestorage.googleapis.com/v0/b/qrprojem.appspot.com/o/fd8b394d-7bdc-47a6-b241-50a6fea1b4e7.jpeg?alt=media&token=9df8bb3f-4cfb-4939-aa0c-ccbc30a8113b"],
-          type: "5+1",
-          netArea: "212"
+        title: "8. Kat Normal Daire",
+        imageUrls: ["https://firebasestorage.googleapis.com/v0/b/qrprojem.appspot.com/o/fd8b394d-7bdc-47a6-b241-50a6fea1b4e7.jpeg?alt=media&token=9df8bb3f-4cfb-4939-aa0c-ccbc30a8113b"],
+        type: "5+1",
+        netArea: "212",
+        price: ""
       ),
       // Apartment(
       //     id: 1,

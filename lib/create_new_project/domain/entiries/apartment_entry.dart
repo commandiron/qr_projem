@@ -6,6 +6,7 @@ class ApartmentEntry {
   String? title;
   String? type;
   String? netArea;
+  String? price;
 
   ApartmentEntry({
     required this.id,
@@ -13,6 +14,7 @@ class ApartmentEntry {
     this.title,
     this.type,
     this.netArea,
+    this.price,
   });
 
   ApartmentEntry copyWith(
@@ -22,6 +24,7 @@ class ApartmentEntry {
       String? title,
       String? type,
       String? netArea,
+      String? price,
     }
   ) {
     return ApartmentEntry(
@@ -30,6 +33,7 @@ class ApartmentEntry {
       title: title ?? this.title,
       type: type ?? this.type,
       netArea: netArea ?? this.netArea,
+      price: price ?? this.price
     );
   }
 }

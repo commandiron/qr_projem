@@ -81,7 +81,8 @@ class ApartmentItem extends StatelessWidget {
                 apartmentIndex: apartmentIndex,
                 title: apartmentEntry.title,
                 type: apartmentEntry.type,
-                netArea: apartmentEntry.netArea
+                netArea: apartmentEntry.netArea,
+                price: apartmentEntry.price,
               ),
             )
           ],
